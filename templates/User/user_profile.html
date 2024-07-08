@@ -1,0 +1,70 @@
+<!-- {%extends '_base.html'%}
+{%block content%}
+{%load static%}
+<link rel="stylesheet" href="{%static 'css/User/user_profile.css'%}">
+<div class="user-container" id="container">
+    <div class="user-info-container">
+        <div class="profile-details">
+            <h1>Profile</h1>
+            <div class="user-profile">
+                <img id="profilePreview" class="profile-pic"
+                    src="{% if profile.profile_picture %}{{ profile.profile_picture.url }}{% else %}{% static 'img/default_profile.jpg' %}{% endif %}"
+                    alt="Profile Picture">
+                <div class="profile-text">
+                    <h2>{{profile.name}}</h2> <br>
+                    <p>{{profile.biography}}</p>
+                    <p>Email: {{profile.contact_email}}</p>
+                    <p>Address: [{{billing.address}}, {{billing.city}}, {{billing.country}}]</p>
+                </div>
+            </div>
+            <div class="class-btn">
+                <a href="{%url 'update_user'%}" class="edit_profile-btn">View Profile</a>
+                <a href="{%url 'update_user'%}" class="edit_profile-btn">Edit Profile</a>
+            </div>
+        </div>
+        <div class="order-history">
+            <h2>Order History</h2>
+            <div class="order-list">
+                <div class="order-item">
+                    <p>Order Number: [Order#]</p>
+                    <p>Date: [Date]</p>
+                    <p>Total: $[Amount]</p>
+                    <a href="#">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="account-options">
+        <div class="favorites">
+            <h2>Favorites</h2>
+            {% if wishlisted_artworks %}
+            <ul>
+                {% for artwork in wishlisted_artworks %}
+                <li>
+                    <a href="{% url 'art_details' id=artwork.id %}">
+                        <img src="{{ artwork.image.url }}" alt="{{ artwork.title }}">
+                    </a></li>
+                    <div>
+                        <h3>{{ artwork.title }}</h3>
+                    </div>
+                
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No favorites yet.</p>
+            {% endif %}
+        </div>
+
+        <div class="account-settings">
+            <h2>Account Settings</h2>
+            <ul>
+                <li><a href="#">Change Password</a></li>
+                <li><a href="{% url 'billing_address' %}">Update Address</a></li>
+                <li><a href="#">Billing Information</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{%endblock%} -->

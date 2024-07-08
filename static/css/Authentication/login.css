@@ -1,0 +1,96 @@
+body {
+    color: #000000;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    padding: 2rem;
+
+}
+.wrapper{
+    background: none; 
+}
+
+.content {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    background: #ffffff;
+    color: black;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    height: auto;
+}
+
+.form-block {
+    text-align: center;
+}
+
+.form-block h3 {
+    color: #000000;
+    margin-bottom: 1.5rem;
+}
+
+.form-block label {
+    color: #000000;
+    display: block;
+    text-align: left;
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    background: #ffffff;
+    border: 1px solid #444;
+    color: #000000;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 0.75rem;
+    background: #444;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover {
+    background: #555;
+}
+
+.forgot-pass {
+    color: #999;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 1rem;
+}
+
+.forgot-pass:hover {
+    color: #ccc;
+}
+
+.register-link {
+    margin-top: 20px;
+    color: #303030;
+    text-decoration: none;
+}
+
+.register-link:hover {
+    color: #000000;
+}
+
+.option-choose {
+    margin-top: 20px;
+}
+
+.option-choose span a {
+    padding-left: 5px;
+    text-decoration: underline;
+}

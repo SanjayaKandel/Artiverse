@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artiverse</title>
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jacquard&family=Micro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/explore.css' %}">
+</head>
+
+<body>
+    <div id="main">
+        <div id="page1">
+            <nav id="navbar">
+                <a href="{% url 'index' %}"><img class="animate-navbar-js logo-img" src="{% static 'img/logo.png' %}" alt="Artiverse Logo"></a>
+                <div id="nav-part2" class="animate-navbar-js">
+                    <div class="menu-icon animate-navbar-js" onclick="toggleMenu()">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                    <div id="menu-links">
+                        <h4><a href="{% url 'artist' %}"><i class="fa-solid fa-house"></i> Home</a></h4>
+                        <h4><a href="{% url 'register' %}"><i class="fa-solid fa-circle-info"></i>About</a></h4>
+
+                        {% if user.is_authenticated %}
+                        <div class="profile-dropdown">
+                            <div onclick="toggle()" class="profile-dropdown-btn">
+                               {%if user.img %} 
+                                <img src="{{ user.img.url }}" alt="{{user.username}}">
+                                {%else%}
+                                <img src="{% static 'img/no user.jpg' %}" alt="{{user.username}}">
+                                {%endif%}
+                            </div>
+                            <ul class="profile-dropdown-list">
+                                <li>
+                                    <p><span class="block bold">{{ user.username }}</span></p>
+                                </li>
+                                <li class="profile-dropdown-list-item"><a href="useraccount.html"><i class="fa-regular fa-user"></i> Edit Profile</a></li>
+                                <li class="profile-dropdown-list-item"><a href="#"><i class="fa-regular fa-envelope"></i> Inbox</a></li>
+                                <li class="profile-dropdown-list-item"><a href="#"><i class="fa-solid fa-chart-line"></i> Analytics</a></li>
+                                <li class="profile-dropdown-list-item"><a href="#"><i class="fa-solid fa-sliders"></i> Settings</a></li>
+                                <li class="profile-dropdown-list-item"><a href="#"><i class="fa-regular fa-circle-question"></i> Help & Support</a></li>
+                                <hr />
+                                <li class="profile-dropdown-list-item"><a href="{% url 'logout_view' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a></li>
+                            </ul>
+                        </div>
+                        {% else %}
+                        <h4 id="signup-link"><a href="{% url 'login_view' %}"><i class="fa-solid fa-user-plus"></i>Sign in</a></h4>
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    
+    <section class="search-filter">
+        <div class="container">
+            <form action="{% url 'query' %}" method="get">
+                <input type="text" placeholder="Search by title, artist, or keyword" name="query" id="query" required>
+                <select name="medium" id="medium" required>
+                    <option value="">Choose Medium</option>
+                    <option value="painting">Painting</option>
+                    <option value="sculpture">Sculpture</option>
+                    <option value="photography">Photography</option>
+                </select>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </section>
+    
+    <section>
+        <ul class="cards">
+            {% for art in arts%}
+            <li class="card">
+                <a href="{% url 'art_details' id=art.id %}">
+                    <img src="{{ art.image.url }}" class="card__image" alt="{{ art.title }}">
+                </a>
+                <div class="card__overlay">
+                    <div class="card__header">
+                        <h3 class="image__title">{{ art.title }}</h3>
+                        <svg class="card__arc" xmlns="http://www.w3.org/2000/svg">
+                            <path></path>
+                        </svg>
+                        <img class="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="">
+                        <div class="card__header-text">
+                            <h3 class="card__title">{{ art.artist_name }}</h3>
+                            <span class="card__status">{{ art.year_created }}</span>
+                        </div>
+                    </div>
+                    <p class="card__description">{{ art.description }}</p>
+                    <p class="card__description">{{ art.price }}</p>
+                    <div class="card__buttons">
+                        <button class="card__wishlist">♡ Wishlist</button>
+                        <button class="card__buy">Buy Now</button>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    
+    <!-- Pagination Section -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if arts.has_previous %}
+                <a href="?page=1{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}{% if request.GET.medium %}&medium={{ request.GET.medium }}{% endif %}">&laquo; first</a>
+                <a href="?page={{ arts.previous_page_number }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}{% if request.GET.medium %}&medium={{ request.GET.medium }}{% endif %}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ arts.number }} of {{ arts.paginator.num_pages }}.
+            </span>
+    
+            {% if arts.has_next %}
+                <a href="?page={{ arts.next_page_number }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}{% if request.GET.medium %}&medium={{ request.GET.medium }}{% endif %}">next</a>
+                <a href="?page={{ arts.paginator.num_pages }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}{% if request.GET.medium %}&medium={{ request.GET.medium }}{% endif %}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-cta pt-5 pb-5 ">
+                <div class="row sect-1">
+                    <div class="col-xl-4 col-md-4  mb-30 loc-map">
+                        <div class="single-cta">
+                            <a href="https://www.google.com/maps?q=Xdezo academy" target="_blank"> <i
+                                    class="fas fa-map-marker-alt"></i></a>
+                                    <div class="cta-text">
+                                        <h4>Find us</h4>
+                                        <span><a href="https://www.google.com/maps?q=Xdezo academy" target="_blank">
+                                        Ratnachowk-7, Kaski</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4 mb-30 call-us">
+                        <div class="single-cta">
+                            <a href="tel:9800000000"><i class="fas fa-phone"></i></a>
+                            <div class="cta-text">
+                                <h4>Call us</h4>
+                                <span><a href="tel:9800000000">98XXXXXXXX</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4 mb-30 mail-us">
+                        <div class="single-cta">
+                            <a href="mailto:Sanjayakc375@gmail.com"><i class="far fa-envelope-open"></i></a>
+                            <div class="cta-text">
+                                <h4>Mail us</h4>
+                                <span><a href="mailto:Sanjayakc375@gmail.com">mail@info.com</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-content pt-5 pb-5">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 mb-50">
+                        <div class="footer-widget">
+                            <div class="footer-logo">
+                                <a href="index.html"><img src="{% static 'img/logo.png' %}" class="img-fluid"
+                                    alt="logo"></a>
+                                </div>
+                                <div class="footer-text">
+                                    <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor
+                                        incididuntut consec tetur adipisicing
+                                        elit,Lorem ipsum dolor sit amet.</p>
+                                    </div>
+                                    <div class="footer-social-icon">
+                                        <span>Follow us</span>
+                                        <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
+                                        <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
+                                        <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                                <div class="footer-widget">
+                                    <div class="footer-widget-heading">
+                                        <h3>Useful Links</h3>
+                                    </div>
+                                    <ul>
+                                        <li><a href="{%url 'index' %}">Home</a></li>
+                                        <li><a href="{%url 'explore' %}">Exhibitions</a></li>
+                                        <li><a href="#">Contact</a></li>
+                                        <li><a href="#">Cart</a></li>
+                                        <li><a href="#">Help & Support</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+                        <div class="footer-widget">
+                            <div class="footer-widget-heading">
+                                <h3>Subscribe</h3>
+                            </div>
+                            <div class="footer-text mb-25">
+                                <p>Don't miss to subscribe to our new feeds, kindly fill the form below.</p>
+                            </div>
+                            <div class="subscribe-form">
+                                <form action="#">
+                                    <input type="text" placeholder="Email Address">
+                                    <button><i class="fab fa-telegram-plane"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+                        <div class="copyright-text">
+                            <p>Copyright &copy; 2024, All Right Reserved <a href="#">Articraft Artiverse</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/explore.js' %}"></script>
+</body>
+
+</html>

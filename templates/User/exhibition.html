@@ -1,0 +1,65 @@
+{% extends '_base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/Home/exhibition.css' %}">
+<div class="main-container">
+    <h2 class="section-header">Current Exhibitions</h2>
+    {% if current_exhibitions %}
+    <div class="current-exhibition-section">
+        <div class="flex-container">
+                {% for exhibition in current_exhibitions %}
+                <div class="card">
+                    <img class="card__background" src="{{ exhibition.thumbnail.url }}" alt="{{ exhibition.title }}">
+                    <div class="card__content | flow">
+                        <div class="card__content--container | flow">
+                            <h2 class="card__title">{{ exhibition.title }}</h2>
+                            <p class="card__description">{{ exhibition.brief_description }}</p>
+                            
+                        </div>
+                        <div class="card__button">
+                            <a href="{% url 'exhibition_detail' exhibition.id %}" class="button_link">Explore</a>
+                        </div>
+                        <p class="card__description">{{ exhibition.start_date }}-{{exhibition.end_date}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <div class="no-result">
+            <h4>Sorry!! No current Exhibition</h4>
+            <img src="{% static 'img/error.png' %}" alt="No Results">
+        </div>
+        {% endif %}
+</div>
+
+    <div class="upcoming-exhibition-section">
+        <h2 class="section-header">Upcoming Exhibitions</h2>
+        {% if current_exhibitions %}
+        <div class="flex-container">
+            {% for exhibition in upcoming_exhibitions %}
+            <div class="card">
+                <img class="card__background" src="{{ exhibition.thumbnail.url }}" alt="{{ exhibition.title }}">
+                <div class="card__content | flow">
+                    <div class="card__content--container | flow">
+                        <h2 class="card__title">{{ exhibition.title }}</h2>
+                        <p class="card__description">{{ exhibition.brief_description }}</p>
+                        <div class="countdown" id="countdown-{{ exhibition.id }}"></div>
+                    </div>
+                    <div class="card__button">
+                        <a href="{% url 'exhibition_detail' exhibition.id %}" class="button_link">Explore</a>
+                    </div>
+                    <p class="card__description">{{ exhibition.start_date }}-{{exhibition.end_date}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <div class="no-result">
+        <h4>Sorry!! No current Exhibition</h4>
+        <img src="{% static 'img/error.png' %}" alt="No Results">
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

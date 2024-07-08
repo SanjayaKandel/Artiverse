@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="Assets/css/admindashboard.css">
+    <title>Admin Dashboard | Artiverse</title>
+</head>
+
+<body>
+    <div class="background-text">ARTIVERSE</div>
+    <div class="container">
+        <div class="profile-header">
+            <div class="profile-info">
+                <img src="https://via.placeholder.com/100" alt="Admin Profile Picture" class="profile-pic">
+                <div class="profile-text">
+                    <h1>Admin Name</h1>
+                    <p>Admin of Artiverse</p>
+                </div>
+            </div>
+            <button class="btn manage-artworks-btn"><a href="manage-artworks.html">Manage Artworks</a> </button>
+            <button class="btn manage-artists-btn"><a href="manage-artists.html">Manage Artists</a></button>
+            <button class="btn manage-users-btn"><a href="manage-users.html">Manage Users</a></button>
+        </div>
+
+        <div class="dashboard-stats">
+            <div class="stat">
+                <h3>Total Users</h3>
+                <p>200</p>
+            </div>
+            <div class="stat">
+                <h3>Total Artworks</h3>
+                <p>500</p>
+            </div>
+            <div class="stat">
+                <h3>Reported Issues</h3>
+                <p>10</p>
+            </div>
+        </div>
+
+        <div class="recent-activities">
+            <h2>Recent Activities</h2>
+            <ul>
+                <li>Approved new artwork "Starry Night"</li>
+                <li>Resolved issue reported by user "Jane Doe"</li>
+                <li>Deleted artwork "Untitled"</li>
+            </ul>
+        </div>
+
+        <div class="user-management">
+            <h2>Manage Users</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>John Doe</td>
+                        <td>john.doe@example.com</td>
+                        <td>
+                            <button class="btn edit-btn">Edit</button>
+                            <button class="btn delete-btn">Delete</button>
+                        </td>
+                    </tr>
+                    <!-- Repeat for more users -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="artwork-management">
+            <h2>Manage Artworks</h2>
+            <div class="artwork">
+                <img src="https://assets.telegraphindia.com/telegraph/2022/Oct/1666424870_untitled-design-23.jpg" alt="Artwork 1">
+                <div class="artwork-info">
+                    <h3>Artwork Title</h3>
+                    <p>Description of the artwork.</p>
+                    <div class="action-buttons">
+                        <button class="btn edit-btn">Edit</button>
+                        <button class="btn delete-btn">Delete</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat for more artworks -->
+        </div>
+
+        <div class="upload-modal hidden">
+            <form id="upload-form">
+                <h2>Upload New Artwork</h2>
+                <input type="text" placeholder="Title" required>
+                <textarea placeholder="Description" required></textarea>
+                <input type="file" accept="image/*" required>
+                <button type="submit" class="btn">Upload</button>
+                <button type="button" class="btn cancel-btn">Cancel</button>
+            </form>
+        </div>
+
+        <div class="edit-modal hidden">
+            <form id="edit-form">
+                <h2>Edit Artwork</h2>
+                <input type="text" placeholder="Title" required>
+                <textarea placeholder="Description" required></textarea>
+                <input type="file" accept="image/*">
+                <button type="submit" class="btn">Save Changes</button>
+                <button type="button" class="btn cancel-btn">Cancel</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    const manageUsersBtn = document.querySelector(".manage-users-btn");
+    const uploadModal = document.querySelector(".upload-modal");
+    const editModal = document.querySelector(".edit-modal");
+    const cancelUploadBtn = document.querySelector(".upload-modal .cancel-btn");
+    const cancelEditBtn = document.querySelector(".edit-modal .cancel-btn");
+    const uploadForm = document.getElementById("upload-form");
+    const editForm = document.getElementById("edit-form");
+    const editButtons = document.querySelectorAll(".edit-btn");
+    const deleteButtons = document.querySelectorAll(".delete-btn");
+
+    manageUsersBtn.addEventListener("click", function() {
+        // Logic to manage users
+        alert("Manage Users Clicked");
+    });
+
+    editButtons.forEach(btn => {
+        btn.addEventListener("click", function() {
+            editModal.classList.add("visible");
+        });
+    });
+
+    deleteButtons.forEach(btn => {
+        btn.addEventListener("click", function() {
+            if (confirm("Are you sure you want to delete this item?")) {
+                // Logic to delete item
+                alert("Item Deleted");
+            }
+        });
+    });
+
+    cancelUploadBtn.addEventListener("click", function() {
+        uploadModal.classList.remove("visible");
+    });
+
+    cancelEditBtn.addEventListener("click", function() {
+        editModal.classList.remove("visible");
+    });
+
+    uploadForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        // Logic to upload new artwork
+        alert("New Artwork Uploaded");
+        uploadModal.classList.remove("visible");
+    });
+
+    editForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+        // Logic to save changes to artwork
+        alert("Artwork Changes Saved");
+        editModal.classList.remove("visible");
+    });
+});
+
+       
+        
+    </script>
+</body>
+
+</html>

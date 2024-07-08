@@ -1,0 +1,116 @@
+{%extends 'artist_base.html'%}
+{%block content%}
+{%load static%}
+<link rel="stylesheet" href="{% static 'css/Artists/artist_dashboard.css' %}">
+<section class="body">
+    <div class="container">
+        <div class="profile-header">
+            <div class="profile-info">
+                <a href="{%url 'artist_profile'%}" class="profile-info-link">
+                    <img src="{% if artist.profile_picture %}{{ artist.profile_picture.url }}{% else %}{% static 'img/default_profile.jpg' %}{% endif %}"
+                        alt="Profile Picture" class="profile-pic">
+                        <div class="profile-text">
+                       {%if artist.name%} 
+                       <h1>{{artist.name}}</h1>
+                       {%else%}
+                       <h1>{{user.username}}</h1>
+                       {%endif%}
+                       {%if artist.biography%} 
+                        <p>{{artist.biography}}</p>
+                        {%else%}
+                        <p>No Bio Yet...</p>
+                        {%endif%}
+                        </div>
+                </a>
+            </div>
+            <a href="{% url 'artwork_create' %}"><button class="btn upload-btn">Create Artwork</button></a>
+        </div>
+        <div class="dashboard-stats">
+            <div class="stat">
+                <h3>Total Artworks Created</h3>
+                <p>{{arts.count}}</p>
+            </div>
+            <div class="stat">
+                <h3>Artworks Sold</h3>
+                <p>10</p>
+            </div>
+            <div class="stat">
+                <h3>Total Views</h3>
+                <p>1500</p>
+            </div>
+        </div>
+        <div class="recent-activities">
+            <h2>Recent Activities</h2>
+            <ul>
+                {% for art in arts %}
+                <li>
+                    Artwork '{{ art.title }}' created on {{ art.year_created }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <h2 class="your-artworks">Your Artworks</h2>
+        {% for art in arts %}
+        <div class="artwork" data-art-id="{{ art.id }}">
+            <img src="{{ art.image.url }}" alt="{{ art.title }}">
+            <div class="artwork-info">
+                <h3>{{ art.title }}</h3>
+                <p class="description">{{ art.description }}</p>
+                <!-- Add a container for the expand/collapse functionality -->
+                <div class="expand-collapse">
+                    <a href="#" class="see-more">See More</a>
+                </div>
+                <div class="action-buttons">
+                    <a href="{% url 'artwork_update' id=art.id %}"><button class="btn edit-btn">Edit</button></a>
+                    <button class="btn delete-btn" data-art-id="{{ art.id }}">Delete</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="delete-modal hidden" id="delete-modal">
+            <form id="delete-form" method="post">
+                {% csrf_token %}
+                <button type="button" class="close-btn">&times;</button>
+                <h2>Delete Confirmation</h2>
+                <p>Are you sure you want to delete this artwork?</p>
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn cancel-btn">Cancel</button>
+            </form>
+        </div>
+    </div>
+</section>
+<div class="page-container">
+    <ul class="pagination">
+        <!-- Previous page link -->
+        {% if arts.has_previous %}
+        <li>
+            <a href="?page={{ arts.previous_page_number }}">&laquo; Prev</a>
+        </li>
+        {% else %}
+        <li class="disabled">
+            <span>Prev</span>
+        </li>
+        {% endif %}
+
+
+        {% for num in arts.paginator.page_range %}
+        <li {% if num == arts.number %}class="active" {% endif %}>
+            <a href="?page={{ num }}">{{ num }}</a>
+        </li>
+        {% endfor %}
+
+        <!-- Next page link -->
+        {% if arts.has_next %}
+        <li>
+            <a href="?page={{ arts.next_page_number }}">Next &raquo;</a>
+        </li>
+        {% else %}
+        <li class="disabled">
+            <span>Next</span>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{%static 'js/artist_dashboard.js'%}"></script>
+{%endblock%}

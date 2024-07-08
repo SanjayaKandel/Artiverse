@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artiverse - update profile</title>
+  <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'css/User/update_user.css' %}">
+</head>
+
+<body>
+  <div class="container">
+    <!-- <a href="{%url 'user_profile' %}" style="color: black; text-decoration: none; font-size: 18px;"><i class="fa-solid fa-arrow-left"></i></a> -->
+    <h1>Update Your Profile</h1>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.non_field_errors }}
+      </div>
+      <div class="form-group profile-picture">
+        <input type="file" id="id_profile_picture" name="profile_picture" accept="image/*"
+          onchange="previewImage(event)" style="display: none;">
+        <label for="id_profile_picture" class="profile-picture-label">
+          <img id="profilePreview"
+            src="{% if form.instance.profile_picture %}{{ form.instance.profile_picture.url }}{% else %}{% static 'img/default_profile.jpg' %}{% endif %}"
+            alt="Profile Picture" class="profile-pic">
+          <div class="overlay">
+            <img src="{% static 'img/camera.png' %}" alt="Camera Icon" class="camera-icon">
+
+          </div>
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label for="id_name">Name:</label>
+        {{ form.name }}
+      </div>
+      <div class="form-group">
+        <label for="id_biography">Biography:</label>
+        {{ form.biography }}
+      </div>
+      <div class="form-group">
+        <label for="id_birth_date">Birthday:</label>
+        {{ form.birth_date }}
+
+        <div class="form-group">
+          <label for="id_occupation">Occupation:</label>
+          {{ form.occupation }}
+        </div>
+        <div class="form-group">
+          <label for="id_contact_phone">Contact Phone:</label>
+          {{ form.contact_phone }}
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn">Save</button>
+          <a href="{%url 'user_profile' %}" class="btn">Cancel</a>
+        </div>
+        {% if error %}
+        <div class="form-error">
+          <p>{{ error }}</p>
+        </div>
+        {% endif %}
+    </form>
+  </div>
+</body>
+<script>
+  function previewImage(event) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      var output = document.getElementById('profilePreview');
+      output.src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+  }
+</script>
+
+</html>

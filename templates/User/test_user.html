@@ -1,0 +1,96 @@
+{% extends '_base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/User/user_profile.css' %}">
+<section class="profile__content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body text-center profile__bgc">
+                        <a href="#">
+                            <img id="profilePreview" class="profile-pic img-fluid rounded-circle"
+                                src="{% if profile.profile_picture %}{{ profile.profile_picture.url }}{% else %}{% static 'img/default_profile.jpg' %}{% endif %}"
+                                alt="Profile Picture">
+                        </a>
+                        <h4 class="mt-3">{{profile.name}}</h4>
+                        <p>{{profile.biography}}</p>
+                    </div>
+                    <ul class="nav flex-column nav-pills">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#"> <i class="fa fa-user"></i> Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'update_user' %}"> <i class="fa fa-edit"></i> Edit profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'billing_address' %}"> <i class="fa fa-edit"></i> Edit Address</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'billing_address' %}"> <i class="fa-solid fa-sliders"></i> Settings</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Profile Details</h1>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><span>Name </span>: {{profile.name}}</p>
+                                <p><span>Email </span>: {{user.email}}</p>
+                                <p><span>Country </span>: {{billing.country}}</p>
+                                <p><span>Birthday</span>: {{profile.birth_date}}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><span>Occupation </span>: {{profile.occupation}}</p>
+                                <p><span>City </span>: {{billing.city}}</p>
+                                <p><span>Street</span>: {{billing.address}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="text-danger">Order History</h2>
+                                <p>Order Number: [Order#]</p>
+                                <p>Date: [Date]</p>
+                                <p>Total: $[Amount]</p>
+                                <a href="#" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body favorites">
+                                <h2 class="text-success">Favorites</h2>
+                                {% if wishlisted_artworks %}
+                                    <ul>
+                                        {% for artwork in wishlisted_artworks %}
+                                        <li>
+                                            <a href="{% url 'art_details' id=artwork.id %}">
+                                                Artwork '{{ artwork.title }}' added to Favorites.
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+                                        {%if wishlisted_artworks.count == 5%}
+                                        <a href="" class="btn btn-dark">View more</a>
+                                        {% endif %}
+                                    </ul>
+                                    {% else %}
+                                    <p>No favorites yet.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

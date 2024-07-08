@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artiverse - update profile</title>
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/User/billing_det.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Billing Address</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="address">Address</label>
+                {{ form.address }}
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                {{ form.city }}
+            </div>
+            <div class="form-group">
+                <label for="state">State</label>
+                {{ form.state }}
+            </div>
+            <div class="form-group">
+                <label for="country">Country</label>
+                {{ form.country }}
+            </div>
+            <div class="form-group">
+                <label for="zip_code">Zip Code</label>
+                {{ form.zip_code }}
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</body>
+</html>

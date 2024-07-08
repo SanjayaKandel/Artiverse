@@ -1,0 +1,65 @@
+.artwork-card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    margin: auto;
+}
+
+.artwork-card img {
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    object-fit: contain;
+    padding: 20px;
+    margin: auto;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.artist-name {
+    font-style: italic;
+    color: #555;
+}
+
+.card-text {
+    margin-bottom: 0.5rem;
+}
+
+.card-buttons {
+    margin-top: 20px;
+}
+
+.card-buttons .btn {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.card-buttons .btn:last-child {
+    margin-right: 0;
+}
+
+.card-buttons .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.card-buttons .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.card-buttons .btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}

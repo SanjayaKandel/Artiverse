@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artiverse</title>
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jacquard&family=Micro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/artist_base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+</head>
+
+<body>
+    <div id="main">
+        <div id="page1">
+            <nav id="navbar">
+                <a href="{% url 'artist' %}"><img class="logo-img" src="{% static 'img/logo.png' %}"
+                        alt="Artiverse Logo"></a>
+                <div id="nav-part2">
+                    <div class="menu-icon" onclick="toggleMenu()">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                    <div id="menu-links">
+                        <h4><a href="{% url 'artist' %}"><i class="fa-solid fa-house"></i> Home</a></h4>
+                        <h4><a href="{% url 'about' %}"><i class="fa-solid fa-circle-info"></i>About</a></h4>
+
+                        {% if user.is_authenticated %}
+                        <div class="profile-dropdown">
+                            <div onclick="toggle()" class="profile-dropdown-btn">
+
+                                <img src="{% if artist.profile_picture %}{{ artist.profile_picture.url }}{% else %}{% static 'img/no user.jpg' %}{% endif %}"
+                                    alt="{{user.username}}">
+                            
+                            </div>
+                            <ul class="profile-dropdown-list">
+                                <li>
+                                    <p><a href="{%url 'artist_profile'%}"> {%if artist.name%} 
+                                        {{artist.name}}
+                                        {%else%}
+                                        {{user.username}}
+                                        {%endif%}</a>
+                                </li>
+                                <li class="profile-dropdown-list-item"><a href="{%url 'update_artist_profile'%}"><i
+                                            class="fa-regular fa-user"></i> Edit Profile</a></li>
+                                <li class="profile-dropdown-list-item"><a href="#"><i
+                                            class="fa-regular fa-envelope"></i> Inbox</a></li>
+                                <li class="profile-dropdown-list-item"><a href="#"><i
+                                            class="fa-solid fa-chart-line"></i> Analytics</a></li>
+                                <li class="profile-dropdown-list-item"><a href="#"><i class="fa-solid fa-sliders"></i>
+                                        Settings</a></li>
+                                <li class="profile-dropdown-list-item"><a href="#"><i
+                                            class="fa-regular fa-circle-question"></i> Help & Support</a></li>
+                                <hr />
+                                <li class="profile-dropdown-list-item"><a href="{% url 'logout_view' %}"><i
+                                            class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a></li>
+                            </ul>
+                        </div>
+                        {% else %}
+                        <h4 id="signup-link"><a href="{% url 'login_view' %}"><i class="fa-solid fa-user-plus"></i>Sign
+                                in</a></h4>
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    {%block content%}
+
+    {%endblock%}
+
+
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-cta pt-5 pb-5 ">
+                <div class="row sect-1">
+                    <div class="col-xl-4 col-md-4  mb-30 loc-map">
+                        <div class="single-cta">
+                            <a href="https://www.google.com/maps?q=Xdezo academy" target="_blank"> <i
+                                    class="fas fa-map-marker-alt"></i></a>
+                            <div class="cta-text">
+                                <h4>Find us</h4>
+                                <span><a href="https://www.google.com/maps?q=Xdezo academy" target="_blank">
+                                        Ratnachowk-7, Kaski</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4 mb-30 call-us">
+                        <div class="single-cta">
+                            <a href="tel:9800000000"><i class="fas fa-phone"></i></a>
+                            <div class="cta-text">
+                                <h4>Call us</h4>
+                                <span><a href="tel:9800000000">98XXXXXXXX</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4 mb-30 mail-us">
+                        <div class="single-cta">
+                            <a href="mailto:Sanjayakc375@gmail.com"><i class="far fa-envelope-open"></i></a>
+                            <div class="cta-text">
+                                <h4>Mail us</h4>
+                                <span><a href="mailto:Sanjayakc375@gmail.com">mail@info.com</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-content pt-5 pb-5">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 mb-50">
+                        <div class="footer-widget">
+                            <div class="footer-logo">
+                                <a href="index.html"><img src="{% static 'img/logo.png' %}" class="img-fluid"
+                                        alt="logo"></a>
+                            </div>
+                            <div class="footer-text">
+                                <p>Lorem ipsum dolor sit amet, consec tetur adipisicing elit, sed do eiusmod tempor
+                                    incididuntut consec tetur adipisicing
+                                    elit,Lorem ipsum dolor sit amet.</p>
+                            </div>
+                            <div class="footer-social-icon">
+                                <span>Follow us</span>
+                                <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
+                                <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
+                                <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                        <div class="footer-widget">
+                            <div class="footer-widget-heading">
+                                <h3>Useful Links</h3>
+                            </div>
+                            <ul>
+                                <li><a href="{%url 'index' %}">Home</a></li>
+                                <li><a href="{%url 'explore' %}">Exhibitions</a></li>
+                                <li><a href="#">Contact</a></li>
+                                <li><a href="#">Cart</a></li>
+                                <li><a href="#">Help & Support</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+                        <div class="footer-widget">
+                            <div class="footer-widget-heading">
+                                <h3>Subscribe</h3>
+                            </div>
+                            <div class="footer-text mb-25">
+                                <p>Don't miss to subscribe to our new feeds, kindly fill the form below.</p>
+                            </div>
+                            <div class="subscribe-form">
+                                <form action="#">
+                                    <input type="text" placeholder="Email Address">
+                                    <button><i class="fab fa-telegram-plane"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+                        <div class="copyright-text">
+                            <p>Copyright &copy; 2024, All Right Reserved <a href="#">Articraft Artiverse</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="{% static 'js/artist_base.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</body>
+
+</html>

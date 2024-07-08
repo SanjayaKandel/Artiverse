@@ -1,0 +1,55 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}
+Shopping Cart
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/Home/cart.css' %}">
+<div class="Main-container">
+<div class="container">
+    <div class="cart">
+        <div class="cart-header">
+            <div class="select-check">
+            <input type="checkbox" id="select-all">
+            <h4>SELECT ALL ({{ cart_items|length }} ITEM(S))</h4>
+        </div>
+            <button class="delete-btn" disabled>DELETE</button>
+        </div>
+        <ul class="cart-items">
+            {%if cart_items%}
+            {% for item in cart_items %}
+            <li class="cart-item">
+                <div class="item-details">
+                    <input type="checkbox" class="item-checkbox" checked data-item-id="{{ item.id }}">
+                    <img src="{{ item.artwork.image.url }}" alt="{{ item.artwork.title }}">
+                    <div>
+                        <h2>{{ item.artwork.title }} ({{item.artwork.medium}})</h2>
+                        <p>Quantity: <span class="quantity" id="quantity-{{ item.id }}">{{ item.quantity }}</span></p>
+                        <p>Price: Rs. <span class="item-initial-price" id="initial-price-{{ item.id }}">{{ item.artwork.price }}</span></p>
+                        <p hidden>Total: Rs. <span class="item-total-price" id="total-price-{{ item.id }}" hidden>{{ item.get_total_price }}</span></p>
+                    </div>
+                    <div class="item-quantity">
+                        <button class="quantity-btn" data-item-id="{{ item.id }}" data-change="-1">-</button>
+                        <span class="quantity" id="quantity-update-{{ item.id }}">{{ item.quantity }}</span>
+                        <button class="quantity-btn" data-item-id="{{ item.id }}" data-change="1">+</button>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+            {%else%}
+            <h2 class="no-items p-5" style="text-align: center;">No items in cart</h2>
+            {%endif%}
+        </ul>
+    </div>
+    <div class="order-summary">
+        <h3>Order Summary</h3>
+        <p>Subtotal ({{ cart_items|length }} items): <span id="subtotal">Rs. {{ subtotal }}</span></p>
+        <h3>Total: <span id="total">Rs. {{ total }}</span></h3>
+        <button class="checkout-btn">PROCEED TO CHECKOUT (<span id="checkout-count">{{ cart_items|length }}</span>)</button>
+    </div>
+</div>
+</div>
+<script src="{% static 'js/cart.js' %}"></script>
+{% endblock %}

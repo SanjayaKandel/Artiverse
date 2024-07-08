@@ -1,0 +1,307 @@
+:root {
+    --surface-color: #fff;
+    --curve: 40;
+    --button-bg-color: #6A515E;
+    --button-text-color: #fff;
+    --wishlist-fill-color: #ff5252;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #fef8f8;
+  }
+  
+  /* Search & Filter Section */
+  .container-search {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  
+  .search-filter {
+    background-color: #f2f2f2;
+    padding: 20px 0;
+  }
+  
+  .search-filter h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+  }
+  
+  .search-filter form {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 1 33.33%;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .search-filter input[type="text"],
+  .search-filter select {
+    margin: 0 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex: 1 1 auto;
+    max-width: 300px;
+  }
+  
+  .search-filter button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    outline: 1px solid black;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .search-filter button:hover {
+    background-color: #000000;
+    color: white;
+  }
+  .search-filter input[type="number"] {
+    max-width: 300px;
+    margin: 10px;
+    padding: 10px;
+  }
+  
+
+  
+/* new card */
+
+.result__found{
+  display: block;
+    text-align: center;
+    font-weight: lighter;
+    font-size: 24px;
+    padding: 20px 0 30px 0;
+    color: rgb(105, 105, 105);
+    text-align: center;
+}
+  
+.card__container {
+  padding: 20px;
+
+}
+
+.card {
+  display: block;
+  border: none;
+  transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
+  overflow: hidden;
+  border-radius: 20px;
+  max-height: 450px;
+  min-height: 450px;
+  height: 100%;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  text-decoration: none;
+  max-width: 400px;
+}
+
+.card-img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin: 0 auto; /* Center the image horizontally */
+}
+
+.stretched-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.card-body, .card-footer, .media {
+  position: relative;
+  z-index: 2;
+}
+
+.card.card__bg:hover {
+  transform: scale(0.98);
+  box-shadow: 0 0 5px -2px rgba(0, 0, 0, 0.3);
+  background-size: 130%;
+  transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.card.card__bg:hover .card-img-overlay {
+  transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
+  background: rgba(255, 185, 33, 0.178);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.742) 0%, rgba(255, 255, 255, 0.797) 100%);
+}
+
+.card-footer {
+  background: none;
+  border-top: none;
+}
+
+.card-footer .media img {
+  border: solid 3px rgba(255, 251, 0, 0.6);
+}
+
+.card-title {
+  font-weight: 800;
+}
+
+.card-meta {
+  color: rgb(0, 0, 0);
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+
+.card-body {
+  transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.card:hover .card-body {
+  margin-top: 30px;
+  transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.card:hover {
+  cursor: pointer;
+  transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.card-img-overlay {
+  transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
+  background: rgba(91, 88, 80, 0);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.806) 0%, rgba(255, 255, 255, 0.498) 100%);
+}
+
+.media {
+  transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
+  background-size: 120%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.card:hover .media {
+  transform: scale(0.90);
+  box-shadow: 0 0 5px -2px rgba(0, 0, 0, 0.3);
+  background-size: 130%;
+  transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+
+
+  .no-result {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .no-result img {
+    max-width: 300px;
+    display: block;
+    margin: 0 auto 10px;
+  }
+  
+.page-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; /* adjust as needed */
+  box-sizing: border-box; /* ensure padding is included in width/height */
+}
+
+.pagination {
+  margin-top: 20px;
+}
+
+.pagination ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination ul li {
+  margin: 0 5px;
+}
+
+.pagination ul li a {
+  padding: 10px;
+  text-decoration: none;
+  color: #000000;
+  border: 1px solid black;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+}
+.pagination .disabled {
+  padding: 10px;
+  text-decoration: none;
+  color: #676767;
+  border: 1px solid #676767;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+}
+
+.pagination ul li a:hover,
+.pagination ul li.active a {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .search-filter form {
+    justify-content: center;
+  }
+
+  .search-filter input[type="text"],
+  .search-filter input[type="number"],
+  .search-filter select,
+  .search-filter button {
+    display: flex;
+    margin: 10px 10px;
+    width: 100%;
+    max-width: 300px;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .card {
+    max-height: 350px;
+    justify-content: center;
+    align-items: center;
+  }
+  .result__found {
+    padding-top: 10px; /* Adjust padding for smaller screens */
+    font-size: 14px; /* Optional: Adjust font size for smaller screens */
+  }
+}
+@media(max-width:767px){
+  .card__align{
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    max-height: 300px;
+    justify-content: center;
+    align-items: center;
+  }
+  .result__found {
+    padding-top: 5px; /* Adjust padding for the smallest screens */
+    font-size: 12px; /* Optional: Adjust font size for the smallest screens */
+  }
+}

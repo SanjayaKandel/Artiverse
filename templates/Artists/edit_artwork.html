@@ -1,0 +1,52 @@
+{% extends 'artist_base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/Artists/artwork_add.css' %}">
+<div class="body">
+    <div class="form-container">
+        <h2>Edit Artwork</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="title">Title</label>
+                {{ form.title }}
+            </div>
+            <div class="form-group">
+                <label for="medium">Medium</label>
+                {{ form.medium }}
+            </div>
+            <div class="form-group">
+                <label for="style">Style</label>
+                {{ form.style }}
+            </div>
+            <div class="form-group">
+                <label for="genre">Genre</label>
+                {{ form.genre }}
+            </div>
+            <div class="form-group">
+                <label for="year_created">Year Created</label>
+                {{ form.year_created }}
+            </div>
+            <div class="form-group">
+                <label for="image">Image</label>
+                {{ form.image }}
+                {% if artwork.image %}
+                <img src="{{ artwork.image.url }}" alt="Current Image" style="max-height: 200px; margin-top: 10px;">
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                {{ form.description }}
+                <p id="word-count">0/150 Words</p>
+                <p id="word-warning" style="color:red; display:none;">Word limit exceeded!</p>
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                {{ form.price }}
+            </div>
+            <button type="submit" class="btn">Update Artwork</button>
+        </form>
+    </div>
+</div>
+<script src="{% static 'js/update_artwork.js' %}"></script>
+{% endblock %}

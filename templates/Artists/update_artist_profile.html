@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artiverse - Update Artist</title>
+  <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+  <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'css/Artists/create_artist.css' %}">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Update Your Profile</h1>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.non_field_errors }}
+      </div>
+      <div class="form-group profile-picture">
+        <input type="file" id="id_profile_picture" name="profile_picture" accept="image/*"
+          onchange="previewImage(event)" style="display: none;">
+        <label for="id_profile_picture" class="profile-picture-label">
+          <img id="profilePreview"
+            src="{% if form.instance.profile_picture %}{{ form.instance.profile_picture.url }}{% else %}{% static 'img/default_profile.jpg' %}{% endif %}"
+            alt="Profile Picture" class="profile-img">
+          <div class="overlay">
+            <img src="{% static 'img/camera.png' %}" alt="Camera Icon" class="camera-icon">
+          </div>
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="id_name">Name:</label>
+        {{ form.name }}
+      </div>
+      <div class="form-group">
+        <label for="id_biography">Biography:</label>
+        {{ form.biography }}
+      </div>
+      <div class="form-group">
+        <label for="id_category">Category:</label>
+        {{ form.category }}
+      </div>
+      <div class="form-group">
+        <label for="id_age">Age:</label>
+        {{ form.age }}
+      </div>
+      <div class="form-group">
+        <label for="id_country">Country:</label>
+        {{ form.country }}
+      </div>
+      <div class="form-group">
+        <label for="id_street">Street/Tole:</label>
+        {{ form.street }}
+      </div>
+      <div class="form-group">
+        <label for="id_ward_no">Ward:</label>
+        {{ form.ward_no }}
+      </div>
+      <div class="form-group">
+        <label for="id_contact_email">Contact Email:</label>
+        {{ form.contact_email }}
+      </div>
+      <div class="form-group">
+        <label for="id_contact_phone">Contact Phone:</label>
+        {{ form.contact_phone }}
+      </div>
+      <div class="form-group">
+        <label for="id_website">Website:</label>
+        {{ form.website }}
+      </div>
+      <div class="form-group">
+        <label for="id_social_links">Social Links:</label>
+        {{ form.social_links }}
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn">Save</button>
+      </div>
+      {% if error %}
+      <div class="form-error">
+        <p>{{ error }}</p>
+      </div>
+      {% endif %}
+    </form>
+  </div>
+</body>
+<script src="{%static 'js/create_update_artist.js'%}"></script>
+
+</html>

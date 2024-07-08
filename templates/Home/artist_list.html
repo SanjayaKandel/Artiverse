@@ -1,0 +1,48 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}
+Artist List
+{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/Home/artist_list.css' %}">
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-12 col-sm-8 col-lg-6">
+			<!-- Section Heading-->
+			<div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s"
+				style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+				<h3>Our Creative <span> Artists</span></h3>
+				<p>Artiverse is your digital stage to ignite, share, &amp; amplify your creative passion</p>
+				<div class="line"></div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		{% for artist in artists %}
+		<a href="{% url 'artist_profile_view' artist_id=artist.id %}">
+			<div class="col-12 col-sm-6 col-md-4 col-lg-3 card__design">
+				<div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.2s"
+					style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+					<!-- Team Thumb-->
+					<div class="advisor_thumb"><img src="{{ artist.profile_picture.url }}" alt=""
+							style="height: 250px; width: 200px; border-radius: 10px;">
+						<!-- Social Info-->
+						<div class="social-info"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i
+									class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a></div>
+					</div>
+					
+					<div class="single_advisor_details_info">
+						<h6>{{ artist.name }}</h6>
+						<p class="designation">{{ artist.category }}</p>
+					</div>
+				</div>
+			</div>
+		</a>
+		{% endfor %}
+	</div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+
+    <!-- Icons and stylesheets -->
+    <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Authentication/login.css' %}">
+    <title>Artiverse- Login</title>
+</head>
+<style>
+    body{
+      background: url("{% static 'img/bg.jpg' %}");
+    }
+    </style>
+<body>
+<div class="content">
+    <div class="form-block">
+        <div class="mb-4">
+            <h3>Login to <strong>Your Account</strong></h3>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <span class="mb-0 text-muted" style="color: red;">
+                {% if msg %}
+                    {{ msg | safe }}
+                {% endif %}
+            </span>
+            <div class="form-group">
+                <label for="username">Username</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                {{ form.password }}
+            </div>
+            <input type="submit" value="Log in" class="btn btn-pill text-white btn-primary">
+        </form>
+        <div class="option-choose">
+            <span>New to artiverse? <a href="{% url 'register' %}" class="register-link">Register</a></span>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript files -->
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/login.js' %}"></script>
+</body>
+</html>

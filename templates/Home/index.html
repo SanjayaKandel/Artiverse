@@ -1,0 +1,42 @@
+{%extends '_base.html'%}
+{%block content%}
+{%load static%}
+    <div class="videos">
+        <video autoplay loop muted src="{% static 'img/introvid.mp4' %}"></video>
+        <div id="center">
+            <div id="right">
+                <h1>From Vision to Vivid Reality</h1>
+            </div>
+            <div id="left">
+                <h3>"Where Imagination Meet Canvas".</h3>
+                <a href="#"><button class="left-btn"><span>Contact us </span></button></a>
+            </div>
+        </div>
+    </div>
+    <div class="Featured-arts">
+        <h1>Popular now</h1>
+    </div>
+    <div id="page2-main">
+        {% for art in arts %}
+        <div class="arts" id="art{{ forloop.counter }}">
+            <div class="art-overlay">
+                <div class="art-details">
+                    <p class="art-name">{{ art.title }}</p>
+                    {% if item.artist_name %}
+                    <p class="artist-name">{{ item.artist_name }}</p>
+                    {% endif %}
+                    <a href="{% url 'art_details' id=art.id %}" class="view-more"><span>View More</span></a>
+                </div>
+            </div>
+            <img src="{{ art.image.url }}" alt="{{ art.title }}">
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div id="explore-link">
+        <a href="{% url 'explore' %}"><span>Explore more Arts</span></a>
+    </div>
+    <div class="floating-button-div">
+        <a href="#" class="fb">Virtual tour</a>
+      </div>  
+    {%endblock%}

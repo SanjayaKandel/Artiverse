@@ -1,0 +1,43 @@
+{% extends 'artist_base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{%static 'css/Artists/artist_profile.css'%}">
+<div class="profile-container">
+    <img src="{% if artist.profile_picture %}{{ artist.profile_picture.url }}{% else %}{% static 'img/no_user.jpg' %}{% endif %}" alt="Profile Picture" class="profile-pic" id="profilePic">
+    <div class="profile-text">
+        {% if artist.name %} 
+        <h1>{{ artist.name }}</h1>
+        {% else %}
+        <h1>{{ user.username }}</h1>
+        {% endif %}
+        
+        {% if artist.biography %} 
+        <p>{{ artist.biography }}</p>
+        {% else %}
+        <p>No Bio Yet...</p>
+        {% endif %}
+        
+        <p><strong>Contact Email:</strong> <a href="mailto:{{ artist.contact_email }}">{{ artist.contact_email }}</a></p>
+        <p><strong>Contact Phone:</strong> {{ artist.contact_phone }}</p>
+        <p><strong>Website:</strong> <a href="{{ artist.website }}" target="_blank">{{ artist.website }}</a></p>
+        
+        {% if artist.social_links %}
+        <div class="social-links">
+            <h2>Social Links</h2>
+            <ul>
+                {% for key, value in artist.social_links.items %}
+                <li><a href="{{ value }}" target="_blank">{{ key }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Modal for full-size image -->
+<div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImage">
+</div>
+<script src="{%static 'js/artist_profile.js'%}"></script>
+{% endblock %}

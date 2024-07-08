@@ -1,0 +1,110 @@
+
+/* Adjustments for .arts class */
+@media screen and (max-width: 1200px) {
+    .arts {
+        flex: 1 1 calc(33.33% - 40px);
+        max-width: 300px;
+        height: 300px;
+       
+      
+    }
+   
+
+}
+
+@media screen and (max-width: 992px) {
+    .arts {
+        flex: 1 1 calc(50% - 40px);
+        max-width: 300px;
+        max-height: 300px;
+        height: auto;
+     
+    }
+    
+}
+@media screen and (max-width: 792px) {
+    .arts {
+        flex: 1 1 calc(50% - 40px);
+        max-width: 400px;
+        height: 300px;
+    }
+    
+    #nav-part2 {
+        position: relative;
+    }
+
+    .menu-icon {
+        display: flex;
+    }
+
+    #menu-links {
+        display: none;
+        position: absolute;
+        top: 40px;
+        right: 0;
+        flex-direction: column;
+        background-color: rgb(77, 77, 77);
+        overflow: hidden;
+        max-height: auto;
+        
+    }
+
+    #menu-links.active {
+        display: block;
+        height: auto;
+        width: 200px;
+        border-radius: 10px;  
+        padding: 10px 20px;
+    }
+
+    #menu-links h4 {
+        margin-top: 10px;
+    }
+    #menu-links h4 a {
+        color: white;
+    }
+    .single-cta{
+        padding: 1rem;
+    }
+
+}
+
+@media screen and (max-width: 640px) {
+    /* .arts {
+        flex: 1 1 calc(100% - 20px);
+      
+    }
+    .arts img{
+     
+
+    } */
+    .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 20px;
+        
+        
+    }
+    .footer-section{
+        flex: 1 1 100%;
+        text-align: center;
+        
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* .arts {
+        flex: 1 1 calc(100% - 20px);
+     
+    }
+    .arts img{
+       
+    } */
+}
+
+@media (hover: hover) {
+    .view-more:hover span:after {
+        opacity: 1;
+        right: 0;
+    }
+}

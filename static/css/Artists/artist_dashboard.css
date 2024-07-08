@@ -1,0 +1,468 @@
+/* Reset Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.body {
+    background-color: #ebedf5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Background Text */
+/* .background-text {
+    position: absolute;
+    font-size: 8em;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.1);
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+} */
+
+/* Container */
+.artist-container {
+    background-color: white;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    width: 900px;
+    max-width: 100%;
+    min-height: 700px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Profile Header */
+.profile-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.profile-info-link {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.profile-info-link:hover{
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.profile-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.profile-text h1 {
+    font-size: 2em;
+    color: black;
+}
+.profile-text::first-letter{
+    text-transform: uppercase;
+}
+
+.profile-text p {
+    font-size: 1em;
+    color: #333;
+}
+
+.profile-header .btn {
+    background-color: black;
+    color: #fff;
+    font-size: 12px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.profile-header .btn:hover {
+    background-color: #333;
+}
+
+/* Dashboard Stats */
+.dashboard-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 10px;
+    margin-right: 10px;
+    width: 30%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+.stat h3 {
+    font-size: 1.2em;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.stat p {
+    font-size: 1.5em;
+    color: #333;
+}
+
+/* Recent Activities */
+.recent-activities {
+    margin-bottom: 20px;
+    background-color: #8282823c;
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 400px;
+    max-height: 200px;
+    height: auto;
+    margin: 0 auto;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.recent-activities .expanded::-webkit-scrollbar {
+    display: none; 
+  }
+
+.recent-activities h2 {
+    font-size: 1.5em;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.recent-activities ul {
+    list-style-type: none;
+}
+
+.recent-activities li {
+    font-size: 1em;
+    color: #333;
+    margin-bottom: 5px;
+    border-bottom: 1px solid white;
+}
+
+/* Artworks */
+.your-artworks{
+    padding: 20px 0;
+    border-bottom: 2px solid black;
+    margin-bottom: 50px;
+}
+.artworks {
+    margin-bottom: 20px;
+   
+}
+
+.artworks h2 {
+    font-size: 1.5em;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.artwork {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.artwork img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.artwork-info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+}
+.artwork-info .description {
+    max-height: 100px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    
+}
+.artwork-info .expanded{
+    overflow-y: scroll;
+    scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.artwork-info .expanded::-webkit-scrollbar {
+    display: none; 
+  }
+
+.artwork-info .expand-collapse {
+    margin-top: 10px;
+    
+}
+
+.artwork-info .expand-collapse .see-more {
+    color: #007bff; /* Change color as needed */
+    cursor: pointer;
+}
+
+.artwork-info h3 {
+    font-size: 1.2em;
+    color: black;
+    margin-bottom: 5px;
+    padding: 1rem 0;
+}
+
+.artwork-info p {
+    font-size: 0.9em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Action Buttons */
+.action-buttons {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+    z-index: 1;
+}
+
+.action-buttons .btn {
+    background-color: black;
+    color: #fff;
+    font-size: 14px;
+    padding: 7px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.action-buttons .edit-btn {
+    background-color: rgb(255, 255, 255);
+    color: rgb(23, 188, 24);
+    border:1px solid rgb(3, 188, 24) ;
+}
+
+.action-buttons .edit-btn:hover {
+    background-color: rgb(0, 188, 24);
+    color: white;
+}
+
+.action-buttons .delete-btn {
+    background-color: white;
+    color: rgb(255, 81, 81);
+    border: 1px solid rgb(255, 81, 81);
+}
+
+.action-buttons .delete-btn:hover {
+    background-color: rgb(255, 81, 81);
+    color: white;
+}
+
+/* Modal Styles */
+.delete-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1000; /* Ensure the modal is above other content */
+}
+.delete-modal.visible {
+    visibility: visible;
+    opacity: 1;
+    animation: fadeIn 0.3s;
+}
+
+.delete-modal form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center; /* Adjust as per your design */
+    position: relative; /* Ensure the close button is positioned correctly */
+    z-index: 1000;
+}
+
+.delete-modal h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.delete-modal p {
+    margin-bottom: 20px;
+}
+
+.delete-modal .btn {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-modal .btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.delete-modal .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+
+.delete-modal .btn:hover {
+    opacity: 0.8;
+}
+
+.delete-modal .cancel-btn {
+    background-color: grey;
+}
+
+.delete-modal .cancel-btn:hover {
+    background-color: darkgrey;
+}
+
+.delete-modal.visible {
+    visibility: visible;
+    opacity: 1;
+}
+.delete-modal .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #000;
+}
+
+.delete-modal .close-btn:hover {
+    color: #dc3545;
+}
+.no-scroll {
+    overflow: hidden;
+}
+
+.page-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box; 
+  }
+  
+
+.pagination  {
+    margin-top: 20px;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .pagination li {
+    margin: 0 5px;
+  }
+  
+  .pagination li a {
+    padding: 10px;
+    text-decoration: none;
+    color: #000000;
+    border: 1px solid black;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+  }
+  .pagination .disabled {
+    padding: 10px;
+    text-decoration: none;
+    color: #676767;
+    border: 1px solid #676767;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+  }
+
+  .pagination  li a:hover,
+  .pagination  li.active a {
+    background-color: rgb(0, 0, 0);
+    color: white;
+  }
+  
+
+@media (max-width: 480px) {
+    .profile-header, .dashboard-stats, .recent-activities, .artworks {
+        padding: 10px;
+    }
+
+    .stat {
+        width: 100%;
+    }
+
+    .action-buttons .btn {
+        font-size: 10px;
+        padding: 5px 10px;
+    }
+
+    .upload-modal form, .edit-modal form {
+        width: 90%;
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}

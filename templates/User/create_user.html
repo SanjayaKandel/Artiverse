@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artiverse - Create profile</title>
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/User/create_user.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Create your Profile</h1>
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group profile-picture">
+            <input type="file" id="id_profile_picture" name="profile_picture" accept="image/*" onchange="previewImage(event)" style="display: none;">
+            <label for="id_profile_picture" class="profile-picture-label">
+              <img id="profilePreview" src="{% if visitor_form.instance.profile_picture %}{{ visitor_form.instance.profile_picture.url }}{% else %}{% static 'img/default_profile.png' %}{% endif %}" alt="Profile Picture" class="profile-pic">
+              <div class="overlay">
+                <img src="{% static 'img/camera.png' %}" alt="Camera Icon" class="camera-icon">
+              </div>
+            </label>
+          </div>
+          <h1 class="img-title">Profile picture</h1>
+            <div class="form-section-wrapper">
+                <div class="section">
+                    <!-- Personal Details Section -->
+                    <h2>Personal Details</h2>
+                    <div class="form-group">
+                        {{ visitor_form.non_field_errors }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_name">Name:</label>
+                        {{ visitor_form.name }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_biography">Biography:</label>
+                        {{ visitor_form.biography }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_biography">Birthday:</label>
+                        {{ visitor_form.birth_date }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="id_biography">Occupation:</label>
+                        {{ visitor_form.occupation }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_contact_phone">Contact Phone:</label>
+                        {{ visitor_form.contact_phone }}
+                    </div>
+                </div>
+
+                <div class="section" id="billing-section">
+                    <!-- Billing Address Section -->
+                    <h2>Billing Address</h2>
+                    <div class="form-group">
+                        {{ billing_form.non_field_errors }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_country">Country:</label>
+                        {{ billing_form.country }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_state">State:</label>
+                        {{ billing_form.state }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_city">City:</label>
+                        {{ billing_form.city }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_address">Street/Tole:</label>
+                        {{ billing_form.address }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_zip_code">Zip Code:</label>
+                        {{ billing_form.zip_code }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group full-width">
+                <button type="submit" class="btn">Create</button>
+            </div>
+
+            <!-- Error Message -->
+            {% if error %}
+            <div class="form-error">
+                <p>{{ error }}</p>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('profilePreview');
+                output.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+</body>
+
+</html>

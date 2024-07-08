@@ -1,0 +1,244 @@
+.Main-container {
+    min-height: 100vh;
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 30px;
+}
+
+.cart, .order-summary {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.cart-header .select-check{
+    display: flex;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    flex-wrap: wrap;
+}
+
+input[type="checkbox"] {
+    accent-color: red;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.item-details {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+.item-details img {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+    object-fit: cover;
+}
+
+.item-details div {
+    max-width: 500px;
+}
+
+.item-details p {
+    margin: 0 0 10px;
+}
+
+.item-details h2 {
+    font-weight: lighter;
+    font-size: 24px;
+}
+
+.price {
+    color: orange;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.item-quantity {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.quantity-btn {
+    border: 1px solid #000000;
+    background-color: #fff;
+    cursor: pointer;
+    padding: 0 10px;
+    font-size: 20px;
+}
+
+.quantity-btn:hover {
+    background-color: black;
+    color: white;
+}
+
+.quantity {
+    padding: 0 10px;
+    font-size: 16px;
+}
+
+.order-summary {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.order-summary h3 {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+}
+
+.order-summary p {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 20px 0;
+}
+
+input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+}
+
+.apply-btn, .checkout-btn {
+    background-color: orange;
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.delete-btn {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 0, 0);
+    color: rgb(0, 0, 0);
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 7px;
+}
+.delete-btn:hover{
+    background-color: red;
+    columns: black
+    ;
+}
+
+@media (min-width: 992px) {
+    .container {
+        flex-direction: row;
+    }
+
+    .cart {
+        width: 60%;
+    }
+
+    .order-summary {
+        width: 35%;
+        margin: 0;
+        height: fit-content;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .cart-header h4{
+        font-size: 13px;
+        margin: 0;
+    }
+    .cart-item {
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+
+    .item-details img {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 10px;
+    }
+
+    .item-quantity {
+        margin-top: 10px;
+    }
+
+    /* Adjust text and button sizes for mobile */
+    .cart-item p, .price, .original-price, .quantity-btn, .quantity, .apply-btn, .checkout-btn, .delete-btn {
+        font-size: 14px;
+    }
+
+    .apply-btn, .checkout-btn, .delete-btn {
+        padding: 8px;
+    }
+
+    .item-details div {
+        max-width: 100%;
+    }
+
+    .item-details h2 {
+        font-size: 18px; /* Adjust title size for better fit on mobile */
+    }
+}
+
+
+@media (max-width: 551px) {
+    .item-quantity {
+        display: flex;
+    }
+
+    .item-details img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .quantity-btn {
+        padding: 0px 10px;
+        font-size: 16px;
+    }
+
+    .quantity {
+        font-size: 12px;
+        padding: 0 5px;
+    }
+
+    .item-details h2 {
+        font-size: 16px; /* Further adjust title size for very small screens */
+    }
+}
