@@ -52,8 +52,7 @@ INSTALLED_APPS = [
     'Authentication',
 ]
 SITE_ID = 1
-SITE_NAME = "Artiverse"
-DEFAULT_FROM_EMAIL = "noreply@artiverse.com"
+
 
 
 MIDDLEWARE = [
@@ -146,7 +145,6 @@ LOGIN_URL = '/auth/login/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-ACCOUNT_EMAIL_CONFIRMATION_TEMPLATE = 'account/email/email_confirmation_message.html'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Email verification
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -170,3 +168,8 @@ ACCOUNT_USERNAME_REQUIRED = False  # Do not require username
 # Redirect paths after login and logout
 LOGIN_REDIRECT_URL = '/'  # Redirect to home page after login
 ACCOUNT_LOGOUT_REDIRECT_URL = '/auth/login/'  # Redirect to home page after logout
+
+# subject prefix
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
+ACCOUNT_EMAIL_CONFIRMATION_SUBJECT = 'account/email/email_confirmation_subject.txt'
+ACCOUNT_EMAIL_CONFIRMATION_TEMPLATE = 'account/email/email_confirmation_message.html'

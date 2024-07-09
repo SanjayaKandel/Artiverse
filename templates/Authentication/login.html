@@ -44,6 +44,9 @@
             <input type="submit" value="Log in" class="btn btn-pill text-white btn-primary">
         </form>
         <div class="option-choose">
+            <span><a href="{% url 'password_reset' %}" class="forgot-password-link" style="text-align: end;">Forgot your password? </a></span>
+        </div>
+        <div class="option-choose">
             <span>New to artiverse? <a href="{% url 'register' %}" class="register-link">Register</a></span>
         </div>
     </div>
