@@ -1,0 +1,75 @@
+{% extends 'artist_base.html' %}
+{% block title %}
+About us
+{% endblock %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/Home/about.css' %}">
+<section id="home">
+    <div class="home-left">
+        <img src="{% static 'img/growth.png' %}" alt="">
+    </div>
+    <div class="home-right">
+        <h2 class="home-heading"> Grow Up Your Workflow Speed </h2>
+        <p class="home-para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta quibusdam blanditiis
+            quas assumenda nam error vel dolores suscipit ad, sapiente deleniti ipsum, obcaecati perspiciatis.</p>
+    </div>
+</section>
+
+<section id="workFlow">
+    <h2 class="heading"> Grow Up Your Workflow Speed. </h2>
+    <p class="para">Lorem ipsum dolor sit amet consectetur adipisicing elit. A, commodi sint. <br>Ipsam molestias
+        nemovel laboriosam consequatur, perferendis<br> minima soluta? Natus necessitatibus autem suscipit!</p>
+    <div class="num-container">
+        <div class="num-item"><span>27,882 <br>Customers</span></div>
+        <div class="num-item"><span>90% <br>Action Plans</span></div>
+        <div class="num-item"><span>70,592 <br>Downloads</span></div>
+    </div>
+</section>
+
+<section id="goal">
+    <div class="goal-left">
+        <h2>Our Goal</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore omnis obcaecati incidunt asperiores,
+            mollitia quibusdam velit at itaque sunt, culpa in pariatur quas, temporibus repellendus vitae! Vitae,
+            illum asperiores.</p>
+        <ul>
+            <li> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla, atque!</li>
+            <li> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla, atque!</li>
+            <li> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla, atque!</li>
+        </ul>
+        <a href="" class="btn"> Contact Us</a>
+    </div>
+    <div class="goal-right">
+        <img src="{%static 'img/goal.png'%}" alt="">
+    </div>
+</section>
+
+<section id="our-Team">
+    <h2>Our Member</h2>
+    <div class="teamContainer">
+        <div class="team-item">
+            <img src="./teamMember.png" alt="">
+            <h5 class="member-name">John Smith</h5>
+            <span class="role">seo expert</span>
+        </div>
+        <div class="team-item">
+            <img src="./teamMember.png" alt="">
+            <h5 class="member-name">John Smith</h5>
+            <span class="role">seo expert</span>
+        </div>
+        <div class="team-item">
+            <img src="./teamMember.png" alt="">
+            <h5 class="member-name">John Smith</h5>
+            <span class="role">seo expert</span>
+        </div>
+        <div class="team-item">
+            <img src="./teamMember.png" alt="">
+            <h5 class="member-name">John Smith</h5>
+            <span class="role">seo expert</span>
+        </div>
+    </div>
+</section>
+
+<script src="{% static 'js/explore.js' %}"></script>
+{% endblock %}

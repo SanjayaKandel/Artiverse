@@ -32,7 +32,7 @@ def create_artist_profile(request):
                 
                 return render(request, 'Artists/create_artist.html', {'form': form, 'error': 'Artist profile could not be created due to a database error.'})
     else:
-        form = ArtistForm()
+        form = ArtistForm(instance=artist)
     return render(request, 'Artists/create_artist.html', {'form': form})
 @login_required
 def update_artist_profile(request):
@@ -48,3 +48,16 @@ def update_artist_profile(request):
         form = ArtistForm(instance=artist_profile)
 
     return render(request, 'Artists/update_artist_profile.html', {'form': form})
+
+
+def about_page(request):
+    user=request.user
+    profile = None
+    if user.is_authenticated:
+        try:
+            profile = Artist.objects.get(user=user)
+        except Artist.DoesNotExist:
+            pass
+        
+    return render(request, 'Artists/about.html',{'profile': profile})
+

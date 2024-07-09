@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-{% load static %}
+{%load static%}
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Artist Profile</title>
+  <title>Artiverse - Create Artist</title>
   <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
   <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
   <link rel="stylesheet" href="{% static 'css/Artists/create_artist.css' %}">
@@ -23,14 +23,14 @@
         <input type="file" id="id_profile_picture" name="profile_picture" accept="image/*"
           onchange="previewImage(event)" style="display: none;">
         <label for="id_profile_picture" class="profile-picture-label">
-          <img id="profilePreview" src="{% static 'img/default_profile.png' %}" alt="Profile Picture"
-            class="profile-img">
+          <img id="profilePreview"
+            src="{% if form.instance.profile_picture %}{{ form.instance.profile_picture.url }}{% else %}{% static 'img/default_profile.jpg' %}{% endif %}"
+            alt="Profile Picture" class="profile-img">
           <div class="overlay">
             <img src="{% static 'img/camera.png' %}" alt="Camera Icon" class="camera-icon">
           </div>
         </label>
       </div>
-
       <div class="form-group">
         <label for="id_name">Name:</label>
         {{ form.name }}
@@ -44,8 +44,20 @@
         {{ form.category }}
       </div>
       <div class="form-group">
-        <label for="id_contact_email">Contact Email:</label>
-        {{ form.contact_email }}
+        <label for="id_age">Age:</label>
+        {{ form.age }}
+      </div>
+      <div class="form-group">
+        <label for="id_country">Country:</label>
+        {{ form.country }}
+      </div>
+      <div class="form-group">
+        <label for="id_street">Street/Tole:</label>
+        {{ form.street }}
+      </div>
+      <div class="form-group">
+        <label for="id_ward_no">Ward:</label>
+        {{ form.ward_no }}
       </div>
       <div class="form-group">
         <label for="id_contact_phone">Contact Phone:</label>
@@ -55,14 +67,12 @@
         <label for="id_website">Website:</label>
         {{ form.website }}
       </div>
-
       <div class="form-group">
         <label for="id_social_links">Social Links:</label>
         {{ form.social_links }}
       </div>
-
       <div class="form-group">
-        <button type="submit" class="btn">Create Profile</button>
+        <button type="submit" class="btn">Save</button>
       </div>
       {% if error %}
       <div class="form-error">

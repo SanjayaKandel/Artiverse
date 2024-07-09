@@ -129,8 +129,7 @@ def user_profile(request):
         'billing': billing_address,
         'wishlisted_artworks': wishlisted_artworks
     }
-    # return render(request, 'User/user_profile.html', context)
-    return render(request, 'User/test_user.html', context)
+    return render(request, 'User/user_profile_page.html', context)
 
 @login_required
 def billing_address(request):

@@ -5,7 +5,7 @@ import json
 class ArtistForm(forms.ModelForm):
     class Meta:
         model = Artist
-        fields = ['name', 'biography', 'profile_picture','category','age','country','street','ward_no', 'contact_email', 'contact_phone', 'website', 'social_links']
+        fields = ['name', 'biography', 'profile_picture','category','age','country','street','ward_no', 'contact_phone', 'website', 'social_links']
         
         
 def clean_social_links(self):

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .wrapper {
+            position: relative;
+            background-color: white;
+            width: 600px;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .bg__text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 150px;
+            font-weight: 900;
+            color: #f0f0f0;
+            opacity: 0.5;
+            z-index: -1;
+            white-space: nowrap;
+        }
+        .button {
+            background-color: #ffffff;
+            border: none;
+            color: #000000;
+            border: 1px solid black;
+            padding: 15px 32px;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #000000;
+            color:white;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="bg__text">ARTIVERSE</div>
+        <h1>Email Verification</h1>
+        <p>Hello {{ user.username }},</p>
+        <p>Thank you for registering on Artiverse. Please click the button below to verify your email address and activate your account:</p>
+        <p><a href="{{ activate_url }}" class="button">Verify Email</a></p>
+        <p>If you did not register for this account, please ignore this email.</p><br>
+        <p>Thank you!</p>
+        <p>- Team Artiverse</p>
+    </div>
+</body>
+</html>

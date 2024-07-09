@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verified</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .wrapper {
+            position: relative;
+            background-color: white;
+            width: 600px;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .bg__text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 150px;
+            font-weight: 900;
+            color: #f0f0f0;
+            opacity: 0.5;
+            z-index: -1;
+            white-space: nowrap;
+        }
+        .container h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .container p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .button {
+            background-color: #ffffff;
+            color: #000000;
+            border: 1px solid black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #000000;
+            color:white;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="bg__text">ARTIVERSE</div>
+        <h1>Email Verified Successfully!!</h1>
+        <p>Dear {{user.username}},</p>
+        <p>Thank you for verifying your email address. Your account is now activated. You can be redirected to the login page by clicking the button below</p>
+        <a href="{% url 'login_view' %}" class="button">Log In</a>
+    </div>
+</body>
+</html>

@@ -1,43 +1,142 @@
 {% extends 'artist_base.html' %}
 {% block content %}
 {% load static %}
-<link rel="stylesheet" href="{%static 'css/Artists/artist_profile.css'%}">
-<div class="profile-container">
-    <img src="{% if artist.profile_picture %}{{ artist.profile_picture.url }}{% else %}{% static 'img/no_user.jpg' %}{% endif %}" alt="Profile Picture" class="profile-pic" id="profilePic">
-    <div class="profile-text">
-        {% if artist.name %} 
-        <h1>{{ artist.name }}</h1>
-        {% else %}
-        <h1>{{ user.username }}</h1>
-        {% endif %}
-        
-        {% if artist.biography %} 
-        <p>{{ artist.biography }}</p>
-        {% else %}
-        <p>No Bio Yet...</p>
-        {% endif %}
-        
-        <p><strong>Contact Email:</strong> <a href="mailto:{{ artist.contact_email }}">{{ artist.contact_email }}</a></p>
-        <p><strong>Contact Phone:</strong> {{ artist.contact_phone }}</p>
-        <p><strong>Website:</strong> <a href="{{ artist.website }}" target="_blank">{{ artist.website }}</a></p>
-        
-        {% if artist.social_links %}
-        <div class="social-links">
-            <h2>Social Links</h2>
-            <ul>
-                {% for key, value in artist.social_links.items %}
-                <li><a href="{{ value }}" target="_blank">{{ key }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-    </div>
-</div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ti-icons@0.1.2/css/themify-icons.css">
+<link rel="stylesheet" href="{% static 'css/User/artist_view.css' %}">
 
-<!-- Modal for full-size image -->
-<div id="imageModal" class="modal">
-    <span class="close">&times;</span>
-    <img class="modal-content" id="modalImage">
-</div>
-<script src="{%static 'js/artist_profile.js'%}"></script>
+<section class="Main__wrapper">
+    <div class="container content__wrapper">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-4 mb-5 mb-lg-0 wow fadeIn">
+                <div class="card border-0 profile__shadow">
+                    <img src="{% if artist.profile_picture %}{{ artist.profile_picture.url }}{% else %}{% static 'img/default_profile.jpg' %}{% endif %}"
+                        alt="...">
+                    <div class="card-body p-1-9 p-xl-5">
+                        <div class="mb-4" style="text-align: center;">
+                            <h3 class="h5 mb-2 text-dark" style="font-weight: 600;">{{artist.name}}</h3>
+                            <span class="text-secondary" > {{artist.category}}</span>
+                        </div>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-3"><a href="mailto:{{user.email}}" class="text-primary" style="text-decoration: none;"><i
+                                        class="far fa-envelope display-25 me-3 text-secondary pr-2"></i>
+                                    {{user.email}}</a></li>
+                            <li class="mb-3"><a href="tel:{{artist.contact_phone}}" class="text-primary" style="text-decoration: none;"><i
+                                        class="fas fa-mobile-alt display-25 me-3 text-secondary pr-2"></i>
+                                    {{artist.contact_phone}}</a></li>
+                            <li><a href="#!" class="text-primary" style="text-decoration: none;"><i class="fas fa-map-marker-alt display-25 me-3 text-secondary pr-2" ></i>
+                                {%if artist%}{{artist.street}}-{{artist.ward_no}}, {{artist.country}}{%else%} <p>No address to show</p> {%endif%} </a></li>
+                                    
+                        </ul>
+                        <ul class="social-icon-style2 ps-0">
+                            <li><a href="#!" class="rounded-3"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#!" class="rounded-3"><i class="fab fa-linkedin-in"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="ps-lg-1-6 ps-xl-5">
+                    <div class="mb-5 wow fadeIn artist__div_style">
+                        <div class="text-start mb-1-6 wow fadeIn">
+                            <h2 class="h1 mb-0 text-primary header__text">About me</h2>
+                        </div>
+                        <p style="text-align: center;">{{artist.biography}}</p>
+                        
+                    </div>
+                    <div class="mb-5 wow fadeIn artist__div_style">
+                        <div class="text-start mb-1-6 wow fadeIn">
+                            <h2 class="h1 mb-0 text-primary header__text">Personal Details</h2>
+                        </div>
+                        <div class="row about-list">
+                            <div class="col-md-6">
+                                <div class="media">
+                                    <p><span>Age</span>: {{artist.age}}</p>
+                                </div>
+                                <div class="media">
+                                    <p><span>Address</span>: {{artist.street}}-{{artist.ward_no}}, {{artist.country}}</p>
+                                </div>
+                                <div class="media">
+                                    <p><span>Email</span>: {{user.email}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="media">
+                                    <p><span>Phone</span>: {{artist.contact_phone}}</p>
+                                </div>
+                                <div class="media">
+                                    <p><span>Website </span>: {{artist.website}}</p>
+                                </div>
+                                <div class="media">
+                                    <p><span>Category</span>: {{artist.category}}</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>                        
+                    <div class="mb-5 wow fadeIn artist__div_style">
+                        <div class="text-start mb-1-6 wow fadeIn">
+                            <h2 class="mb-0 text-primary header__text">Artistic Journey</h2>
+                        </div>
+                        <div class="row mt-n4">
+                            <div class="col-sm-6 col-xl-4 mt-4">
+                                <div class="card text-center border-0 rounded-3">
+                                    <div class="card-body">
+                                        <i class="ti-bookmark-alt icon-box medium rounded-3 mb-4"></i>
+                                        <h3 class="h5 mb-3">Creations</h3>
+                                        <p>Total artworks: {{ art_count }}</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-6 col-xl-4 mt-4">
+                                <div class="card text-center border-0 rounded-3">
+                                    <div class="card-body">
+                                        <i class="ti-medall-alt icon-box medium rounded-3 mb-4"></i>
+                                        <h3 class="h5 mb-3">Experience</h3>
+                                        <p class="mb-0">{{artist.experience}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-xl-4 mt-4">
+                                <div class="card text-center border-0 rounded-3">
+                                    <div class="card-body">
+                                        <i class="ti-medall-alt icon-box medium rounded-3 mb-4"></i>
+                                        <h3 class="h5 mb-3">Experience</h3>
+                                        <p class="mb-0">lorem150</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wow fadeIn">
+                        <div class="text-start mb-1-6 wow fadeIn">
+                            <h2 class="mb-0 text-primary header__text">Latest artworkss</h2>
+                        </div>
+                        <section class="articles">
+                            {% for art in arts %}
+                            <article>
+                                <div class="article-wrapper">
+                                    <figure>
+                                        <img src="{{ art.image }}" alt="{{ art.title }}">
+                                    </figure>
+                                    <div class="article-body">
+                                        <h2>{{ art.title }}</h2>
+                                        <p class="desc__width">{{ art.year_created }}</p>
+                                        <a href="{% url art_details id=art.id %}" class="read-more">
+                                            Read more <span class="sr-only">about this artwork</span>
+                                            
+                                        </a>
+                                    </div>
+                                </div>
+                            </article>
+                            {% endfor %}
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

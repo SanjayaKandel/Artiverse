@@ -126,6 +126,41 @@
 .single_advisor_profile:focus .single_advisor_details_info p {
     color: #ffffff;
 }
+
+.error-container {
+    max-width: 600px;
+    padding: 20px;
+    margin: auto;
+}
+
+.error-title {
+    font-size: 72px;
+    color: #ff7e30;
+}
+
+.error-subtitle {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.error-text {
+    color: #6c757d;
+    margin-bottom: 30px;
+}
+
+.btn-chat {
+    background-color: #ff7e30;
+    color: white;
+}
+
+.btn-chat:hover {
+    background-color: #ff5a00;
+}
+
+.error-image {
+    max-width: 100%;
+    height: auto;
+}
 /* Media queries */
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {

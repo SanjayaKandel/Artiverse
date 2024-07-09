@@ -13,9 +13,11 @@
             </div>
         </div>
     </div>
+    {%if arts%}
     <div class="Featured-arts">
         <h1>Popular now</h1>
     </div>
+    {%endif%}
     <div id="page2-main">
         {% for art in arts %}
         <div class="arts" id="art{{ forloop.counter }}">
@@ -32,10 +34,12 @@
         </div>
         {% endfor %}
     </div>
-    
+
+    {%if user.is_authenticated%}
     <div id="explore-link">
         <a href="{% url 'explore' %}"><span>Explore more Arts</span></a>
     </div>
+    {%endif%}
     <div class="floating-button-div">
         <a href="#" class="fb">Virtual tour</a>
       </div>  

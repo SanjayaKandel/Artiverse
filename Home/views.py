@@ -194,14 +194,14 @@ def search(request):
 
 @login_required
 def artist_list(request):
-    artists = get_list_or_404(Artist)
-    user=request.user
+    artists = Artist.objects.all()
+    user = request.user
+    profile = None
     try:
         profile = Visitor.objects.get(user=user)
     except Visitor.DoesNotExist:
         pass
-    return render(request, 'Home/artist_list.html', {'artists': artists, 'profile':profile})
-
+    return render(request, 'Home/artist_list.html', {'artists': artists, 'profile': profile})
 
 
 def about_page(request):
@@ -215,8 +215,6 @@ def about_page(request):
         
     return render(request, 'Home/about.html',{'profile': profile})
 
-def error_403(request):
-    return render(request, '403.html', status=403)
 
 
 @login_required

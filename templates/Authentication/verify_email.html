@@ -1,0 +1,90 @@
+{% extends '_base.html' %}  
+{% block content %}
+<style>
+    .main__body__wrapper {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .wrapper {
+        position: relative;
+        width: 90%;
+        max-width: 700px;
+        text-align: center;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        margin: auto;
+        min-height: 300px;
+    }
+    .bg__text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 10vw;
+        font-weight: 900;
+        color: #f0f0f0;
+        opacity: 0.5;
+        z-index: -1;
+        white-space: nowrap;
+    }
+    .container h1 {
+        font-size: 6vw;
+        margin: 20px;
+    }
+    .container p {
+        font-size: 4vw;
+        margin-bottom: 20px;
+    }
+    .button {
+        background-color: #ffffff;
+        color: #000000;
+        border: 1px solid black;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 4vw;
+    }
+    .button:hover {
+        background-color: #000000;
+        color: white;
+    }
+
+    @media (min-width: 768px) {
+        .bg__text {
+            font-size: 50px;
+        }
+        .container h1 {
+            font-size: 28px;
+        }
+        .container p {
+            font-size: 18px;
+        }
+        .button {
+            font-size: 16px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .wrapper {
+            width: 60%;
+            max-width: 700px;
+            padding: 20px;
+        }
+        .bg__text {
+            font-size: 100px;
+        }
+    }
+</style>
+<section class="main__body__wrapper">
+    <div class="wrapper">
+        <div class="bg__text">ARTIVERSE</div>
+        <h1>Email Verification</h1>
+        <p>Email verification link has been sent successfully to your email.</p>
+        <p><a href="https://mail.google.com/" target="_blank">Click here</a> to confirm your email</p>
+    </div>
+</section>
+{% endblock %}

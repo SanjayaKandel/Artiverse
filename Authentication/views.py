@@ -1,57 +1,67 @@
-from django.shortcuts import render, redirect,get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse, reverse_lazy
 from django.core.paginator import Paginator
-from .forms import SignUpForm, LoginForm
-from django.contrib.auth import authenticate, login,logout
-from Artworks .models import Artwork
-from .models import Artist
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-# Create your views here.
+from allauth.account.utils import send_email_confirmation
+from allauth.account.models import EmailAddress
+from allauth.account.views import ConfirmEmailView
+from .forms import SignUpForm, LoginForm
+from Artworks.models import Artwork
+from .models import Artist
 
 def register(request):
     msg = None
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            msg = 'user created'
-            return redirect('login_view')
+            user = form.save(commit=False)
+            user.is_active = False  # Deactivate account until email is verified
+            user.save()
+            key = send_email_confirmation(request, user)
+            
+            msg = 'User created. Please check your email for verification instructions.'
+            
+            # Reverse the URL with the `key` argument
+            url = reverse('verify_email', kwargs={'key': key})
+            
+            # Redirect to the verification URL
+            return redirect(url)
         else:
-            msg = 'form is not valid'
+            msg = 'Form is not valid'
     else:
         form = SignUpForm()
-    return render(request,'Authentication/register.html', {'form': form, 'msg': msg})
-
+    return render(request, 'Authentication/register.html', {'form': form, 'msg': msg})
 
 def login_view(request):
     form = LoginForm(request.POST or None)
     msg = None
+
     if request.method == 'POST':
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
-            if user is not None and user.is_admin:
-                login(request, user)
-                return redirect('user_dashboard')
-            elif user is not None and user.is_user:
-                login(request, user)
-                return redirect('index')
-            elif user is not None and user.is_artist:
-                login(request, user)
-                return redirect('artist')
+
+            if user is not None:
+                if user.is_active:
+                    if user.is_admin:
+                        login(request, user)
+                        return redirect('user_dashboard')  # Redirect admin to admin dashboard
+                    elif user.is_user:
+                        login(request, user)
+                        return redirect('index')  # Redirect regular user to index page
+                    elif user.is_artist:
+                        login(request, user)
+                        return redirect('artist')  # Redirect artist to their profile or dashboard
+                else:
+                    msg = 'Please verify your email address to activate your account.'
             else:
-                msg= 'invalid credentials'
+                msg = 'Invalid credentials'
         else:
-            msg = 'error validating form'
+            msg = 'Error validating form'
+
     return render(request, 'Authentication/login.html', {'form': form, 'msg': msg})
-
-
-def admin(request):
-    return render(request,'Authentication/admin.html')
-
-
-def user(request):
-    return render(request,'Home/index.html')
 
 @login_required
 def artist(request):
@@ -73,7 +83,34 @@ def artist(request):
     }
     return render(request, 'Artists/artist_dashboard.html', context)
 
+
 @login_required
 def logout_view(request):
     logout(request)
     return redirect('login_view')
+
+class VerifyEmail(ConfirmEmailView):
+    template_name = 'Authentication/verify_email.html'
+    success_url = '/'
+
+    def post(self, *args, **kwargs):
+        response = super().post(*args, **kwargs)
+        user = self.request.user
+        user.is_active = True
+        user.save()
+        return response
+
+class CustomConfirmEmailView(ConfirmEmailView):
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.confirm(self.request)
+        user = self.object.email_address.user
+        user.is_active = True
+        user.save()
+        return redirect(reverse_lazy('verify_email_success'))
+
+def admin(request):
+    return render(request, 'Authentication/admin.html')
+
+def user(request):
+    return render(request, 'Home/index.html')

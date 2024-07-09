@@ -39,6 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     #MY APPS
     'Home',
     'Admin',
@@ -47,6 +51,10 @@ INSTALLED_APPS = [
     'Artists',
     'Authentication',
 ]
+SITE_ID = 1
+SITE_NAME = "Artiverse"
+DEFAULT_FROM_EMAIL = "noreply@artiverse.com"
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'artiverse.urls'
@@ -137,5 +146,27 @@ LOGIN_URL = '/auth/login/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
+ACCOUNT_EMAIL_CONFIRMATION_TEMPLATE = 'account/email/email_confirmation_message.html'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Email verification
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'artiverseverify@gmail.com'
+EMAIL_HOST_PASSWORD = 'kybz tmez qvir kyta'
+DEFAULT_FROM_EMAIL = 'artiverseverify@gmail.com'
+
+# Idk what is this
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # Require email verification
+ACCOUNT_EMAIL_REQUIRED = True  # Require email when signing up
+ACCOUNT_USERNAME_REQUIRED = False  # Do not require username
+
+# Redirect paths after login and logout
+LOGIN_REDIRECT_URL = '/'  # Redirect to home page after login
+ACCOUNT_LOGOUT_REDIRECT_URL = '/auth/login/'  # Redirect to home page after logout
