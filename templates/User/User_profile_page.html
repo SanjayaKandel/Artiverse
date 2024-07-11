@@ -1,6 +1,7 @@
 {% extends '_base.html' %}
 {% block content %}
 {% load static %}
+<link rel="stylesheet" href="{%static 'css/popup/popup.css'%}">
 <link rel="stylesheet" href="{% static 'css/User/user_profile.css' %}">
 <section class="profile__content">
     <div class="container">
@@ -93,4 +94,12 @@
         </div>
     </div>
 </section>
+{% if messages %}
+<div id="messages" style="display: none;">
+    {% for message in messages %}
+        <div class="info_message">{{ message }}</div>
+    {% endfor %}
+</div>
+<script src="{% static 'css/popup/login_success.js' %}"></script>
+{% endif %}
 {% endblock %}

@@ -9,9 +9,7 @@
     <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
 
     <!-- Icons and stylesheets -->
-    <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{%static 'css/popup/popup.css'%}">
     <link rel="stylesheet" href="{% static 'css/Authentication/login.css' %}">
     <title>Artiverse- Login</title>
 </head>
@@ -41,7 +39,7 @@
                 <label for="password">Password</label>
                 {{ form.password }}
             </div>
-            <input type="submit" value="Log in" class="btn btn-pill text-white btn-primary">
+            <button type="submit" class="btn">Login</button>
         </form>
         <div class="option-choose">
             <span><a href="{% url 'password_reset' %}" class="forgot-password-link" style="text-align: end;">Forgot your password? </a></span>
@@ -51,11 +49,14 @@
         </div>
     </div>
 </div>
-
-<!-- JavaScript files -->
-<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-<script src="{% static 'js/popper.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
+{% if messages %}
+<div id="messages" style="display: none;">
+    {% for message in messages %}
+        <div class="message">{{ message }}</div>
+    {% endfor %}
+</div>
+<script src="{% static 'css/popup/login_success.js' %}"></script>
+{% endif %}
 <script src="{% static 'js/login.js' %}"></script>
 </body>
 </html>

@@ -170,6 +170,7 @@ LOGIN_REDIRECT_URL = '/'  # Redirect to home page after login
 ACCOUNT_LOGOUT_REDIRECT_URL = '/auth/login/'  # Redirect to home page after logout
 
 # subject prefix
-ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
+ACCOUNT_EMAIL_SUBJECT_PREFIX = '["Artiverse"]'
 ACCOUNT_EMAIL_CONFIRMATION_SUBJECT = 'account/email/email_confirmation_subject.txt'
 ACCOUNT_EMAIL_CONFIRMATION_TEMPLATE = 'account/email/email_confirmation_message.html'
+

@@ -23,8 +23,9 @@
     <div id="main">
         <div id="page1">
             <nav id="navbar">
-                <a href="{% url 'index' %}"><img class="animate-navbar-js logo-img" src="{% static 'img/logo.png' %}"
-                        alt="Artiverse Logo"></a>
+                <a href="{% url 'index' %}">
+                    <img class="animate-navbar-js logo-img" src="{% static 'img/logo.png' %}" alt="Artiverse Logo">
+                </a>
                 <div id="nav-part2" class="animate-navbar-js">
                     <div class="menu-icon animate-navbar-js" onclick="toggleMenu()">
                         <div class="bar"></div>
@@ -34,49 +35,46 @@
                     <div id="menu-links">
                         <h4><a href="{% url 'index' %}"><i class="fa-solid fa-house"></i> Home</a></h4>
                         <h4><a href="{% url 'explore' %}"><i class="fa-solid fa-earth-americas"></i> Explore</a></h4>
-                        <h4><a href="{% url 'artist_list' %}"><i class="fa-solid fa-user-pen"></i>
-                            Artists</a>
-                        </h4>
-                        <h4><a href="{% url 'about' %}"><i class="fa-solid fa-circle-info"></i>About</a></h4>
-                        <h4><a href="{% url 'cart_view' %}"><i class="fa-solid fa-cart-shopping"></i>Cart</a></h4>
-
-                        {% if user.is_authenticated and not user.is_artist and not user.is_admin%}
+                        <h4><a href="{% url 'artist_list' %}"><i class="fa-solid fa-user-pen"></i> Artists</a></h4>
+                        <h4><a href="{% url 'about' %}"><i class="fa-solid fa-circle-info"></i> About</a></h4>
+                        <h4><a href="{% url 'cart_view' %}"><i class="fa-solid fa-cart-shopping"></i> Cart</a></h4>
+    
+                        {% if user.is_authenticated and not user.is_artist and not user.is_admin %}
                         <div class="profile-dropdown">
                             <div onclick="toggle()" class="profile-dropdown-btn">
-                              
-                                <img src="{% if profile.profile_picture %}{{ profile.profile_picture.url }}{% else %}{% static 'img/no user.jpg' %}{% endif %}" alt="{{user.username}}">
-
+                                <img src="{% if profile.profile_picture %}{{ profile.profile_picture.url }}{% else %}{% static 'img/no user.jpg' %}{% endif %}" alt="{{ user.username }}">
                             </div>
+                        </div>
+                        </div>
                             <ul class="profile-dropdown-list">
                                 <li>
-                                    <p><a href="{%url 'user_profile'%}"> 
-                                        {%if profile.name%} 
-                                        {{profile.name}}
-                                        {%else%}
-                                        {{user.username}}
-                                        {%endif%}</a>
+                                    <p><a href="{% url 'user_profile' %}"> 
+                                        {% if profile.name %}
+                                        {{ profile.name }}
+                                        {% else %}
+                                        {{ user.username }}
+                                        {% endif %}
+                                    </a></p>
                                 </li>
-                                <li class="profile-dropdown-list-item"><a href="{%url 'user_profile'%}"><i
-                                            class="fa-regular fa-user"></i> View Profile</a></li>
-                                            <li class="profile-dropdown-list-item"><a href="{% url 'exhibition_list' %}"><i class="fa-solid fa-landmark"></i> Exhibitions</a></li>
-                                <li class="profile-dropdown-list-item"><a href="#"><i class="fa-regular fa-star"></i></i> Favourites</a></li>
-                                <li class="profile-dropdown-list-item"><a href="#"><i class="fa-solid fa-clock-rotate-left"></i> ordered history</a></li>
-                                <li class="profile-dropdown-list-item"><a href="#"><i
-                                            class="fa-regular fa-circle-question"></i> Help & Support</a></li>
-                                <hr />
-                                <li class="profile-dropdown-list-item"><a href="{% url 'logout_view' %}"><i
-                                            class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a></li>
+                                <li class="profile-dropdown-list-item"><a href="{% url 'user_profile' %}"><i class="fa-regular fa-user"></i> View Profile</a></li>
+                                <li class="profile-dropdown-list-item"><a href="{% url 'exhibition_list' %}"><i class="fa-solid fa-landmark"></i> Exhibitions</a></li>
+                                <li class="profile-dropdown-list-item"><a href="#"><i class="fa-regular fa-star"></i> Favourites</a></li>
+                                <li class="profile-dropdown-list-item"><a href="#"><i class="fa-solid fa-clock-rotate-left"></i> Ordered History</a></li>
+                                <li class="profile-dropdown-list-item"><a href="#"><i class="fa-regular fa-circle-question"></i> Help & Support</a></li>
+                                <hr>
+                                <li class="profile-dropdown-list-item"><a href="{% url 'logout_view' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a></li>
                             </ul>
-                        </div>
+                        
                         {% else %}
-                        <h4 id="signup-link"><a href="{% url 'login_view' %}"><i class="fa-solid fa-user-plus"></i>Sign
-                                in</a></h4>
+                        <h4 id="signup-link"><a href="{% url 'login_view' %}"><i class="fa-solid fa-user-plus"></i> Sign in</a></h4>
                         {% endif %}
-                    </div>
+                    
                 </div>
             </nav>
         </div>
     </div>
+    
+    
     {% block content %}
 
     {% endblock %}

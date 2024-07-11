@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .forms import ArtistForm
 from django.db import IntegrityError
+from django.contrib import messages
 # Create your views here.
 @login_required
 def artist_artwork(request):
@@ -27,6 +28,7 @@ def create_artist_profile(request):
                 artist = form.save(commit=False)
                 artist.user = user
                 artist.save()
+                messages.success(request, 'Profile Created Successfully!')
                 return redirect('artist_profile')
             except IntegrityError:
                 
@@ -43,7 +45,8 @@ def update_artist_profile(request):
         form = ArtistForm(request.POST, request.FILES, instance=artist_profile)
         if form.is_valid():
             form.save()
-            return redirect('artist_profile')  # Redirect to a success page or profile page
+            messages.success(request, 'Profile Updated Successfully!', extra_tags='profile_update')
+            return redirect('artist_profile')
     else:
         form = ArtistForm(instance=artist_profile)
 

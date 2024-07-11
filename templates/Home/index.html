@@ -1,6 +1,7 @@
 {%extends '_base.html'%}
 {%block content%}
 {%load static%}
+<link rel="stylesheet" href="{%static 'css/popup/popup.css'%}">
     <div class="videos">
         <video autoplay loop muted src="{% static 'img/introvid.mp4' %}"></video>
         <div id="center">
@@ -43,4 +44,12 @@
     <div class="floating-button-div">
         <a href="#" class="fb">Virtual tour</a>
       </div>  
+      {% if messages %}
+    <div id="messages" style="display: none;">
+        {% for message in messages %}
+            <div class="message">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+<script src="{% static 'css/popup/login_success.js' %}"></script>
     {%endblock%}

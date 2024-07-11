@@ -1,6 +1,7 @@
 {% extends '_base.html' %}
 {% block content %}
 {% load static %}
+<link rel="stylesheet" href="{%static 'css/popup/popup.css'%}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ti-icons@0.1.2/css/themify-icons.css">
 <link rel="stylesheet" href="{% static 'css/User/artist_view.css' %}">
 
@@ -139,4 +140,13 @@
         </div>
     </div>
 </section>
+{% if messages %}
+<div id="messages">
+    {% for message in messages %}
+        {% if message.extra_tags == 'profile_update' %}
+            <div class="info_message">{{ message }}</div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endif %}
 {% endblock %}

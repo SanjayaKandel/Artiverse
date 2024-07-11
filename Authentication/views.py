@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from allauth.account.utils import send_email_confirmation
-from allauth.account.models import EmailAddress
+from django.contrib import messages
 from allauth.account.views import ConfirmEmailView
 from .forms import SignUpForm, LoginForm
 from Artworks.models import Artwork
@@ -28,12 +28,14 @@ def register(request):
             url = reverse('verify_email', kwargs={'key': key})
             
             # Redirect to the verification URL
+            messages.success(request, 'Registered Successfully!')
             return redirect(url)
         else:
             msg = 'Form is not valid'
     else:
         form = SignUpForm()
     return render(request, 'Authentication/register.html', {'form': form, 'msg': msg})
+
 
 def login_view(request):
     form = LoginForm(request.POST or None)
@@ -47,15 +49,16 @@ def login_view(request):
 
             if user is not None:
                 if user.is_active:
+                    login(request, user)
                     if user.is_admin:
-                        login(request, user)
-                        return redirect('user_dashboard')  # Redirect admin to admin dashboard
+                        messages.success(request, 'Welcome Admin!')
+                        return redirect('user_dashboard')  
                     elif user.is_user:
-                        login(request, user)
-                        return redirect('index')  # Redirect regular user to index page
+                        messages.success(request, 'Logged in Successfully!')
+                        return redirect('index')  
                     elif user.is_artist:
-                        login(request, user)
-                        return redirect('artist')  # Redirect artist to their profile or dashboard
+                        messages.success(request, 'Logged in Successfully!', extra_tags='login')
+                        return redirect('artist')  
                 else:
                     msg = 'Please verify your email address to activate your account.'
             else:
@@ -88,6 +91,7 @@ def artist(request):
 
 @login_required
 def logout_view(request):
+    messages.success(request, 'Logged out Successfully!')
     logout(request)
     return redirect('login_view')
 
@@ -140,3 +144,7 @@ class CustomPasswordChangeView(auth_views.PasswordChangeView):
     template_name = 'registration/password_change_form.html'
     success_url = reverse_lazy('user_profile')
     form_class = CustomPasswordChangeForm
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Password Changed Successfully')
+        return super().form_valid(form)

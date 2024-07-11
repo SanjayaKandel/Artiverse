@@ -7,7 +7,8 @@ Artist List
 {% block content %}
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/Home/artist_list.css' %}">
-<div class="container">
+<section class="wrapper">
+<div class="container ">
 	{% if artists %}
 	<div class="row justify-content-center">
 		<div class="col-12 col-sm-8 col-lg-6">
@@ -58,5 +59,6 @@ Artist List
 		</div>
         {% endif %}
 </div>
+</section>
 
 {% endblock %}

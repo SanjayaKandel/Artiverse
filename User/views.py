@@ -8,6 +8,7 @@ from . models import BillingAddress
 from Artworks . models import Wishlist
 from Authentication . models import Artist
 from Artworks .models import Artwork
+from django.contrib import messages
 
 # Create your views here.
 
@@ -66,8 +67,8 @@ def create_user(request):
                 if not billing_address.user:
                     billing_address.user = user
                 billing_address.save()
-
-                return redirect('user_profile')  # Redirect to a success page
+                messages.success(request, 'Profile Created Successfully!')
+                return redirect('user_profile')
             except IntegrityError:
                 return render(request, 'User/create_user.html', {
                     'visitor_form': visitor_form,
@@ -96,12 +97,13 @@ def update_user(request):
         if form.is_valid():
             try:
                 if visitor:
-                    form.save()  # Update existing visitor profile
+                    form.save()  
                 else:
                     visitor = form.save(commit=False)
                     visitor.user = user
-                    visitor.save()  # Create new visitor profile
-                return redirect('user_profile')  # Redirect to a success page
+                    visitor.save()  
+                messages.success(request, 'Profile Updated Successfully!')
+                return redirect('user_profile') 
             except IntegrityError:
                 return render(request, 'User/update_user.html', {'form': form, 'error': 'Visitor profile could not be created due to a database error.'})
     else:
@@ -145,6 +147,7 @@ def billing_address(request):
             billing_address = form.save(commit=False)
             billing_address.user = user
             billing_address.save()
+            messages.success(request, 'Billing address updated Successfully!')
             return redirect('user_profile') 
     else:
         form = BillingAddressForm(instance=billing_address)

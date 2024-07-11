@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseForbidden
 from django.http import JsonResponse
+from User.models import Visitor
 # Create your views here.
 @login_required
 def artwork_create(request):
@@ -36,6 +37,7 @@ def artwork_update(request, id):
         form = ArtworkForm(request.POST, request.FILES, instance=artwork)
         if form.is_valid():
             form.save()
+            messages.success(request, f"Artwork '{artwork.title}' Updated successfully!")
             return redirect('artist')
     else:
         form = ArtworkForm(instance=artwork)
@@ -55,13 +57,24 @@ def artwork_delete(request, id):
          return HttpResponseForbidden("<div style='text-align: center; font-size: 24px; color:red;'>404 Error !! <br> You are not authorized to delete artworks.</div>")
     if request.method == 'POST':
         artwork.delete()
+        messages.success(request, f"Artwork '{artwork.title}' Deleted successfully!")
     return redirect('artist')
 
 
 def art_details(request, id):
-    artwork = get_object_or_404(Artwork, pk=id)
+    user = request.user
+    try:
+        profile = Visitor.objects.get(user=user)
+    except Visitor.DoesNotExist:
+        profile = None
+
+    artwork = get_object_or_404(Artwork, id=id)
+    artist = artwork.artist
+
     context = {
-        'artwork': artwork
+        'artist': artist,
+        'artwork': artwork,
+        'profile': profile,
     }
     return render(request, 'Artworks/view_artwork.html', context)
 
@@ -73,12 +86,10 @@ def toggle_wishlist(request, id):
 
     if artwork in wishlist.artworks.all():
         wishlist.artworks.remove(artwork)
-        added = False
     else:
         wishlist.artworks.add(artwork)
-        added = True
 
-    return JsonResponse({'added': added})
+    return redirect(request.META.get('HTTP_REFERER', 'artwork_detail'))
 
 @login_required
 def wishlist_view(request):

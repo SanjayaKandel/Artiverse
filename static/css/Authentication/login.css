@@ -50,31 +50,33 @@ body {
     margin-bottom: 1rem;
 }
 
-.btn-primary {
-    width: 100%;
-    padding: 0.75rem;
-    background: #444;
-    border: none;
-    color: #fff;
+.btn {
+    background: #ffffff;
+    padding: 0.75rem 2rem;
+    border: 1px solid black;
+    color: #000000;
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s;
 }
 
-.btn-primary:hover {
-    background: #555;
+.btn:hover {
+    background: #000000;
+    color: white;
 }
 
-.forgot-pass {
+.forgot-password-link {
     color: #999;
+    text-align: right;
     text-decoration: none;
-    display: inline-block;
-    margin-top: 1rem;
+    display: block; 
 }
 
-.forgot-pass:hover {
+.forgot-password-link:hover {
     color: #ccc;
 }
+
+
 
 .register-link {
     margin-top: 20px;

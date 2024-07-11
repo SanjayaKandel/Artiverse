@@ -205,16 +205,28 @@ def artist_list(request):
 
 
 def about_page(request):
-    user=request.user
+    user = request.user
     profile = None
     if user.is_authenticated:
         try:
             profile = Visitor.objects.get(user=user)
         except Visitor.DoesNotExist:
             pass
-        
-    return render(request, 'Home/about.html',{'profile': profile})
-
+    
+    customer_count = Visitor.objects.count()
+    artist_count = Artist.objects.count()
+    user_count = User.objects.count()
+    artwork_count = Artwork.objects.count()
+    
+    context = {
+        'profile': profile,
+        'customer_count': customer_count,
+        'artist_count': artist_count,
+        'user_count': user_count,
+        'artwork_count': artwork_count,
+    }
+    
+    return render(request, 'Home/about.html', context)
 
 
 @login_required

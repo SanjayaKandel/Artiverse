@@ -1,6 +1,7 @@
 {%extends 'artist_base.html'%}
 {%block content%}
 {%load static%}
+<link rel="stylesheet" href="{%static 'css/popup/popup.css'%}">
 <link rel="stylesheet" href="{% static 'css/Artists/artist_dashboard.css' %}">
 <section class="body">
     <div class="container">
@@ -111,6 +112,18 @@
         {% endif %}
     </ul>
 </div>
+{% if messages %}
+<div id="messages" style="display: none;">
+    {% for message in messages %}
+        {% if message.extra_tags == 'login' %}
+            <div class="message">{{ message }}</div>
+        {% else %}
+            <div class="info_message">{{ message }}</div>
+        {% endif %}
+    {% endfor %}
+</div>
+<script src="{% static 'css/popup/login_success.js' %}"></script>
+{% endif %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="{%static 'js/artist_dashboard.js'%}"></script>
 {%endblock%}

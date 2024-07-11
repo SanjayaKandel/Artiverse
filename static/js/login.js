@@ -11,5 +11,4 @@ function allowOnlyOneCheckbox() {
     });
 }
 
-// Call the function on page load
 document.addEventListener('DOMContentLoaded', allowOnlyOneCheckbox);
