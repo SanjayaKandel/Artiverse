@@ -236,7 +236,13 @@ def add_to_cart(request, artwork_id):
     if not created:
         cart_item.quantity += 1
         cart_item.save()
-    return redirect('cart_view')
+    
+    response_data = {
+        'item_name': artwork.title,  # Assuming artwork has a 'name' field
+        'cart_count': CartItem.objects.filter(user=request.user).count()
+    }
+    
+    return JsonResponse(response_data)
 
 @login_required
 def cart_view(request):

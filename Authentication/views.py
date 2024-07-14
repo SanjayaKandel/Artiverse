@@ -119,6 +119,8 @@ def admin(request):
     return render(request, 'Authentication/admin.html')
 
 def user(request):
+    if user.is_authenticated.as_user:
+        return redirect('logout_view')
     return render(request, 'Home/index.html')
 
 # Pass reset views

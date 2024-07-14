@@ -1,16 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Function to show a popup notification
-function showAddedToCartPopup(itemName) {
-    const popup = document.createElement('div');
-    popup.classList.add('popup');
-    popup.textContent = `${itemName} added to cart`;
+    function showAddedToCartPopup(itemName) {
+        const popup = document.createElement('div');
+        popup.classList.add('popup');
+        popup.textContent = `${itemName} added to cart`;
 
-    document.body.appendChild(popup);
+        document.body.appendChild(popup);
 
-    setTimeout(() => {
-        popup.remove();
-    }, 3000); // Remove the popup after 3 seconds
-}
+        setTimeout(() => {
+            popup.remove();
+        }, 3000); // Remove the popup after 3 seconds
+    }
 
     // Function to update item quantity and total price
     function updateItemQuantity(itemId, change) {
@@ -46,26 +46,38 @@ function showAddedToCartPopup(itemName) {
         const checkoutCountElement = document.querySelector('#checkout-count');
         const deleteButton = document.querySelector('.delete-btn');
         const itemCheckboxes = document.querySelectorAll('.item-checkbox:checked');
-
+    
         let subtotal = 0;
-
+    
         itemCheckboxes.forEach(checkbox => {
             const itemId = checkbox.getAttribute('data-item-id');
             const totalPriceElement = document.querySelector(`#total-price-${itemId}`);
-            const totalPrice = parseFloat(totalPriceElement.textContent.replace('Rs. ', ''));
-            subtotal += totalPrice;
+            if (totalPriceElement) {
+                const totalPrice = parseFloat(totalPriceElement.textContent.replace('Rs. ', ''));
+                subtotal += totalPrice;
+            }
         });
-
-        subtotalElement.textContent = `Rs. ${subtotal.toFixed(2)}`;
-        totalElement.textContent = `Rs. ${subtotal.toFixed(2)}`;
-        checkoutCountElement.textContent = itemCheckboxes.length;
-
+    
+        if (subtotalElement) {
+            subtotalElement.textContent = `Rs. ${subtotal.toFixed(2)}`;
+        }
+        if (totalElement) {
+            totalElement.textContent = `Rs. ${subtotal.toFixed(2)}`;
+        }
+        if (checkoutCountElement) {
+            checkoutCountElement.textContent = itemCheckboxes.length;
+        }
+    
         // Enable or disable delete button based on selection
-        deleteButton.disabled = itemCheckboxes.length === 0;
-
+        if (deleteButton) {
+            deleteButton.disabled = itemCheckboxes.length === 0;
+        }
+    
         // Update SELECT ALL checkbox state
         const selectAllCheckbox = document.querySelector('#select-all');
-        selectAllCheckbox.checked = (itemCheckboxes.length === document.querySelectorAll('.item-checkbox').length);
+        if (selectAllCheckbox) {
+            selectAllCheckbox.checked = (itemCheckboxes.length === document.querySelectorAll('.item-checkbox').length);
+        }
     }
 
     // Event listener for quantity buttons
@@ -109,19 +121,52 @@ function showAddedToCartPopup(itemName) {
                         'X-CSRFToken': getCookie('csrftoken')  // Ensure CSRF token is included
                     },
                 })
-                    .then(response => {
-                        if (response.ok) {
-                            // Remove item from DOM on successful deletion
-                            const listItem = checkbox.closest('.cart-item');
-                            listItem.remove();
-                            updatePrices();
-                        } else {
-                            console.error('Failed to delete item');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error deleting item:', error);
-                    });
+                .then(response => {
+                    if (response.ok) {
+                        // Remove item from DOM on successful deletion
+                        const listItem = checkbox.closest('.cart-item');
+                        listItem.remove();
+                        updatePrices();
+                    } else {
+                        console.error('Failed to delete item');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting item:', error);
+                });
+            });
+        });
+    }
+
+    // Event listener for "Add to Cart" button
+    const addToCartButton = document.querySelector('#add-to-cart');
+    if (addToCartButton) {
+        addToCartButton.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent default anchor behavior
+            const url = this.getAttribute('data-url');
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+                showAddedToCartPopup(data.item_name);
+                // Optionally update the cart count in the UI
+                const cartCountElement = document.querySelector('#cart-item-count');
+                if (cartCountElement) {
+                    cartCountElement.textContent = data.cart_count;
+                }
+                // Redirect to cart view
+                window.location.href = '/cart/'; // Update this URL if your cart view URL is different
+                // window.location.href = '192.168.1.156/cart/';
+            })
+            .catch(error => {
+                console.error('Error adding item to cart:', error);
             });
         });
     }
@@ -142,6 +187,7 @@ function showAddedToCartPopup(itemName) {
         }
         return cookieValue;
     }
+
     // Initial price calculation on page load
     updatePrices();
 });

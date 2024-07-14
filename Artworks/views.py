@@ -60,6 +60,28 @@ def artwork_delete(request, id):
         messages.success(request, f"Artwork '{artwork.title}' Deleted successfully!")
     return redirect('artist')
 
+@login_required
+def toggle_wishlist(request, id):
+    artwork = get_object_or_404(Artwork, id=id)
+    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+
+    if artwork in wishlist.artworks.all():
+        wishlist.artworks.remove(artwork)
+        added = False
+    else:
+        wishlist.artworks.add(artwork)
+        added = True
+
+    return JsonResponse({'added': added})
+
+@login_required
+def wishlist_view(request):
+    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+    wishlisted_artworks = wishlist.artworks.all()
+    context = {
+        'wishlisted_artworks': wishlisted_artworks
+    }
+    return render(request, 'User/user_profile.html', context)
 
 def art_details(request, id):
     user = request.user
@@ -70,32 +92,16 @@ def art_details(request, id):
 
     artwork = get_object_or_404(Artwork, id=id)
     artist = artwork.artist
+    in_wishlist = False
+
+    if request.user.is_authenticated:
+        wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+        in_wishlist = artwork in wishlist.artworks.all()
 
     context = {
         'artist': artist,
         'artwork': artwork,
         'profile': profile,
+        'in_wishlist': in_wishlist,
     }
     return render(request, 'Artworks/view_artwork.html', context)
-
-
-@login_required
-def toggle_wishlist(request, id):
-    artwork = get_object_or_404(Artwork, id=id)
-    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
-
-    if artwork in wishlist.artworks.all():
-        wishlist.artworks.remove(artwork)
-    else:
-        wishlist.artworks.add(artwork)
-
-    return redirect(request.META.get('HTTP_REFERER', 'artwork_detail'))
-
-@login_required
-def wishlist_view(request):
-    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
-    wishlisted_artworks = wishlist.artworks.all()
-    context = {
-        'wishlisted_artworks': wishlisted_artworks
-    }
-    return render(request, 'User/user_profile.html', context)

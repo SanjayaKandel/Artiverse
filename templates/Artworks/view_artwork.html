@@ -22,23 +22,25 @@ Artiverse - Search
                     <div class="rating">
                         <!-- Replace with your rating system if applicable -->
                     </div>
-                    <p class="vote"> <!-- Replace with your voting system details if needed --></p>
+                    <p class="vote"><!-- Replace with your voting system details if needed --></p>
                     <h4 class="artist-name">Artist: {{ artwork.artist.name }}</h4>
                     <p class="sizes">Medium: {{ artwork.medium }}</p>
                     <p class="sizes">Dimensions: {{ artwork.dimensions }}</p>
                     <p class="sizes">Created Date: {{ artwork.year_created }}</p>
                     <p class="price">Price: <span>${{ artwork.price }}</span></p>
                     <div class="action">
-                        {% if user.is_authenticated %}
-                            <a href="#" class="add-to-cart btn btn-default">Add to Cart</a>
-                            {% if not artwork.in_wishlist %}
-                            <a href="#" data-artwork-id="{{ artwork.id }}" data-url="{% url 'toggle_wishlist' artwork.id %}" class="like btn btn-default card__wishlist">Add to favourites</a>
+                        {% if user.is_authenticated.is_user %}
+                        <a href="#" class="btn btn-primary" id="add-to-cart" data-url="{% url 'add_to_cart' artwork.id %}">Add to Cart</a>
+                        <a href="#" class="btn btn-primary" id="toggle-wishlist" data-url="{% url 'toggle_wishlist' artwork.id %}">
+                            {% if in_wishlist %}
+                            Added to Favourites
+                            {% else %}
+                            Add to Favourites
+                            {% endif %}
+                        </a>
                         {% else %}
-                            <a href="#" data-artwork-id="{{ artwork.id }}" data-url="{% url 'toggle_wishlist' artwork.id %}" class="like btn btn-default card__wishlist">Added to favourites</a>
-                        {% endif %}
-                        {% else %}
-                            <a href="{% url 'login_view' %}" class="btn btn-primary">Login to Add to Cart</a>
-                            <a href="{% url 'login_view' %}" class="btn btn-primary">Login to Add to Favourites</a>
+                        <a href="{% url 'login_view' %}" class="btn btn-primary">Add to Cart</a>
+                        <a href="{% url 'login_view' %}" class="btn btn-primary">Add to Favourites</a>
                         {% endif %}
                     </div>
                 </div>
@@ -46,5 +48,7 @@ Artiverse - Search
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{% static 'js/viewdet.js' %}"></script>
+<script src="{% static 'js/cart.js' %}"></script>
 {% endblock %}

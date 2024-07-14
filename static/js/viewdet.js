@@ -15,7 +15,7 @@ $(document).ready(function() {
     }
     const csrftoken = getCookie('csrftoken');
 
-    $('.card__wishlist').on('click', function(e) {
+    $('#toggle-wishlist').on('click', function(e) {
         e.preventDefault();
         var button = $(this);
         var url = button.data('url');
@@ -33,3 +33,4 @@ $(document).ready(function() {
         });
     });
 });
+
