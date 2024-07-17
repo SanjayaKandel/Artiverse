@@ -43,6 +43,9 @@
                                 <p><span>Name </span>: {{profile.name}}</p>
                                 <p><span>Email </span>: {{user.email}}</p>
                                 <p><span>Country </span>: {{billing.country}}</p>
+                                {% if profile.birth_date %}
+                                <p><span>Age </span>: {{ profile.calculate_age }}</p>
+                                {% endif %}
                                 <p><span>Birthday</span>: {{profile.birth_date}}</p>
                             </div>
                             <div class="col-md-6">

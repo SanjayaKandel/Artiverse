@@ -13,7 +13,7 @@ About Artiverse
     <div class="home-right">
         <h2 class="home-heading"> Grow Up Your Workflow Speed </h2>
         <p class="home-para">Discover the best artworks from various talented artists. Join us and explore a wide range of creative masterpieces in Artiverse.</p>
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated%}
         <a href="{% url 'explore' %}" class="btn"> Explore</a>
         {% else %}
         <a href="{% url 'login_view' %}" class="btn"> Join us</a>

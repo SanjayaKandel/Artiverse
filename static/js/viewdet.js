@@ -25,12 +25,14 @@ $(document).ready(function() {
             headers: { 'X-CSRFToken': csrftoken },
             success: function(data) {
                 if (data.added) {
-                    button.text('Added to Favourites');
+                    button.html('<i class="fa-solid fa-heart"></i>');
                 } else {
-                    button.text('Add to Favourites');
+                    button.html('<i class="fa-regular fa-heart"></i>');
                 }
+                
             }
         });
     });
 });
+
 

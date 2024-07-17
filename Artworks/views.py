@@ -83,10 +83,10 @@ def wishlist_view(request):
     }
     return render(request, 'User/user_profile.html', context)
 
+@login_required
 def art_details(request, id):
-    user = request.user
     try:
-        profile = Visitor.objects.get(user=user)
+        profile = Visitor.objects.get(user=request.user)
     except Visitor.DoesNotExist:
         profile = None
 
@@ -94,14 +94,18 @@ def art_details(request, id):
     artist = artwork.artist
     in_wishlist = False
 
-    if request.user.is_authenticated:
-        wishlist, created = Wishlist.objects.get_or_create(user=request.user)
-        in_wishlist = artwork in wishlist.artworks.all()
+    # Fetch or create wishlist for the logged-in user
+    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+    in_wishlist = artwork in wishlist.artworks.all()
+
+    # Fetch all artworks by the artist
+    artist_artworks = Artwork.objects.filter(artist=artist)
 
     context = {
         'artist': artist,
         'artwork': artwork,
         'profile': profile,
         'in_wishlist': in_wishlist,
+        'artist_artworks': artist_artworks,  # Pass all artworks by the artist to the template
     }
     return render(request, 'Artworks/view_artwork.html', context)

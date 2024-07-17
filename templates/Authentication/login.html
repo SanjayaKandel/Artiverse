@@ -1,54 +1,63 @@
-{% load static %}
 <!doctype html>
+{% load static %}
 <html lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
 
     <!-- Icons and stylesheets -->
-    <link rel="stylesheet" href="{%static 'css/popup/popup.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/Authentication/login.css' %}">
-    <title>Artiverse- Login</title>
+    
+    <title>Artiverse - Login</title>
 </head>
-<style>
-    body{
-      background: url("{% static 'img/bg.jpg' %}");
-    }
-    </style>
 <body>
-<div class="content">
-    <div class="form-block">
-        <div class="mb-4">
-            <h3>Login to <strong>Your Account</strong></h3>
-        </div>
-        <form method="post">
-            {% csrf_token %}
-            <span class="mb-0 text-muted" style="color: red;">
-                {% if msg %}
-                    {{ msg | safe }}
-                {% endif %}
-            </span>
-            <div class="form-group">
-                <label for="username">Username</label>
-                {{ form.username }}
+
+<section class="sign-in">
+    <div class="container">
+        <div class="signin-content">
+            <div class="signin-image">
+                <figure><img src="{% static 'img/login-img.jpg' %}" alt="sign up image"></figure>
+                <span>New to artiverse? <a href="{% url 'register' %}" class=""> Register </a> Now!!</span>
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                {{ form.password }}
+
+            <div class="signin-form">
+                <h2 class="form-title">Sign In</h2>
+                <form method="POST" class="register-form" id="login-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        {{ form.username }}
+                    </div>
+                    <div class="form-group">
+                        <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                        <div class="password-container">
+                            {{ form.password }}
+                            <i class="fas fa-eye toggle-password" id="toggle-password"></i>
+                        </div>
+                    </div>
+                    <div class="form-group form-button">
+                        <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+                    </div>
+                </form>
+                <!-- <div class="social-login">
+                    <span class="social-label">Or login with</span>
+                    <ul class="socials">
+                        <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                        <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
+                        <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                    </ul>
+                </div> -->
+                <div class="option-choose">
+                    <span><a href="{% url 'password_reset' %}" class="forgot-password-link" style="text-align: end;">Forgot your password? </a></span>
+                </div>
             </div>
-            <button type="submit" class="btn">Login</button>
-        </form>
-        <div class="option-choose">
-            <span><a href="{% url 'password_reset' %}" class="forgot-password-link" style="text-align: end;">Forgot your password? </a></span>
-        </div>
-        <div class="option-choose">
-            <span>New to artiverse? <a href="{% url 'register' %}" class="register-link">Register</a></span>
         </div>
     </div>
-</div>
+</section>
 {% if messages %}
 <div id="messages" style="display: none;">
     {% for message in messages %}
@@ -58,5 +67,6 @@
 <script src="{% static 'css/popup/login_success.js' %}"></script>
 {% endif %}
 <script src="{% static 'js/login.js' %}"></script>
+
 </body>
 </html>

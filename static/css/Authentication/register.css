@@ -1,0 +1,181 @@
+body {
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgb(34, 34, 34);
+    font-weight: 400;
+    font-family: Poppins, sans-serif;
+    background: #f7f7f7;
+  }
+  
+  .container {
+    width: 900px;
+    background: #fff;
+    margin: 100px auto;
+    padding: 50px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .signup-form {
+    width: 60%;
+  }
+  .signup-content{
+    display: flex;
+  }
+  
+  .signup-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .signup-form .form-group {
+    margin-bottom: 15px;
+    position: relative;
+  }
+  
+  .signup-form .form-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .signup-form .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .signup-form .form-group .zmdi {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+  }
+  
+  .signup-form .form-group input:focus {
+    border-color: #007bff;
+  }
+  
+  .signup-form .form-group.last {
+    margin-bottom: 30px;
+  }
+  
+  .signup-form button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: black;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .signup-form button:hover {
+    background: #0056b3;
+  }
+  
+  .signup-image .signup-image-link {
+    display: block;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  .signup-image .signup-image-link:hover {
+    text-decoration: underline;
+  }
+  
+  .roles {
+    margin-top: 20px;
+  }
+  
+  .roles p {
+    margin-bottom: 10px;
+  }
+  
+  .control.control--checkbox {
+    position: relative;
+    display: block;
+    padding-left: 30px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .control.control--checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  .control.control--checkbox .caption {
+    margin-left: 10px;
+  }
+  
+  .control__indicator {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background: #e6e6e6;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  
+  .control.control--checkbox input:checked ~ .control__indicator {
+    background: #007bff;
+    border-color: #007bff;
+  }
+  
+  .control__indicator::before {
+    content: '';
+    position: absolute;
+    display: none;
+  }
+  
+  .control.control--checkbox input:checked ~ .control__indicator::before {
+    display: block;
+  }
+  
+  .control.control--checkbox .control__indicator::before {
+    left: 8px;
+    top: 4px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  
+  .signup-image {
+    margin-top: 85px;
+    text-align: center;
+    width: 50%;
+    margin-left: 50px;
+    display: block;
+  }
+  .signup-image span{
+    font-size: 18px;
+  }
+  .signup-image, .signup-form {
+    width: 50%;
+}
+
+.signup-image figure {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.signup-image img {
+    max-width: 100%;
+}
+  

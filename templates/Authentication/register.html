@@ -8,79 +8,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
   <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
-  <link rel="stylesheet" href="{% static 'fonts/icomoon/style.css' %}">
-  <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/Authentication/login.css' %}">
-  <title>Artiverse- Sign Up</title>
+  <link rel="stylesheet" href="{% static 'css/Authentication/register.css' %}">
+  <title>Artiverse - Sign Up</title>
 </head>
-<style>
-body{
-  background: url("{% static 'img/bg.jpg' %}");
-}
-</style>
-<body>
-  <section class="wrapper">
-    <div class="content">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-12 contents">
-            <div class="form-block">
-              <div class="mb-4">
-                <h1>Sign Up</h1>
-              </div>
-              <span class="text-error" style="color: red; padding: 10px 0;">{{ form.errors }}</span>
-              <form method="post">
-                {% csrf_token %}
-                <div class="form-group first">
-                  <label for="username">Username</label>
-                  {{ form.username }}
-                </div>
-                <div class="form-group first">
-                  <label for="email">Email</label>
-                  {{ form.email }}
-                </div>
-                <div class="form-group last mb-4">
-                  <label for="password">Password</label>
-                  {{ form.password1 }}
-                </div>
-                <div class="form-group last mb-4">
-                  <label for="password">Confirm Password</label>
-                  {{ form.password2 }}
-                </div>
-                <div class="roles">
-                  <p>Roles</p>
-                  <div class="form-group last mb-4">
-                    <label class="control control--checkbox mb-0"><span class="caption">Artist</span>
-                      {{ form.is_artist }}
-                      <div class="control__indicator"></div>
-                    </label>
-                  </div>
-                  <div class="form-group last mb-4">
-                    <label class="control control--checkbox mb-0"><span class="caption">User</span>
-                      {{ form.is_user }}
-                      <div class="control__indicator"></div>
-                    </label>
-                  </div>
-                </div>
-                
-                <input type="submit" value="Register" class="btn btn-pill text-white btn-block btn-primary">
 
-              </form>
-              <div class="option-choose">
-                <span>Already have an account?<a href="{% url 'login_view' %}" class="register-link"> Sign in</a></span>
+<body>
+  <!-- Sign up form -->
+  <section class="signup">
+    <div class="container">
+      <div class="signup-content">
+        <div class="signup-form">
+          <h2 class="form-title">Sign up</h2>
+          <form method="POST" class="register-form" id="register-form">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="name"><i class="zmdi zmdi-account material-icons-name"></i> Username</label>
+              {{ form.username }}
+            </div>
+            <div class="form-group">
+              <label for="email"><i class="zmdi zmdi-email"></i> Email</label>
+              {{ form.email }}
+            </div>
+            <div class="form-group">
+              <label for="pass"><i class="zmdi zmdi-lock"></i> Password</label>
+              {{ form.password1 }}
+            </div>
+            <div class="form-group">
+              <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i> Confirm Password</label>
+              {{ form.password2 }}
+            </div>
+            <div class="roles">
+              <p>Roles</p>
+              <div class="form-group last mb-4">
+                <label class="control control--checkbox mb-0"><span class="caption">Artist</span>
+                  {{ form.is_artist }}
+                  <div class="control__indicator"></div>
+                </label>
+              </div>
+              <div class="form-group last mb-4">
+                <label class="control control--checkbox mb-0"><span class="caption">User</span>
+                  {{ form.is_user }}
+                  <div class="control__indicator"></div>
+                </label>
               </div>
             </div>
-          </div>
+            <button type="submit">Sign Up</button>
+          </form>
+        </div>
+        <div class="signup-image">
+          <figure><img src="{% static 'img/login-img.jpg' %}" alt="sign up image"></figure>
+          <span>Already connected to Artiverse? <a href="{% url 'login_view' %}" class=""> Sign in </a></span>
         </div>
       </div>
     </div>
-    </div>
   </section>
-
-  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-  <script src="{% static 'js/popper.min.js' %}"></script>
-  <script src="{% static 'js/bootstrap.min.js' %}"></script>
   <script src="{% static 'js/login.js' %}"></script>
 </body>
 

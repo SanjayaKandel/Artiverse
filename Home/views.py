@@ -247,6 +247,7 @@ def add_to_cart(request, artwork_id):
 @login_required
 def cart_view(request):
     user=request.user
+    profile = None
     try:
         profile = Visitor.objects.get(user=user)
     except Visitor.DoesNotExist:

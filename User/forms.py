@@ -5,7 +5,7 @@ from .models import BillingAddress
 class VisitorForm(forms.ModelForm):
     class Meta:
         model = Visitor
-        fields = ['name', 'biography', 'profile_picture', 'contact_phone', 'birth_date' ,'occupation']
+        fields = ['name', 'biography', 'profile_picture','gender', 'contact_phone', 'birth_date' ,'occupation']
         widgets = {
             'birth_date': forms.DateInput(attrs={'type': 'date'}),
         }

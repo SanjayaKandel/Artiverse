@@ -4,27 +4,22 @@ from .models import User
 
 class LoginForm(forms.Form):
     username = forms.CharField(
-        widget= forms.TextInput(
+        widget=forms.TextInput(
             attrs={
-                "class": "form-control"
+                "class": "form-control placeholder-icon-username",
+                "placeholder": "Username"
             }
         )
     )
     password = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
-                "class": "form-control"
+                "class": "form-control placeholder-icon-password",
+                "placeholder": "Password"
             }
         )
     )
-    remember_me = forms.BooleanField(
-        required=False,
-            widget=forms.CheckboxInput(
-                attrs={
-                        "class": "form-check-input"
-                }
-        )
-    )
+
 
 
 class SignUpForm(UserCreationForm):
