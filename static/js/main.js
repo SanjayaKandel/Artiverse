@@ -13,5 +13,12 @@ function toggleMenu() {
 }
 
 
+// cart badge
 
-
+function updateCartBadge(count) {
+    const cartBadge = document.getElementById('cart-item-count');
+    if (cartBadge) {
+        cartBadge.textContent = count;
+        cartBadge.style.display = count > 0 ? 'inline-block' : 'none';
+    }
+}

@@ -10,28 +10,23 @@ function allowOnlyOneCheckbox() {
         });
     });
 }
-
 document.addEventListener('DOMContentLoaded', allowOnlyOneCheckbox);
-
 document.addEventListener('DOMContentLoaded', function() {
-    const usernameField = document.querySelector('.placeholder-icon-username');
-    const passwordField = document.querySelector('.placeholder-icon-password');
+    const usernameField = document.querySelector('#id_username');
+    const passwordField = document.querySelector('#id_password');
     
     if (usernameField) {
         usernameField.setAttribute('placeholder', '\uf007 Username'); // User icon
+        usernameField.classList.add('placeholder-icon-username');
     }
     
     if (passwordField) {
         passwordField.setAttribute('placeholder', '\uf023 Password'); // Lock icon
+        passwordField.classList.add('placeholder-icon-password');
     }
 
-    
-});
-
-// Show password
-document.addEventListener('DOMContentLoaded', function() {
+    // Show password
     const togglePassword = document.querySelector('#toggle-password');
-    const passwordField = document.querySelector('#id_password');
 
     togglePassword.addEventListener('click', function() {
         const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';

@@ -33,11 +33,22 @@
                         <div class="bar"></div>
                     </div>
                     <div id="menu-links">
-                        <h4><a href="{% url 'index' %}"><i class="fa-solid fa-house"></i> Home</a></h4>
-                        <h4><a href="{% url 'explore' %}"><i class="fa-solid fa-earth-americas"></i> Explore</a></h4>
-                        <h4><a href="{% url 'artist_list' %}"><i class="fa-solid fa-user-pen"></i> Artists</a></h4>
-                        <h4><a href="{% url 'about' %}"><i class="fa-solid fa-circle-info"></i> About</a></h4>
-                        <h4><a href="{% url 'cart_view' %}"><i class="fa-solid fa-cart-shopping"></i> Cart</a></h4>
+                        <h4><a href="{% url 'index' %}" class="{% if request.resolver_match.url_name == 'index' %}active{% endif %}"><i class="fa-solid fa-house"></i> Home</a></h4>
+                        <h4><a href="{% url 'explore' %}" class="{% if request.resolver_match.url_name == 'explore' %}active{% endif %}"><i class="fa-solid fa-earth-americas"></i> Explore</a></h4>
+                        <h4><a href="{% url 'artist_list' %}" class="{% if request.resolver_match.url_name == 'artist_list' %}active{% endif %}"><i class="fa-solid fa-user-pen"></i> Artists</a></h4>
+                        <h4><a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}"><i class="fa-solid fa-circle-info"></i> About</a></h4>
+                        <h4>
+                            <a href="{% url 'cart_view' %}" class="{% if request.resolver_match.url_name == 'cart_view' %}active{% endif %} text-body">
+                                <i class="fa-solid fa-cart-shopping"></i> Cart
+                                {% if cart_item_count > 0 %}
+                                <span id="cart-item-count" class="badge rounded-pill badge-notification float-badge">
+                                    {{ cart_item_count }}
+                                </span>
+                                {% endif %}
+                            </a>
+                        </h4>
+                        
+                        
     
                         {% if user.is_authenticated and not user.is_artist and not user.is_admin %}
                         <div class="profile-dropdown">

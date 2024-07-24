@@ -178,4 +178,15 @@ body {
 .signup-image img {
     max-width: 100%;
 }
-  
+
+.password-container {
+    position: relative;
+}
+.toggle-password {
+    position: absolute;
+    opacity: 50%;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

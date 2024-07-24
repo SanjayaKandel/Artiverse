@@ -9,14 +9,17 @@ from Artworks . models import Wishlist
 from Authentication . models import Artist
 from Artworks .models import Artwork
 from django.contrib import messages
+from Home . models import CartItem
 
 # Create your views here.
 
 @login_required
 def artist_profile_view(request, artist_id):
     user=request.user
+    cart_item_count = 0
     try:
         profile = Visitor.objects.get(user=user)
+        cart_item_count = CartItem.objects.filter(user=user).count()
     except Visitor.DoesNotExist:
         pass
     artist = get_object_or_404(Artist, id=artist_id)
@@ -35,7 +38,8 @@ def artist_profile_view(request, artist_id):
         'arts': artworks, 
         'art_count': arts.count(),
         'art_details': 'art_details', 
-        'profile':profile
+        'profile':profile,
+        'cart_item_count':cart_item_count
     }
     return render(request, 'User/artist_profile_view.html', context)
 
@@ -116,8 +120,10 @@ def user_profile(request):
     user = request.user
     wishlist, created = Wishlist.objects.get_or_create(user=request.user)
     wishlisted_artworks = wishlist.artworks.all()
+    cart_item_count = 0
     try:
         profile = Visitor.objects.get(user=user)
+        cart_item_count = CartItem.objects.filter(user=user).count()
     except Visitor.DoesNotExist:
         return redirect('create_user')
 
@@ -129,7 +135,8 @@ def user_profile(request):
     context = {
         'profile': profile,
         'billing': billing_address,
-        'wishlisted_artworks': wishlisted_artworks
+        'wishlisted_artworks': wishlisted_artworks,
+        'cart_item_count': cart_item_count
     }
     return render(request, 'User/user_profile_page.html', context)
 

@@ -15,18 +15,22 @@ def index(request):
     latest_arts = Artwork.objects.order_by('-year_created')[:6]
     user = request.user
     profile = None
+    cart_item_count = 0
     if user.is_authenticated:
         try:
             profile = Visitor.objects.get(user=user)
+            cart_item_count = CartItem.objects.filter(user=user).count()
         except Visitor.DoesNotExist:
             pass
 
     context = {
         'arts': latest_arts,
-        'profile': profile
+        'profile': profile,
+        'cart_item_count': cart_item_count,
     }
 
     return render(request, 'Home/index.html', context)
+
 
 @login_required
 def explore(request):
@@ -38,9 +42,10 @@ def explore(request):
     genre = request.GET.get('genre', '')
     user = request.user
     profile = None
-
+    cart_item_count = 0
     try:
         profile = Visitor.objects.get(user=user)
+        cart_item_count = CartItem.objects.filter(user=user).count()
     except Visitor.DoesNotExist:
         pass
 
@@ -102,13 +107,13 @@ def explore(request):
         'arts': artworks_with_artist,
         'page_no': page_obj,
         'profile': profile,
+        'cart_item_count':cart_item_count
     }
 
     return render(request, 'Home/explore.html', context)
 
 
 @login_required
-
 def search(request):
     query = request.GET.get('query', '')
     medium = request.GET.get('medium', '')
@@ -116,11 +121,12 @@ def search(request):
     price_range_min = request.GET.get('price_range_min', '')
     price_range_max = request.GET.get('price_range_max', '')
     genre = request.GET.get('genre', '')
-    
+    cart_item_count = 0
     user = request.user
     profile = None
     try:
         profile = Visitor.objects.get(user=user)
+        cart_item_count = CartItem.objects.filter(user=user).count()
     except Visitor.DoesNotExist:   
         pass
     
@@ -187,7 +193,8 @@ def search(request):
         'genre':genre,
         'price_range_min':price_range_min,
         'price_range_max':price_range_max,
-        'profile':profile
+        'profile':profile,
+        'cart_item_count':cart_item_count
     }
     return render(request, 'Home/search.html', context)
 
@@ -197,19 +204,23 @@ def artist_list(request):
     artists = Artist.objects.all()
     user = request.user
     profile = None
+    cart_item_count = 0
     try:
         profile = Visitor.objects.get(user=user)
+        cart_item_count = CartItem.objects.filter(user=user).count()
     except Visitor.DoesNotExist:
         pass
-    return render(request, 'Home/artist_list.html', {'artists': artists, 'profile': profile})
+    return render(request, 'Home/artist_list.html', {'artists': artists, 'profile': profile, 'cart_item_count':cart_item_count})
 
 
 def about_page(request):
     user = request.user
     profile = None
+    cart_item_count = 0
     if user.is_authenticated:
         try:
             profile = Visitor.objects.get(user=user)
+            cart_item_count = CartItem.objects.filter(user=user).count()
         except Visitor.DoesNotExist:
             pass
     
@@ -224,10 +235,10 @@ def about_page(request):
         'artist_count': artist_count,
         'user_count': user_count,
         'artwork_count': artwork_count,
+        'cart_item_count':cart_item_count
     }
     
     return render(request, 'Home/about.html', context)
-
 
 @login_required
 def add_to_cart(request, artwork_id):
@@ -248,8 +259,10 @@ def add_to_cart(request, artwork_id):
 def cart_view(request):
     user=request.user
     profile = None
+    cart_item_count = 0
     try:
         profile = Visitor.objects.get(user=user)
+        cart_item_count = CartItem.objects.filter(user=user).count()
     except Visitor.DoesNotExist:
         pass
     cart_items = CartItem.objects.filter(user=request.user)
@@ -257,12 +270,14 @@ def cart_view(request):
     context={
         'cart_items': cart_items, 
         'total_price': total_price,
-        'profile':profile
+        'profile':profile,
+        'cart_item_count':cart_item_count
         }
     return render(request, 'Home/cart.html', context)
 @login_required
 def delete_item(request, item_id):
     item = get_object_or_404(CartItem, pk=item_id)
     item.delete()
-    return JsonResponse({'message': 'Item deleted successfully'})
+    cart_count = CartItem.objects.filter(user=request.user).count()
+    return JsonResponse({'message': 'Item deleted successfully', 'cart_count': cart_count})
 

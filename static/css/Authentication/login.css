@@ -74,7 +74,7 @@ body {
 }
 
 .form-submit {
-    display: inline-block;
+    display: block;
     background: black;
     color: #fff;
     border: none;
@@ -84,7 +84,8 @@ body {
 }
 
 .form-submit:hover {
-    background: #4292dc;
+    background: #727272;
+    color: black;
 }
 
 .social-login {
@@ -125,7 +126,24 @@ body {
     color: #fff;
 }
 .form-control {
-    font-family: "Font Awesome 5 Free", "Arial", sans-serif;
-    font-weight: 900; /* Font Awesome Free Solid's required weight */
     letter-spacing: 1px;
+}
+
+.password-container {
+    position: relative;
+}
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+.placeholder-icon-username::placeholder {
+    font-family: FontAwesome;
+    content: "\f007"; /* User icon */
+}
+.placeholder-icon-password::placeholder {
+    font-family: FontAwesome;
+    content: "\f023"; /* Lock icon */
 }

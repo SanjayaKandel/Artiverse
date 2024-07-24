@@ -168,15 +168,15 @@ function success(text) {
 
 function Toast_success(text) {
     ava({
-        icon: 'success',
-        text: text,
-        btnText: '',
-        progressBar: true,
-        toast: true,
-        direction: 'ltr',
-        timer: 4000
+      icon: 'success',
+      text: text,
+      btnText: '',
+      progressBar: true,
+      toast: true,  // Ensure this is true
+      direction: 'ltr',
+      timer: 4000
     });
-}
+  }
 
 
 document.addEventListener('DOMContentLoaded', function () {
