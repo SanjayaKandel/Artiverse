@@ -32,6 +32,8 @@ class BillingAddress(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='billing_address', null=True)
     address = models.CharField(max_length=255, null=True)
     city = models.CharField(max_length=255, null=True)
+    ward=models.IntegerField(null=True)
+    nearest_landmark=models.CharField(null= True, max_length=500)
     state = models.CharField(max_length=255, null=True)
     country = models.CharField(max_length=255, null=True)
     zip_code = models.CharField(max_length=255, null=True)

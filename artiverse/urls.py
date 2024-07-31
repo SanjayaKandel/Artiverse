@@ -30,6 +30,7 @@ urlpatterns = [
     path('Artist/', include('Artists.urls')),
     path('Artwork/', include('Artworks.urls')),
     path('auth/', include('Authentication.urls')),
+    path('pay/', include('Payment.urls')),
     
 ]
 if settings.DEBUG:

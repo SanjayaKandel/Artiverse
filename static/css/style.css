@@ -68,12 +68,10 @@ nav .logo-img {
     content: " ";
     position: absolute;
     height: 100%;
-    width: 100%;
-    background-color: rgb(86, 86, 86);
+    width: 100%;  
     left: 0;
     bottom: -100%;
     border-radius: 50%;
-    /* transition: all ease 0.2s; */
 }
 
 #nav-part2 h4:hover::after {
@@ -88,7 +86,7 @@ nav .logo-img {
 }
 
 #nav-part2 h4:hover a {
-    color: #fff;
+    color: #000000;
 }
 
 .float-badge {
@@ -146,8 +144,8 @@ nav .logo-img {
 
 }
 #menu-links h4 .active {
-    transform: scale(1.1); /* Adjust the scale value to make it slightly bigger */
-    transition: transform 0.3s ease; /* Optional: Adds a smooth transition effect */
+    transform: scale(1.1); 
+    transition: transform 0.3s ease; 
     color: rgb(0, 0, 0);
     border-bottom: 1px solid black;
 }
@@ -173,7 +171,9 @@ nav .logo-img {
 }
 
 #menu-links h4:hover a {
-    color: #fff;
+    color: #000000;
+    transform: scale(1.1); 
+    transition: transform 0.3s ease; 
 }
 
 .profile-dropdown {

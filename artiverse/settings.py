@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '192.168.1.156',
     '127.0.0.1',
+    '10.32.17.123'
 ]
 
 
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
     'Artworks',
     'Artists',
     'Authentication',
+    'Payment'
 ]
 SITE_ID = 1
 
@@ -175,3 +177,14 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = '["Artiverse"]'
 ACCOUNT_EMAIL_CONFIRMATION_SUBJECT = 'account/email/email_confirmation_subject.txt'
 ACCOUNT_EMAIL_CONFIRMATION_TEMPLATE = 'account/email/email_confirmation_message.html'
 
+#Payment
+# settings.py
+
+# settings.py
+
+ESEWA_SECRET_KEY = '8gBm/:&EnhH.1/q'
+ESEWA_MERCHANT_CODE = 'EPAYTEST'
+ESEWA_INITIATE_URL = 'https://epay.esewa.com.np/api/epay/main/v2/form'
+ESEWA_VERIFY_URL = 'https://uat.esewa.com.np/api/epay/transaction/status/'
+
+ESEWA_ENVIRONMENT = 'test'

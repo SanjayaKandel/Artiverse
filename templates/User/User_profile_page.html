@@ -52,6 +52,7 @@
                                 <p><span>Occupation </span>: {{profile.occupation}}</p>
                                 <p><span>City </span>: {{billing.city}}</p>
                                 <p><span>Street</span>: {{billing.address}}</p>
+                                <p><span>Landmark</span>: {{billing.nearest_landmark}}</p>
                             </div>
                         </div>
                     </div>
@@ -61,13 +62,25 @@
                         <div class="card">
                             <div class="card-body">
                                 <h2 class="text-danger">Order History</h2>
-                                <p>Order Number: [Order#]</p>
-                                <p>Date: [Date]</p>
-                                <p>Total: $[Amount]</p>
-                                <a href="#" class="btn btn-primary">View Details</a>
+                                {% if orders %}
+                                    {% for order in orders %}
+                                        <div class="order-item">
+                                            <p><strong>Order Number:</strong> {{ order.id }}</p>
+                                            <p><strong>Date:</strong> {{ order.created_at }}</p>
+                                            <p><strong>Status:</strong> {{ order.order_status }}</p>
+                                            <p><strong>payment Completed:</strong> {{ order.payment_completed }}</p>
+                                            <p><strong>Total:</strong> Rs: {{ order.total }}</p>
+                                            <a href="#" class="btn btn-primary">View Details</a>
+                                            <hr>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <p style="text-align: center; font-size: 18px; padding: 10px;">No orders to show</p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
+                    
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body favorites">

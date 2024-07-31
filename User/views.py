@@ -9,7 +9,7 @@ from Artworks . models import Wishlist
 from Authentication . models import Artist
 from Artworks .models import Artwork
 from django.contrib import messages
-from Home . models import CartItem
+from Home . models import CartItem, OrderedItem
 
 # Create your views here.
 
@@ -118,15 +118,20 @@ def update_user(request):
 @login_required(login_url='login_view')
 def user_profile(request):
     user = request.user
-    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+    wishlist, created = Wishlist.objects.get_or_create(user=user)
     wishlisted_artworks = wishlist.artworks.all()
+    
     cart_item_count = 0
     try:
         profile = Visitor.objects.get(user=user)
         cart_item_count = CartItem.objects.filter(user=user).count()
     except Visitor.DoesNotExist:
         return redirect('create_user')
-
+    try:
+        orders = OrderedItem.objects.filter(user=user)
+    except OrderedItem.DoesNotExist:
+        pass
+    
     try:
         billing_address = BillingAddress.objects.get(user=user)
     except BillingAddress.DoesNotExist:
@@ -135,6 +140,7 @@ def user_profile(request):
     context = {
         'profile': profile,
         'billing': billing_address,
+        'orders': orders,
         'wishlisted_artworks': wishlisted_artworks,
         'cart_item_count': cart_item_count
     }

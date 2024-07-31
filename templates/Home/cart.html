@@ -1,6 +1,5 @@
 {% extends "_base.html" %}
 {% load static %}
-
 {% block title %}
 Shopping Cart
 {% endblock %}
@@ -8,51 +7,79 @@ Shopping Cart
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/Home/cart.css' %}">
 <div class="Main-container">
-<div class="container">
-    <div class="cart">
-        <div class="cart-header">
-            <div class="select-check">
-            <input type="checkbox" id="select-all">
-            <h4>SELECT ALL ({{ cart_items|length }} ITEM(S))</h4>
-        </div>
-            <button class="delete-btn" disabled>DELETE</button>
-        </div>
-        <ul class="cart-items">
-            {% if cart_items %}
-            {% for item in cart_items %}
-            <li class="cart-item">
-                <div class="item-details">
-                    <input type="checkbox" class="item-checkbox" checked data-item-id="{{ item.id }}">
-                    <img src="{{ item.artwork.image.url }}" alt="{{ item.artwork.title }}">
-                    <div>
-                        <h2>{{ item.artwork.title }} ({{ item.artwork.medium }})</h2>
-                        <p>Quantity: <span class="quantity" id="quantity-{{ item.id }}">{{ item.quantity }}</span></p>
-                        <p>Price: Rs. <span class="item-initial-price" id="initial-price-{{ item.id }}">{{ item.artwork.price }}</span></p>
-                        <p hidden>Total: Rs. <span class="item-total-price" id="total-price-{{ item.id }}" hidden>{{ item.get_total_price }}</span></p>
-                    </div>
-                    <div class="item-quantity">
-                        <button class="quantity-btn" data-item-id="{{ item.id }}" data-change="-1">-</button>
-                        <span class="quantity" id="quantity-update-{{ item.id }}">{{ item.quantity }}</span>
-                        <button class="quantity-btn" data-item-id="{{ item.id }}" data-change="1">+</button>
-                    </div>
+    <div class="container">
+        <div class="cart">
+            <div class="cart-header">
+                <div class="select-check">
+                    <input type="checkbox" id="select-all">
+                    <h4>SELECT ALL ({{ cart_items|length }} ITEM(S))</h4>
                 </div>
-            </li>
-            {% endfor %}
-            {% else %}
-            <h2 class="no-items p-5" style="text-align: center;">No items in cart</h2>
-            {% endif %}
-        </ul>
+                <button class="delete-btn" disabled>DELETE</button>
+            </div>
+            <ul class="cart-items">
+                {% if cart_items %}
+                    {% for item in cart_items %}
+                        <li class="cart-item">
+                            <div class="item-details">
+                                <input type="checkbox" class="item-checkbox" data-item-id="{{ item.id }}">
+                                <img src="{{ item.artwork.image.url }}" alt="{{ item.artwork.title }}">
+                                <div>
+                                    <h2>{{ item.artwork.title }} ({{ item.artwork.medium }})</h2>
+                                    <p>Quantity: <span class="quantity" id="quantity-{{ item.id }}">{{ item.quantity }}</span></p>
+                                    <p>Price: Rs. <span class="item-initial-price" id="initial-price-{{ item.id }}">{{ item.artwork.price }}</span></p>
+                                    <p hidden>Total: Rs. <span class="item-total-price" id="total-price-{{ item.id }}" hidden>{{ item.get_total_price }}</span></p>
+                                </div>
+                                <div class="item-quantity">
+                                    <button class="quantity-btn" data-item-id="{{ item.id }}" data-change="-1">-</button>
+                                    <span class="quantity" id="quantity-update-{{ item.id }}">{{ item.quantity }}</span>
+                                    <button class="quantity-btn" data-item-id="{{ item.id }}" data-change="1">+</button>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <h2 class="no-items p-5" style="text-align: center;">No items in cart</h2>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="order-summary">
+            <h3>Order Summary</h3>
+            <p>Subtotal (<span id="cart-item-count">0</span> items): <span id="subtotal">Rs. 0.00</span></p>
+            <p>Shipping charge: <span id="shipping-charge">{{product_delivery_charge}}</span></p>
+            <h3>Total: <span id="total">Rs. 0.00</span></h3>
+            <form method="post" id="checkout-form" >
+                {% csrf_token %}
+                <label for="address">Address:</label>
+                {{billing.city}}-{{billing.ward}},{{billing.address}}
+                <br>
+                <label for="mobile">Mobile:</label>
+                {{profile.contact_phone}}
+                <br>
+                <label for="payment_method">Payment Method:</label>
+                <select id="payment_method" name="payment_method" required>
+                    <option value="Esewa">eSewa</option>
+                    <option value="Other">Cash on delivery</option>
+                </select>
+                <button type="submit" class="checkout-btn">PROCEED TO CHECKOUT (<span id="checkout-count">0</span>)</button>
+                <input type="hidden" id="selected-items-input" name="selected_items">
+            </form>
+        </div>
     </div>
-    <div class="order-summary">
-        <h3>Order Summary</h3>
-        <p>Subtotal (<span id="cart-item-count">{{ cart_items|length }}</span> items): <span id="subtotal">Rs. {{ subtotal }}</span></p>
-        <h3>Total: <span id="total">Rs. {{ total }}</span></h3>
-        <button class="checkout-btn">PROCEED TO CHECKOUT (<span id="checkout-count">{{ cart_items|length }}</span>)</button>
-    </div>
 </div>
-</div>
-<div class="popup">
-    
-</div>
+<!-- <form action="https://epay.esewa.com.np/api/epay/main/v2/form" method="POST">
+    <input type="text" id="amount" name="amount" value="{{ amount }}" required>
+    <input type="text" id="tax_amount" name="shipping" value="{{shipping}}" required>
+    <input type="text" id="total_amount" name="total_amount" value="{{ total_amount }}" required>
+    <input type="text" id="transaction_uuid" name="transaction_uuid" value="{{ transaction_uuid }}" required>
+    <input type="text" id="product_code" name="product_code" value="EPAYTEST" required>
+    <input type="text" id="product_service_charge" name="product_service_charge" value="0" required>
+    <input type="text" id="product_delivery_charge" name="product_delivery_charge" value="0" required>
+    <input type="text" id="success_url" name="success_url" value="{{ success_url }}" required>
+    <input type="text" id="failure_url" name="failure_url" value="{{ failure_url }}" required>
+    <input type="text" id="signed_field_names" name="signed_field_names" value="{{ signed_field_names }}" required>
+    <input type="text" id="signature" name="signature" value="{{ signature }}" required>
+    <input type="submit" value="Submit">
+</form> -->
+<div class="popup"></div>
 <script src="{% static 'js/cart.js' %}"></script>
 {% endblock %}

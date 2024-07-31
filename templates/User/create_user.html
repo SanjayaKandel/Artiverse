@@ -64,24 +64,32 @@
                         {{ billing_form.non_field_errors }}
                     </div>
                     <div class="form-group">
-                        <label for="id_country">Country:</label>
-                        {{ billing_form.country }}
+                        <label for="country">Country</label>
+                        {{ form.country }}
                     </div>
                     <div class="form-group">
-                        <label for="id_state">State:</label>
-                        {{ billing_form.state }}
+                        <label for="state">State</label>
+                        {{ form.state }}
                     </div>
                     <div class="form-group">
-                        <label for="id_city">City:</label>
-                        {{ billing_form.city }}
+                        <label for="city">City</label>
+                        {{ form.city }}
                     </div>
                     <div class="form-group">
-                        <label for="id_address">Street/Tole:</label>
-                        {{ billing_form.address }}
+                        <label for="ward">Ward no</label>
+                        {{ form.ward }}
                     </div>
                     <div class="form-group">
-                        <label for="id_zip_code">Zip Code:</label>
-                        {{ billing_form.zip_code }}
+                        <label for="address">Street</label>
+                        {{ form.address }}
+                    </div>
+                    <div class="form-group">
+                        <label for="nearest_landmark">Nearest Landmark</label>
+                        {{ form.nearest_landmark }}
+                    </div>
+                    <div class="form-group">
+                        <label for="zip_code">Zip Code</label>
+                        {{ form.zip_code }}
                     </div>
                 </div>
             </div>

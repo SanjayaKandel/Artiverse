@@ -102,6 +102,66 @@ Artiverse - Search
     </div>
 </div>
 
+<!-- <div class="row mt-5">
+    <h2 class="mb-3">Related Products</h2>
+    {% for rp in related_product %}
+      <div class="col-lg-4">
+        <div class="box-element product">
+          <a href="{% url 'productdetail' rp.id %}" class="btn">
+            <div class="item">
+              <img class="thumbnail" src="{{ rp.product_image.url }}" alt="" height="200px">
+              <span class="fw-bold d-block">{{ rp.name }}</span>
+              <span class="fw-bold">Per {{ rp.unit }}</span>
+              <span class="fs-5 d-block">Rs. {{ rp.price }}</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+  </div> -->
+  <div class="container overflow-hidden">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="d-flex justify-content-center align-items-center h-100">
+          <img src="{{ artwork.image.url }}" alt="{{ product.name }}" class="img-fluid">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h3 class="fw-bold">{{artwork.title }}</h3>
+        <hr />
+        <p class="text-muted text-uppercase">{{ artwork.description }}</p>
+        <h5 class="font-weight-light"></h5>
+        <h4>Rs. {{ artwork.price }}</h4>
+  
+        <form action="">
+          <input
+            type="hidden"
+            name="prod_id"
+            value="{{product.id}}"
+            id="product_id"
+          />
+          <button
+            type="submit"
+        style="background: #f17981;
+          color: #fff;
+          font-size: 12px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          border: none;
+          padding: 12px 40px;
+          cursor: pointer; 
+          border: none;"
+                    >
+            Add to Cart
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+    
+    
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{% static 'js/viewdet.js' %}"></script>
 <script src="{% static 'js/cart.js' %}"></script>

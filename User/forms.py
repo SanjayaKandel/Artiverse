@@ -14,11 +14,13 @@ class VisitorForm(forms.ModelForm):
 class BillingAddressForm(forms.ModelForm):
     class Meta:
         model = BillingAddress
-        fields = ['address', 'city', 'state', 'country', 'zip_code']
+        fields = ['address', 'city', 'state','ward','nearest_landmark', 'country', 'zip_code']
         widgets = {
             'address': forms.TextInput(attrs={'class': 'form-control'}),
             'city': forms.TextInput(attrs={'class': 'form-control'}),
             'state': forms.TextInput(attrs={'class': 'form-control'}),
+            'ward': forms.TextInput(attrs={'class': 'form-control'}),
+            'nearest_landmark': forms.TextInput(attrs={'class': 'form-control'}),
             'country': forms.TextInput(attrs={'class': 'form-control'}),
             'zip_code': forms.TextInput(attrs={'class': 'form-control'}),
         }
