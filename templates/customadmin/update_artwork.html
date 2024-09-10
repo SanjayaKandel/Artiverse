@@ -1,0 +1,111 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block title %}Artiverse - Manage Artwork {% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/Admin/admin_artwork.css' %}">
+<section class="container">
+    <h1 class="title">Manage Artworks</h1>
+    {% if artworks %}
+    <div class="card-container">
+        {% for artwork in artworks %}
+        <div class="artwork-card">
+            <div class="card-image">
+                <a href="{% url 'view_artwork_admin' id=artwork.id %}">
+                    <img src="{{ artwork.image.url }}" alt="{{ artwork.title }}" class="card-img-top">
+                </a>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">{{ artwork.title }}</h3>
+                <p class="card-artist">Creator: @{{ artwork.artist }}</p>
+                <p class="card-price">Rs. {{ artwork.price }}</p>
+                <div class="action-buttons">
+                    <button class="btn delete-btn" data-art-id="{{ artwork.id }}">Delete</button>
+                    <button class="btn add-to-exhibition-btn" data-art-id="{{ artwork.id }}" data-bs-toggle="modal" data-bs-target="#exhibition-modal">Add to Exhibition</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-artworks">
+        <h1>No artworks to show!!</h1>
+    </div>
+    {% endif %}
+</section>
+
+<!-- Pagination -->
+<div class="page-container">
+    <ul class="pagination">
+        <!-- Previous page link -->
+        {% if artworks.has_previous %}
+        <li>
+            <a href="?page={{ artworks.previous_page_number }}">&laquo; Prev</a>
+        </li>
+        {% else %}
+        <li class="disabled">
+            <span>Prev</span>
+        </li>
+        {% endif %}
+
+        <!-- Page numbers -->
+        {% for num in artworks.paginator.page_range %}
+        <li {% if num == artworks.number %}class="active" {% endif %}>
+            <a href="?page={{ num }}">{{ num }}</a>
+        </li>
+        {% endfor %}
+
+        <!-- Next page link -->
+        {% if artworks.has_next %}
+        <li>
+            <a href="?page={{ artworks.next_page_number }}">Next &raquo;</a>
+        </li>
+        {% else %}
+        <li class="disabled">
+            <span>Next</span>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+
+<!-- Modal for Adding Artwork to Exhibition -->
+<div class="modal fade" id="exhibition-modal" tabindex="-1" aria-labelledby="exhibitionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exhibitionModalLabel">Add Artwork to Exhibition</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="exhibition-form" method="post" action="{% url 'add_to_exhibition' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="artwork_id" id="artwork-id" value="">
+                    <div class="form-group">
+                        <label for="exhibition-select">Select Exhibition:</label>
+                        <select class="form-control" id="exhibition-select" name="exhibition_id">
+                            {% for exhibition in exhibitions %}
+                            <option value="{{ exhibition.id }}">{{ exhibition.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success mt-3">Add to Exhibition</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/Admin/delete.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"></script>
+
+<script>
+   document.querySelectorAll('.add-to-exhibition-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const artId = this.getAttribute('data-art-id');
+        document.getElementById('artwork-id').value = artId;
+        console.log("Artwork ID set to:", artId);  // Debugging line to verify the artwork ID
+    });
+});
+
+</script>
+{% endblock %}

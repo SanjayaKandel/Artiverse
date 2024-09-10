@@ -1,0 +1,66 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block title %}Artiverse - Manage Artwork{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/Admin/manage_artwork.css' %}">
+<section class="container">
+<h1 class="title">Manage User</h1>
+{% if users %}
+<div class="row">
+    {% for user in users %}
+    <div class="col-md-4 col-sm-6 col-lg-3 mb-4">
+        <div class="card user-card">
+            <a href="{% url 'view_user_admin' id=user.id %}">
+                <img class="card-img-top" src="{% if user.profile_picture %}{{ user.profile_picture.url }}{% else %}{% static 'img/default_profile.jpg' %}{% endif %}" alt="Profile Picture" style="height: 200px; object-fit: cover;">
+            </a>
+            <div class="card-body">
+                <h5 class="card-title">{{ user.name }}</h5>
+                <p class="card-text">@{{ user.user.username }}</p>
+                <div class="action-buttons">
+                    <button class="btn delete-btn" data-user-id="{{ user.id }}">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="no-users">
+    <h1 style="font-size: 25px; font-weight: lighter; text-align: center;">No Users to show!!</h1>
+</div>
+{% endif %}
+</section>
+
+<!-- Pagination -->
+<div class="page-container">
+    <ul class="pagination">
+        {% if users.has_previous %}
+        <li><a href="?page={{ users.previous_page_number }}">&laquo; Prev</a></li>
+        {% else %}
+        <li class="disabled"><span>Prev</span></li>
+        {% endif %}
+        {% for num in users.paginator.page_range %}
+        <li {% if num == users.number %}class="active" {% endif %}>
+            <a href="?page={{ num }}">{{ num }}</a>
+        </li>
+        {% endfor %}
+        {% if users.has_next %}
+        <li><a href="?page={{ users.next_page_number }}">Next &raquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>Next</span></li>
+        {% endif %}
+    </ul>
+</div>
+
+<div class="delete-modal hidden" id="delete-modal">
+    <form id="delete-form" method="post">
+        {% csrf_token %}
+        <button type="button" class="close-btn">&times;</button>
+        <h2>Delete Confirmation</h2>
+        <p>Are you sure you want to delete this User?</p>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn cancel-btn">Cancel</button>
+    </form>
+</div>
+<script src="{% static 'js/Admin/user_delete.js' %}"></script>
+{% endblock %}

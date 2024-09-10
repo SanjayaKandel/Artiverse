@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="{%static 'css/popup/popup.css'%}">
 
     
 </head>
@@ -68,12 +69,15 @@
                                     </a></p>
                                 </li>
                                 <li class="profile-dropdown-list-item"><a href="{% url 'user_profile' %}"><i class="fa-regular fa-user"></i> View Profile</a></li>
-                                <li class="profile-dropdown-list-item"><a href="{% url 'exhibition_list' %}"><i class="fa-solid fa-landmark"></i> Exhibitions</a></li>
-                                <li class="profile-dropdown-list-item"><a href="#"><i class="fa-regular fa-star"></i> Favourites</a></li>
-                                <li class="profile-dropdown-list-item"><a href="#"><i class="fa-solid fa-clock-rotate-left"></i> Ordered History</a></li>
+                                <li class="profile-dropdown-list-item"><a href="{% url 'exhibition' %}"><i class="fa-solid fa-landmark"></i> Exhibitions</a></li>
+                                <li class="profile-dropdown-list-item"><a href="{% url 'favourite_list' %}"><i class="fa-regular fa-star"></i> Favourites</a></li>
+                                <li class="profile-dropdown-list-item"><a href="{% url 'ordered_items' %}"><i class="fa-solid fa-clock-rotate-left"></i> Ordered History</a></li>
                                 <li class="profile-dropdown-list-item"><a href="#"><i class="fa-regular fa-circle-question"></i> Help & Support</a></li>
                                 <hr>
-                                <li class="profile-dropdown-list-item"><a href="{% url 'logout_view' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a></li>
+                                <li class="profile-dropdown-list-item"> <form action="{% url 'logout_view' %}" method="post">
+                                    {% csrf_token %}
+                                   <button type="submit" class="fa fa-paper-plane red_color">Logout</button>
+                                </form></li>
                             </ul>
                         
                         {% else %}
@@ -84,8 +88,8 @@
             </nav>
         </div>
     </div>
-    
-    
+
+
     {% block content %}
 
     {% endblock %}
@@ -106,10 +110,10 @@
                     </div>
                     <div class="col-xl-4 col-md-4 mb-30 call-us">
                         <div class="single-cta">
-                            <a href="tel:9800000000"><i class="fas fa-phone"></i></a>
+                            <a href="tel:9846336509"><i class="fas fa-phone"></i></a>
                             <div class="cta-text">
                                 <h4>Call us</h4>
-                                <span><a href="tel:9800000000">98XXXXXXXX</a></span>
+                                <span><a href="tel:9846336509">9846336509</a></span>
                             </div>
                         </div>
                     </div>
@@ -152,8 +156,8 @@
                             </div>
                             <ul>
                                 <li><a href="{%url 'index' %}">Home</a></li>
-                                <li><a href="{%url 'explore' %}">Exhibitions</a></li>
-                                <li><a href="#">Contact</a></li>
+                                <li><a href="{%url 'exhibition' %}">Exhibitions</a></li>
+                                <li><a href="{%url 'contact'%}">Contact</a></li>
                                 <li><a href="#">Cart</a></li>
                                 <li><a href="#">Help & Support</a></li>
                             </ul>
@@ -190,6 +194,14 @@
             </div>
         </div>
     </footer>
+    {% if messages %}
+    <div id="messages" style="display: none;">
+        {% for message in messages %}
+            <div class="message">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+<script src="{% static 'css/popup/login_success.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="{% static 'js/main.js' %}"></script>

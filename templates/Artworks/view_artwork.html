@@ -1,98 +1,54 @@
 {% extends '_base.html' %}
 {% block title %}
-Artiverse - Search
+Artiverse - artwork details
 {% endblock %}
 {% block content %}
 {% load static %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"> -->
 <link rel="stylesheet" href="{% static 'css/Artworks/art_det.css' %}">
-<div class="container">
-    <div class="card">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="preview">
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="pic-1">
-                                <img class="art__img img-fluid" src="{{ artwork.image.url }}" alt="{{ artwork.title }}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="details">
-                        <h3 class="product-title">{{ artwork.title }}</h3>
-                        <p class="product-description mt-3">{{ artwork.description }}</p>
-                        <div class="rating">
-                            <!-- Replace with your rating system if applicable -->
-                        </div>
-                        <p class="vote"><!-- Replace with your voting system details if needed --></p>
-                        <h4 class="artist-name">Artist: {{ artist_artworks.artist }}</h4>
-                        <p class="sizes">Medium: {{ artwork.medium }}</p>
-                        <p class="sizes">Dimensions: {{ artwork.dimensions }}</p>
-                        <p class="sizes">Created Date: {{ artwork.year_created }}</p>
-                        <p class="price">Price: <span>${{ artwork.price }}</span></p>
-                        <div class="action mt-3">
-                            <!-- {% if user.is_authenticated %}
-                            <a href="#" class="btn btn-primary mr-2" id="add-to-cart" data-url="{% url 'add_to_cart' artwork.id %}">Add to Cart</a>
-                            <a href="#" class="btn btn-primary" id="toggle-wishlist" data-url="{% url 'toggle_wishlist' artwork.id %}">
-                                {% if in_wishlist %}
-                                Added to Favourites
-                                {% else %}
-                                Add to Favourites
-                                {% endif %}
-                            </a>
-                            {% else %}
-                            <a href="{% url 'login_view' %}" class="btn btn-primary mr-2">Add to Cart</a>
-                            <a href="{% url 'login_view' %}" class="btn btn-primary details_btn">Add to Favourites</a>
-                            {% endif %} -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="mt-5 mb-5 item_wrapper">
     <div class="row d-flex justify-content-center">
         <div class="col-md-10">
-            <div class="card ">
-                <div class="row">
-                    <div class="col-md-6">
+            <div class="card">
+                <div class="row g-0">
+                    <div class="col-md-6 d-flex justify-content-center align-items-center p-0">
                         <div class="images p-3">
-                            <div class="text-center p-4"> <img id="main-image" src="{{ artwork.image.url }}" width="400px" /> </div>
+                            <div class="text-center p-4">
+                                <!-- Responsive image -->
+                                <img id="main-image" src="{{ artwork.image.url }}" class="img-fluid rounded" alt="{{ artwork.title }}"  onclick="openModal()" style="cursor: pointer;" height="300px" width="200px"/>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 d-flex flex-column justify-content-center p-0">
                         <div class="product p-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center"> <i class="fa fa-long-arrow-left"></i> <span class="ml-1">Back</span> </div> <i class="fa fa-shopping-cart text-muted"></i>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-long-arrow-left"></i> 
+                                    <span class="ml-1">Back</span>
+                                </div>
+                                <!-- <a href="#" class="btn btn-danger text-uppercase mr-4 px-4" id="add-to-cart" data-url="{% url 'add_to_cart' artwork.id %}">
+                                    <i class="fa fa-shopping-cart text-muted"></i>
+                                </a> -->
                             </div>
                             <div class="mt-4 mb-3">
-                                <span class="text-uppercase text-muted brand">Orianz</span>
                                 <h5 class="text-uppercase">{{ artwork.title }}</h5>
-                                <div class="price d-flex flex-row align-items-center">
-                                    <span class="act-price">${{ artwork.price }}</span>
-                                    <!-- <div class="ml-2">
-                                        <small class="dis-price">$59</small> <span>40% OFF</span>
-                                    </div> -->
+                                <span class="text-muted d-block mb-2">By: @{{ artwork.artist }}</span>
+                                <span class="text-muted d-block mb-3">Created on: {{ artwork.year_created|date:"F d, Y" }}</span>
+                                <span class="text-muted d-block mb-3">Price: <strong class="h5"> Rs {{ artwork.price }}</strong></span>
+                                <p class="mb-4">{{ artwork.description }}</p>
+                                <div class="cart mt-4 align-items-center d-flex">
+                                    <a href="#" class="btn btn-danger text-uppercase mr-4 px-4" id="add-to-cart" data-url="{% url 'add_to_cart' artwork.id %}">Add to Cart</a>
+                                    <a href="#" class="ml-4 interact_icons" style="color: red;" id="toggle-wishlist" data-url="{% url 'toggle_wishlist' artwork.id %}">
+                                        {% if in_wishlist %}
+                                        <i class="fa-solid fa-heart"></i>
+                                        {% else %}
+                                        <i class="fa-regular fa-heart"></i>
+                                        {% endif %}
+                                    </a>
+                                    <a href="#" class="ml-4" style="color: red;">
+                                        <i class="fa fa-share-alt"></i>
+                                    </a>
                                 </div>
-                            </div>
-                            <p class="about">{{artwork.description}}</p>
-
-                            <div class="cart mt-4 align-items-center">
-                                <a href="#" class="btn btn-danger text-uppercase mr-4 px-4" id="add-to-cart" data-url="{% url 'add_to_cart' artwork.id %}">Add to Cart</a>
-                                <a href="#" style="color: red;" id="toggle-wishlist" data-url="{% url 'toggle_wishlist' artwork.id %}" class="ml-4 interact_icons" >
-                                    {% if in_wishlist %}
-                                    <i class="fa-solid fa-heart"></i>
-                                    {% else %}
-                                    <i class="fa-regular fa-heart"></i>
-                                    {% endif %}
-                                </a>
-                                <a href="" style="color: red;" class="ml-4">
-                                <i class="fa fa-share-alt"></i>
-                                </a>
                             </div>
                         </div>
                     </div>
@@ -102,65 +58,95 @@ Artiverse - Search
     </div>
 </div>
 
-<!-- <div class="row mt-5">
-    <h2 class="mb-3">Related Products</h2>
-    {% for rp in related_product %}
-      <div class="col-lg-4">
-        <div class="box-element product">
-          <a href="{% url 'productdetail' rp.id %}" class="btn">
-            <div class="item">
-              <img class="thumbnail" src="{{ rp.product_image.url }}" alt="" height="200px">
-              <span class="fw-bold d-block">{{ rp.name }}</span>
-              <span class="fw-bold">Per {{ rp.unit }}</span>
-              <span class="fs-5 d-block">Rs. {{ rp.price }}</span>
-            </div>
-          </a>
-        </div>
-      </div>
-    {% endfor %}
-  </div> -->
-  <div class="container overflow-hidden">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="d-flex justify-content-center align-items-center h-100">
-          <img src="{{ artwork.image.url }}" alt="{{ product.name }}" class="img-fluid">
-        </div>
-      </div>
-      <div class="col-md-6">
-        <h3 class="fw-bold">{{artwork.title }}</h3>
-        <hr />
-        <p class="text-muted text-uppercase">{{ artwork.description }}</p>
-        <h5 class="font-weight-light"></h5>
-        <h4>Rs. {{ artwork.price }}</h4>
-  
-        <form action="">
-          <input
-            type="hidden"
-            name="prod_id"
-            value="{{product.id}}"
-            id="product_id"
-          />
-          <button
-            type="submit"
-        style="background: #f17981;
-          color: #fff;
-          font-size: 12px;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          border: none;
-          padding: 12px 40px;
-          cursor: pointer; 
-          border: none;"
-                    >
-            Add to Cart
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
+<!-- Modal for full-screen image -->
+<div id="imageModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage">
+</div>
 
-    
-    
+<!-- JavaScript for modal functionality -->
+<script>
+    function openModal() {
+        var modal = document.getElementById("imageModal");
+        var modalImg = document.getElementById("modalImage");
+        var mainImg = document.getElementById("main-image");
+        
+        modal.style.display = "block";
+        modalImg.src = mainImg.src;
+    }
+
+    function closeModal() {
+        var modal = document.getElementById("imageModal");
+        modal.style.display = "none";
+    }
+
+    // Close the modal when clicking outside the image
+    window.onclick = function(event) {
+        var modal = document.getElementById("imageModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+<style>
+    /* Modal styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1001;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.9);
+        
+    }
+
+    .modal-content {
+        margin: 75px auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+    }
+
+    .modal-content {
+        animation-name: zoom;
+        animation-duration: 0.6s;
+    }
+
+    @keyframes zoom {
+        from { transform: scale(0) }
+        to { transform: scale(1) }
+    }
+
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    @media only screen and (max-width: 700px) {
+        .modal-content {
+            width: 80%;
+            top:20%;
+
+        }
+    }
+</style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{% static 'js/viewdet.js' %}"></script>

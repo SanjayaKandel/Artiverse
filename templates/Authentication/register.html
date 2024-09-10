@@ -21,6 +21,13 @@
       <div class="signup-content">
         <div class="signup-form">
           <h2 class="form-title">Sign up</h2>
+          <span class="mb-0 text-muted" style="color: red;">
+            {% if msg %}
+            {{ msg | safe }}
+            {% else %}
+
+            {% endif %}
+        </span>
           <form method="POST" class="register-form" id="register-form">
             {% csrf_token %}
             <div class="form-group">

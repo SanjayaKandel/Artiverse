@@ -1,0 +1,38 @@
+{% extends '_base.html' %}
+{% block content %}
+{% load static %}
+<div class="container my-5">
+    <h2 class="text-danger text-center mb-4">Order History</h2>
+    <div class="row justify-content-center">
+        {% if orders %}
+            {% for order in orders %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card shadow-sm h-100 border-0">
+                        <div class="card-header bg-dark text-white">
+                            <h5 class="mb-0">Order #{{ order.id }}</h5>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Title:</strong> {{ order.artwork.title }}</p>
+                            <p><strong>Date:</strong> {{ order.created_at|date:"M d, Y H:i" }}</p>
+                            <p><strong>Status:</strong> <span class="badge badge-primary">{{ order.order_status }}</span></p>
+                            <p><strong>Payment Completed:</strong> 
+                                {% if order.payment_completed %}
+                                    <span class="badge badge-success">Yes</span>
+                                {% else %}
+                                    <span class="badge badge-danger">No</span>
+                                {% endif %}
+                            </p>
+                            <p><strong>Total:</strong> Rs: {{ order.total }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center">
+                <p class="text-muted" style="font-size: 18px; padding: 10px;">No orders to show</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

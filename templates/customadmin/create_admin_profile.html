@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artiverse - Create Admin Profile</title>
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/Admin/create_admin.css' %}">
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>Create Admin Profile</h1>
+        <p style="color: red; font-size: 12px; font-style: italic; text-align: center; margin-top: 0;">Note: Before processing profile creation is important</p>
+
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group profile-picture">
+            <input type="file" id="id_profile_picture" name="profile_picture" accept="image/*" onchange="previewImage(event)" style="display: none;">
+            <label for="id_profile_picture" class="profile-picture-label">
+              <img id="profilePreview" src="{% if form.instance.profile_picture %}{{ form.instance.profile_picture.url }}{% else %}{% static 'img/default_profile.png' %}{% endif %}" alt="Profile Picture" class="profile-pic">
+              <div class="overlay">
+                <img src="{% static 'img/camera.png' %}" alt="Camera Icon" class="camera-icon">
+              </div>
+            </label>
+          </div>
+          <h2 class="img-title">Profile Picture</h2>
+            <div class="form-section-wrapper">
+                <div class="section">
+                    <div class="form-group">
+                        {{ form.errors }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_biography">Full Name:</label>
+                        {{ form.name }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_biography">Biography:</label>
+                        {{ form.biography }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_post">Post:</label>
+                        {{ form.post }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_phone_number">Phone Number:</label>
+                        {{ form.phone_number }}
+                    </div>
+                    <div class="form-group">
+                     <label for="id_department">Department:</label>
+                     {{ form.department }}
+                 </div>
+                </div>
+                    
+                     <div class="section" id="billing-section">
+                    <div class="form-group">
+                        <label for="id_address">Street/Tole:</label>
+                        {{ form.address }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_city">City:</label>
+                        {{ form.city }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_country">Country:</label>
+                        {{ form.country }}
+                    </div>     
+                    <div class="form-group">
+                        <label for="id_linkedin">LinkedIn (Optional):</label>
+                        {{ form.linkedin }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_github">GitHub (Optional):</label>
+                        {{ form.github }}
+                    </div>
+                
+            </div>
+            <!-- Submit Button -->
+            <div class="form-group full-width">
+                <button type="submit" class="btn">Create Profile</button>
+            </div>
+
+            <!-- Error Message -->
+            {% if error %}
+            <div class="form-error">
+                <p>{{ error }}</p>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+    <script>
+      function previewImage(event) {
+          var reader = new FileReader();
+          reader.onload = function () {
+              var output = document.getElementById('profilePreview');
+              output.src = reader.result;
+          }
+          reader.readAsDataURL(event.target.files[0]);
+      }
+  </script>
+</body>
+
+</html>

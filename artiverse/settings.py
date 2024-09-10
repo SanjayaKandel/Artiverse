@@ -26,9 +26,12 @@ SECRET_KEY = 'django-insecure-_1r#5%io!%uuo+*0wk$b*jd-2*jqif)i1i&w2d#!)r0r3fke%1
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '192.168.1.156',
+    # '192.168.1.156',
     '127.0.0.1',
-    '10.32.17.123'
+    '10.32.16.131',
+    '192.168.1.76',
+    '192.168.1.156'
+    
 ]
 
 
@@ -47,12 +50,12 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     #MY APPS
     'Home',
-    'Admin',
     'User',
     'Artworks',
     'Artists',
     'Authentication',
-    'Payment'
+    'Payment',
+    'customadmin'
 ]
 SITE_ID = 1
 
@@ -164,16 +167,12 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # Require email verification
-ACCOUNT_EMAIL_REQUIRED = True  # Require email when signing up
-ACCOUNT_USERNAME_REQUIRED = False  # Do not require username
-
 # Redirect paths after login and logout
-LOGIN_REDIRECT_URL = '/'  # Redirect to home page after login
-ACCOUNT_LOGOUT_REDIRECT_URL = '/auth/login/'  # Redirect to home page after logout
+LOGIN_REDIRECT_URL = '/'  
+ACCOUNT_LOGOUT_REDIRECT_URL = '/auth/login/' 
 
 # subject prefix
-ACCOUNT_EMAIL_SUBJECT_PREFIX = '["Artiverse"]'
+ACCOUNT_EMAIL_SUBJECT_PREFIX = '[Artiverse]'
 ACCOUNT_EMAIL_CONFIRMATION_SUBJECT = 'account/email/email_confirmation_subject.txt'
 ACCOUNT_EMAIL_CONFIRMATION_TEMPLATE = 'account/email/email_confirmation_message.html'
 
@@ -188,3 +187,9 @@ ESEWA_INITIATE_URL = 'https://epay.esewa.com.np/api/epay/main/v2/form'
 ESEWA_VERIFY_URL = 'https://uat.esewa.com.np/api/epay/transaction/status/'
 
 ESEWA_ENVIRONMENT = 'test'
+# authentication
+AUTHENTICATION_BACKENDS = [
+    'Authentication.backends.CaseInsensitiveModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+

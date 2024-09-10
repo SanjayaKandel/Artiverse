@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+
+<head>
+   <!-- basic -->
+   <meta charset="utf-8">
+   <!-- mobile metas -->
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <!-- site metas -->
+   <title>{% block title %}Artiverse - Admin{% endblock %}</title>
+   <meta name="keywords" content="">
+   <meta name="description" content="">
+   <meta name="author" content="">
+   <!-- site icon -->
+   <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+   <!-- bootstrap css -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   <link rel="stylesheet" href="{%static 'css/Admin/admin.css'%}" />
+</head>
+
+<body class="dashboard dashboard_1">
+   <div class="full_container">
+      <div class="inner_container">
+         <nav id="sidebar">
+            <div class="sidebar_blog_1">
+               <div class="sidebar-header">
+                  <div class="logo_section">
+                     <a href="{%url 'admin_dashboard'%}"><img class="logo_icon img-responsive"
+                           src="{% static 'img/logo.png' %}" alt="#" /></a>
+                  </div>
+               </div>
+               <div class="sidebar_user_info">
+                  <div class="icon_setting"></div>
+                  <div class="user_profle_side">
+                     <div class="user_img" style="height: 80px; width: 80px;"><img class="img-responsive" src="{% if admin.profile_picture %}{{ admin.profile_picture.url }}{% else %}{% static 'img/default_profile.jpg' %}{% endif %}" style="height: 80px; width: 80px; object-fit: cover;" alt="#" />
+                     </div>
+                     <div class="user_info">
+                        <h6>{{admin.name}}</h6>
+                        <p><span class="online_animation"></span> Online</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="sidebar_blog_2">
+               <h4>Artiverse</h4>
+               <ul class="list-unstyled components">
+                  <li class="active">
+                     <a href="{%url 'admin_dashboard'%}"> <i class="fa fa-home white_color"></i>Dashboard</a>
+                  </li>
+                  <li><a href="{%url 'manage_user'%}"><i class="fa fa-user orange_color"></i> <span>Users</span></a></li>
+                  <li>
+                     <a href="{%url 'view_artwork'%}" ><i
+                           class="fa-solid fa-palette purple_color"></i> <span>Artworks</span></a>
+                  </li>
+                  <!-- <li><a href="tables.html"><i class="fa fa-table purple_color2"></i> <span>Tables</span></a></li> -->
+                  <li>
+                     <a href="{%url 'manage_artist'%}"><i
+                           class="fa fa-user-group blue2_color"></i> <span>Artists</span></a>
+                  </li>
+                  <li><a href="{%url 'create_exhibition'%}"><i class="fa-solid fa-landmark yellow_color"></i><span>Create Exhibition</span></a>
+                  </li>
+                  <li><a href="{%url 'exhibition_list'%}"><i class="fa-solid fa-landmark yellow_color"></i><span>View Exhibition</span></a>
+                  </li>
+                  <li>
+                     <form action="{% url 'logout_view' %}" method="post">
+                         {% csrf_token %}
+                        <button type="submit" class="fa fa-paper-plane red_color">Logout</button>
+                     </form>
+                  </li>
+                  
+               </ul>
+            </div>
+         </nav>
+         <div id="content">
+         <div class="topbar">
+            <nav class="navbar navbar-expand-lg navbar-light">
+               <div class="full">
+                  <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
+                  <div class="logo_section">
+                     <a href="{%url 'admin_dashboard'%}"><img class="img-responsive" src="{% static 'img/logo.png' %}"
+                           alt="#" /></a>
+                  </div>
+                  <div class="right_topbar">
+                     <div class="icon_info">
+                        <!-- <ul>
+                           <li><a href="#"><i class="fa fa-bell-o"></i><span class="badge">2</span></a></li>
+                           <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
+                           <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge">3</span></a></li>
+                        </ul> -->
+                        <ul class="user_profile_dd">
+                           <li>
+                              <a class="dropdown-toggle" data-toggle="dropdown"><img
+                                    class="img-responsive rounded-circle" src="{% if admin.profile_picture %}{{ admin.profile_picture.url }}{% else %}{% static 'img/default_profile.jpg' %}{% endif %}"
+                                    alt="#"  style="object-fit: cover; height: 50px; width: 50px;" /><span class="name_user">{{admin.name}}</span></a>
+                              <div class="dropdown-menu">
+                                 <a class="dropdown-item" href="{%url 'admin_profile'%}">My Profile</a>
+                                 <a class="dropdown-item" href="settings.html">Settings</a>
+                                 <a class="dropdown-item" href="#">Help</a>
+                                 <a class="dropdown-item" href="{% url 'logout_view' %}"><span>Log Out</span> <i
+                                       class="fa fa-sign-out"></i></a>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </nav>
+         </div>
+         <div class="midde_cont">
+            <div class="container-fluid">
+               {%block content%}
+
+               {%endblock%}
+               <div class="container-fluid" style="background-color: rgb(174, 174, 174); ">
+                  <div class="footer" style="background-color: rgb(174, 174, 174);">
+                     <!-- <div class="col-xl-6 col-lg-6 text-center text-lg-left"> -->
+                     <div >
+                        <div class="copyright-text" >
+                           <p >Copyright &copy; 2024, All Right Reserved <a href="{%url 'admin_dashboard'%}">
+                                 Artiverse</a></p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   </div>
+   
+   <!-- jQuery -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+   <script>
+      var ps = new PerfectScrollbar('#sidebar');
+
+   </script>
+   <script src="{%static 'js/admin.js'%}"></script>
+
+</body>
+
+</html>

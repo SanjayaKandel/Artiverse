@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.http import HttpResponseForbidden
 from django.http import JsonResponse
 from User.models import Visitor
+from Home. models import CartItem
 # Create your views here.
 @login_required
 def artwork_create(request):
@@ -85,8 +86,10 @@ def wishlist_view(request):
 
 @login_required
 def art_details(request, id):
+    cart_item_count = 0
     try:
         profile = Visitor.objects.get(user=request.user)
+        cart_item_count = CartItem.objects.filter(user=request.user).count()
     except Visitor.DoesNotExist:
         profile = None
 
@@ -106,6 +109,7 @@ def art_details(request, id):
         'artwork': artwork,
         'profile': profile,
         'in_wishlist': in_wishlist,
-        'artist_artworks': artist_artworks,  # Pass all artworks by the artist to the template
+        'artist_artworks': artist_artworks, 
+        'cart_item_count': cart_item_count,
     }
     return render(request, 'Artworks/view_artwork.html', context)

@@ -10,6 +10,8 @@ from Authentication . models import Artist
 from Artworks .models import Artwork
 from django.contrib import messages
 from Home . models import CartItem, OrderedItem
+from django.core.paginator import Paginator
+import datetime
 
 # Create your views here.
 
@@ -66,7 +68,6 @@ def create_user(request):
                 if not visitor.user:
                     visitor.user = user
                 visitor.save()
-
                 billing_address = billing_form.save(commit=False)
                 if not billing_address.user:
                     billing_address.user = user
@@ -166,3 +167,114 @@ def billing_address(request):
         form = BillingAddressForm(instance=billing_address)
 
     return render(request, 'User/billing_det.html', {'form': form})
+
+@login_required
+def exhibition(request):
+    user=request.user
+    try:
+        profile = Visitor.objects.get(user=user)
+    except Visitor.DoesNotExist:
+        pass
+    today = datetime.date.today()
+    current_exhibitions = Exhibition.objects.filter(start_date__lte=today, end_date__gte=today)
+    upcoming_exhibitions = Exhibition.objects.filter(start_date__gt=today)
+    print(current_exhibitions)
+    print(upcoming_exhibitions)
+    return render(request, 'User/exhibition.html', {
+        'current_exhibitions': current_exhibitions,
+        'upcoming_exhibitions': upcoming_exhibitions,
+        'profile':profile
+    })
+    
+from django.shortcuts import get_object_or_404
+from Artworks.models import Exhibition, Artwork
+
+@login_required
+def view_exhibitions(request, exhibition_id):
+    try:
+        admin = Visitor.objects.get(user=request.user)
+    except Visitor.DoesNotExist:
+        admin = None
+    # Retrieve the exhibition by its id
+    exhibition = get_object_or_404(Exhibition, id=exhibition_id)
+    artworks = exhibition.artworks.all()  # Assuming `artworks` is the related name in Exhibition model
+    paginator = Paginator(artworks, 10) 
+    page_number = request.GET.get('page')
+    paginated_artworks = paginator.get_page(page_number)
+    
+    # Get the artworks associated with this exhibition
+
+    # Pass the exhibition and its artworks to the template
+    return render(request, 'User/view_exhibitions.html', {
+        'exhibition': exhibition,
+        'artworks': paginated_artworks,
+        'profile':admin
+    })
+    
+@login_required
+def ordered_items(request):
+    user = request.user
+    wishlist, created = Wishlist.objects.get_or_create(user=user)
+    wishlisted_artworks = wishlist.artworks.all()
+    
+    cart_item_count = 0
+    try:
+        profile = Visitor.objects.get(user=user)
+        cart_item_count = CartItem.objects.filter(user=user).count()
+    except Visitor.DoesNotExist:
+        return redirect('create_user')
+    try:
+        orders = OrderedItem.objects.filter(user=user)
+    except OrderedItem.DoesNotExist:
+        pass
+    
+    try:
+        billing_address = BillingAddress.objects.get(user=user)
+    except BillingAddress.DoesNotExist:
+        billing_address = None
+
+    context = {
+        'profile': profile,
+        'billing': billing_address,
+        'orders': orders,
+        'wishlisted_artworks': wishlisted_artworks,
+        'cart_item_count': cart_item_count
+    }
+    return render(request,'User/ordered_items.html',context)
+
+
+@login_required
+def favourites_list(request):
+    user = request.user
+    wishlist, created = Wishlist.objects.get_or_create(user=user)
+    wishlisted_artworks = wishlist.artworks.all()
+    
+    cart_item_count = 0
+    try:
+        profile = Visitor.objects.get(user=user)
+        cart_item_count = CartItem.objects.filter(user=user).count()
+    except Visitor.DoesNotExist:
+        return redirect('create_user')
+    try:
+        orders = OrderedItem.objects.filter(user=user)
+    except OrderedItem.DoesNotExist:
+        pass
+    
+    try:
+        billing_address = BillingAddress.objects.get(user=user)
+    except BillingAddress.DoesNotExist:
+        billing_address = None
+
+    context = {
+        'profile': profile,
+        'billing': billing_address,
+        'orders': orders,
+        'wishlisted_artworks': wishlisted_artworks,
+        'cart_item_count': cart_item_count
+    }
+    
+    return render(request,'User/favourites_list.html',context)
+
+
+
+    

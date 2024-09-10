@@ -18,6 +18,11 @@ def artist_profile(request):
 
 @login_required
 def create_artist_profile(request):
+    user = request.user
+    try:
+        artist = Artist.objects.get(user=user)
+    except Artist.DoesNotExist:
+        artist = None
     if request.method == 'POST':
         form = ArtistForm(request.POST, request.FILES)
         if form.is_valid():
@@ -55,12 +60,11 @@ def update_artist_profile(request):
 
 def about_page(request):
     user=request.user
-    profile = None
     if user.is_authenticated:
         try:
-            profile = Artist.objects.get(user=user)
+            artist = Artist.objects.get(user=user)
         except Artist.DoesNotExist:
             pass
         
-    return render(request, 'Artists/about.html',{'profile': profile})
+    return render(request, 'Artists/about.html',{'artist': artist})
 

@@ -17,7 +17,7 @@
                             
                         </div>
                         <div class="card__button">
-                            <a href="{% url 'exhibition_detail' exhibition.id %}" class="button_link">Explore</a>
+                            <a href="{%url 'view_exhibition' exhibition.id%}" class="button_link">Explore</a>
                         </div>
                         <p class="card__description">{{ exhibition.start_date }}-{{exhibition.end_date}}</p>
                     </div>
@@ -57,7 +57,7 @@
     </div>
     {% else %}
     <div class="no-result">
-        <h4>Sorry!! No current Exhibition</h4>
+        <h4>Sorry!! No Upcoming Exhibition</h4>
         <img src="{% static 'img/error.png' %}" alt="No Results">
     </div>
     {% endif %}

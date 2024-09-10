@@ -14,7 +14,8 @@ from .views import (
 urlpatterns = [
     path('login/', views.login_view, name='login_view'),
     path('register/', views.register, name='register'),
-    path('adminpage/', views.admin, name='adminpage'),
+    path('admin/register/', views.admin_register, name='admin_register'),
+    path('adminpage/', views.custom_admin, name='admin_dashboard'),
     path('artist/', views.artist, name='artist'),
     
     # verify email urls

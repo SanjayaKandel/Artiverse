@@ -1,0 +1,69 @@
+
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}Artiverse - View Exhibitions {% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/Admin/admin_artwork.css' %}">
+<section class="container">
+    <h1 class="title">Exhibition({{exhibition.title}})</h1>
+    {% if artworks %}
+    <div class="card-container">
+        {% for artwork in artworks %}
+        <div class="artwork-card">
+            <div class="card-image">
+                <a href="{% url 'view_artwork_admin' id=artwork.id %}">
+                    <img src="{{ artwork.image.url }}" alt="{{ artwork.title }}" class="card-img-top">
+                </a>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">{{ artwork.title }}</h3>
+                <p class="card-artist">Creator: @{{ artwork.artist }}</p>
+                <p class="card-price">Rs. {{ artwork.price }}</p>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="no-artworks">
+        <h1>No artworks to show!!</h1>
+    </div>
+    {% endif %}
+</section>
+
+<!-- Pagination -->
+<div class="page-container">
+    <ul class="pagination">
+        <!-- Previous page link -->
+        {% if artworks.has_previous %}
+        <li>
+            <a href="?page={{ artworks.previous_page_number }}">&laquo; Prev</a>
+        </li>
+        {% else %}
+        <li class="disabled">
+            <span>Prev</span>
+        </li>
+        {% endif %}
+
+        <!-- Page numbers -->
+        {% for num in artworks.paginator.page_range %}
+        <li {% if num == artworks.number %}class="active" {% endif %}>
+            <a href="?page={{ num }}">{{ num }}</a>
+        </li>
+        {% endfor %}
+
+        <!-- Next page link -->
+        {% if artworks.has_next %}
+        <li>
+            <a href="?page={{ artworks.next_page_number }}">Next &raquo;</a>
+        </li>
+        {% else %}
+        <li class="disabled">
+            <span>Next</span>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+
+{% endblock %}
+

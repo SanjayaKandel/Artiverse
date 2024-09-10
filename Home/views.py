@@ -3,14 +3,14 @@ import uuid
 from Payment.utils import generate_signature
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404,redirect
-from django.urls import reverse
+from django.contrib import messages
 from Artworks.models import Artwork
 from User. models import Visitor, BillingAddress
 from Authentication.models import User, Artist
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import JsonResponse
-from . models import CartItem, OrderedItem
+from . models import CartItem, OrderedItem, ContactMessage
 import datetime
 from decimal import Decimal
 
@@ -301,6 +301,7 @@ def cart_view(request):
         }
         signed_field_names = 'total_amount,transaction_uuid,product_code'
         signature = generate_signature(key, data, signed_field_names)
+        print(signature)
 
         for item in selected_cart_items:
             ordered = OrderedItem(
@@ -346,6 +347,43 @@ def cart_view(request):
 
     return render(request, 'Home/cart.html', context)
 
+
+@login_required
+def contact_page(request):
+    user = request.user
+    profile = None
+    cart_item_count = 0
+    
+    # Check if the user is authenticated and get their profile and cart info
+    if user.is_authenticated:
+        try:
+            profile = Visitor.objects.get(user=user)
+            cart_item_count = CartItem.objects.filter(user=user).count()
+        except Visitor.DoesNotExist:
+            pass
+
+    # Handle form submission
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+        
+        # Ensure all fields are filled
+        if name and email and message:
+            # Save the contact information to the database
+            ContactMessage.objects.create(name=name, email=email, message=message)
+
+            # Show success message and redirect
+            messages.success(request, "Your message has been sent successfully!")
+            return redirect('contact')
+        else:
+            messages.error(request, "All fields are required!")
+
+    context = {
+        'profile': profile,
+        'cart_item_count': cart_item_count
+    }
+    return render(request, 'Home/contact.html', context)
 
 @login_required
 def delete_item(request, item_id):

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/artist_base.css' %}">
-    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/responsive.css' %}"> -->
 </head>
 
 <body>
@@ -34,41 +34,31 @@
                         <h4><a href="{% url 'artist_about_page' %}"><i class="fa-solid fa-circle-info"></i>About</a></h4>
 
                         {% if user.is_authenticated %}
-                        <div class="profile-dropdown">
+                         <div class="profile-dropdown">
                             <div onclick="toggle()" class="profile-dropdown-btn">
-
-                                <img src="{% if artist.profile_picture %}{{ artist.profile_picture.url }}{% else %}{% static 'img/no user.jpg' %}{% endif %}"
-                                    alt="{{user.username}}">
-                            
+                                <img src="{% if artist.profile_picture %}{{ artist.profile_picture.url }}{% else %}{% static 'img/no user.jpg' %}{% endif %}" alt="{{ user.username }}">
                             </div>
+                        </div>
+                        </div>
                             <ul class="profile-dropdown-list">
                                 <li>
-                                    <p><a href="{%url 'artist_profile'%}"> {%if artist.name%} 
-                                        {{artist.name}}
-                                        {%else%}
-                                        {{user.username}}
-                                        {%endif%}</a>
+                                    <p><a href="{% url 'user_profile' %}"> 
+                                        {% if artist.name %}
+                                        {{ artist.name }}
+                                        {% else %}
+                                        {{ user.username }}
+                                        {% endif %}
+                                    </a></p>
                                 </li>
-                                <li class="profile-dropdown-list-item"><a href="{%url 'update_artist_profile'%}"><i
-                                            class="fa-regular fa-user"></i> Edit Profile</a></li>
-                                <li class="profile-dropdown-list-item"><a href="#"><i
-                                            class="fa-regular fa-envelope"></i> Inbox</a></li>
-                                <li class="profile-dropdown-list-item"><a href="#"><i
-                                            class="fa-solid fa-chart-line"></i> Analytics</a></li>
-                                <li class="profile-dropdown-list-item"><a href="#"><i class="fa-solid fa-sliders"></i>
-                                        Settings</a></li>
-                                <li class="profile-dropdown-list-item"><a href="#"><i
-                                            class="fa-regular fa-circle-question"></i> Help & Support</a></li>
-                                <hr />
-                                <li class="profile-dropdown-list-item"><a href="{% url 'logout_view' %}"><i
-                                            class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a></li>
+                                <li class="profile-dropdown-list-item"><a href="{% url 'artist_profile' %}"><i class="fa-regular fa-user"></i> View Profile</a></li>
+                                <hr>
+                                <li class="profile-dropdown-list-item"><a href="{% url 'logout_view' %}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</a></li>
                             </ul>
-                        </div>
+                        
                         {% else %}
-                        <h4 id="signup-link"><a href="{% url 'login_view' %}"><i class="fa-solid fa-user-plus"></i>Sign
-                                in</a></h4>
+                        <h4 id="signup-link"><a href="{% url 'login_view' %}"><i class="fa-solid fa-user-plus"></i> Sign in</a></h4>
                         {% endif %}
-                    </div>
+                    
                 </div>
             </nav>
         </div>

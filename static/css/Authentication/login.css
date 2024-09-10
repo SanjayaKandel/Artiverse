@@ -4,7 +4,6 @@ body {
     color: #222;
 }
 
-
 .container {
     max-width: 900px;
     background: #fff;
@@ -24,11 +23,6 @@ body {
 .signin-image, .signin-form {
     width: 50%;
 }
-
-.signin-image figure {
-    margin-bottom: 50px;
-}
-
 
 .signin-image img {
     max-width: 100%;
@@ -125,6 +119,7 @@ body {
     background: #6dabe4;
     color: #fff;
 }
+
 .form-control {
     letter-spacing: 1px;
 }
@@ -132,6 +127,7 @@ body {
 .password-container {
     position: relative;
 }
+
 .toggle-password {
     position: absolute;
     right: 10px;
@@ -139,11 +135,61 @@ body {
     transform: translateY(-50%);
     cursor: pointer;
 }
+
 .placeholder-icon-username::placeholder {
     font-family: FontAwesome;
     content: "\f007"; /* User icon */
 }
+
 .placeholder-icon-password::placeholder {
     font-family: FontAwesome;
     content: "\f023"; /* Lock icon */
+}
+
+.form-group input:focus::placeholder {
+    opacity: 0;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 680px) {
+    .signin-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .signin-form, .signin-image {
+        width: 100%;
+    }
+
+    .signin-form {
+        order: 1; /* Place the form section first */
+    }
+
+    .signin-image {
+        order: 2; /* Place the image section second */
+        margin: 20px 0 0 50px;
+
+    }
+
+    .container {
+        padding: 50px 20px; /* Reduce padding for smaller screens */
+    }
+
+    .form-title {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .form-group input {
+        font-size: 14px;
+    }
+
+    .form-submit {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    .signin-image img {
+        max-width: 80%; /* Adjust the image size for smaller screens */
+    }
 }

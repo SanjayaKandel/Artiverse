@@ -1,0 +1,244 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    width: 100%;
+    font-size: 30px;
+}
+.img-title{
+    text-align: center;
+    width: 100%;
+    font-weight: lighter;
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+.form-section-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+.form-section-wrapper label{
+    margin-bottom: 10px;
+}
+
+.section {
+    width: calc(50% - 10px);
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+
+.section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.full-width {
+    width: 100%;
+    text-align: center;
+}
+
+.profile-picture {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px auto;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.profile-picture-label {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay {
+    position: absolute;
+    cursor: pointer;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.profile-picture:hover .overlay {
+    opacity: 1;
+}
+
+.camera-icon {
+    width: 30px;
+    height: 30px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+
+.btn {
+    width: 150px;
+    margin: 20px auto;
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #000000;
+    color: white;
+}
+
+.form-error {
+    margin-top: 20px;
+    padding: 10px;
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+}
+
+input[type="text"]{
+    width: calc(100% - 22px); /* Adjust width to fit container */
+    max-width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid #ccc; /* Underline only */
+    border-radius: 0;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    outline: none; /* Remove default focus outline */
+    background-color: transparent;
+}
+
+textarea#id_biography {
+    text-align: center;
+    width: calc(100% - 22px); /* Adjust width to fit container */
+    max-width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid #ccc; /* Underline only */
+    border-radius: 0;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    outline: none; /* Remove default focus outline */
+    background-color: transparent;
+    resize: none; /* Disable resizing */
+    height: 100px; /* Set height to ensure a consistent size */
+    overflow: auto; /* Ensure scrollbars appear if needed */
+}
+
+/* Stylish scrollbar for WebKit browsers */
+textarea#id_biography::-webkit-scrollbar {
+    width: 12px; /* Width of the scrollbar */
+}
+
+textarea#id_biography::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Rounded corners of the scrollbar thumb */
+}
+
+textarea#id_biography::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Darker color on hover */
+}
+
+textarea#id_biography::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color of the scrollbar track */
+    border-radius: 10px; /* Rounded corners of the scrollbar track */
+}
+
+/* For Firefox */
+textarea#id_biography {
+    scrollbar-width: thin; /* Thin scrollbar */
+    scrollbar-color: #888 #f1f1f1; /* Thumb and track colors */
+}
+
+/* Make textarea non-resizable */
+textarea {
+    resize: none; /* Disable resizing */
+}
+
+/* Placeholder styling */
+input::placeholder,
+textarea::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+/* Remove placeholder color on focus */
+input:focus::placeholder,
+textarea:focus::placeholder {
+    color: transparent;
+}
+
+/* Focus styling */
+input:focus,
+textarea#id_biography:focus {
+    border-bottom: 2px solid #000; /* Change underline color on focus */
+}
+
+@media screen and (max-width: 600px) {
+    .form-section-wrapper {
+        flex-direction: column;
+    }
+
+    .section {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .profile-picture {
+        width: 120px;
+        height: 120px;
+    }
+}

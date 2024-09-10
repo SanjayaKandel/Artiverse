@@ -21,11 +21,11 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-     path('admin/', admin.site.urls),
+     path('dj-admin/', admin.site.urls),
+    path('admin/', include('customadmin.urls')), 
     path('accounts/', include('django.contrib.auth.urls')), 
     path('accounts/', include('allauth.urls')),
     path('', include('Home.urls')),
-    path('administration/', include('Admin.urls')),
     path('User/', include('User.urls')),
     path('Artist/', include('Artists.urls')),
     path('Artwork/', include('Artworks.urls')),
